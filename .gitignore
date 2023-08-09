@@ -22,3 +22,4 @@ src/McDonalds.WeWorkApp/App_Data
 /.idea
 /MidJourney/McDonalds.MidJourney.WrapApp/appsettings.Debug.json
 /database/McDonalds.SqlDatabase/McDonalds.SqlDatabase.refactorlog
+/QuickStart.Connectors.Tests/appsettings.UnitTest.json
