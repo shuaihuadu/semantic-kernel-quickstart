@@ -12,6 +12,7 @@ public class Qdrant_Tests : TestBase
     public void InitKernel()
     {
         _memoryStore = new(QuickStartConfiguration.QdrantOptions.Endpoint, 1536);
+
         _kernel = Kernel.Builder
             .WithAzureTextEmbeddingGenerationService(QuickStartConfiguration.AzureOpenAIEmbeddingOptions.EmbeddingDeploymentName, QuickStartConfiguration.AzureOpenAIEmbeddingOptions.Endpoint, QuickStartConfiguration.AzureOpenAIEmbeddingOptions.ApiKey)
             .WithAzureChatCompletionService(QuickStartConfiguration.AzureOpenAIOptions.GPT35ModelDeploymentName, QuickStartConfiguration.AzureOpenAIOptions.Endpoint, QuickStartConfiguration.AzureOpenAIOptions.ApiKey)
@@ -22,8 +23,6 @@ public class Qdrant_Tests : TestBase
     [TestMethod]
     public async Task CreateCollection_Test()
     {
-        Console.WriteLine("== Adding Memories ==");
-
         var key1 = await _kernel!.Memory.SaveInformationAsync(_qdrantCollectionName, id: "unittest1", text: "《三体》的作者是刘慈欣");
         var key2 = await _kernel.Memory.SaveInformationAsync(_qdrantCollectionName, id: "unittest2", text: "半导体是韩国的支柱产业");
         var key3 = await _kernel.Memory.SaveInformationAsync(_qdrantCollectionName, id: "unittest3", text: "iPhone 15将于今年9月22日左右上市，该公司计划于9月12日或9月13日举行新品发布会。");
@@ -40,9 +39,11 @@ public class Qdrant_Tests : TestBase
     [TestMethod]
     public async Task GetQdrantPoints_Test()
     {
-        var key = "c21d9a0b-3ef1-42e2-90ce-a9f33764bf8a";
+        var key = "0f52785a-0705-4f63-905f-e7db212eb0b8";
 
-        var memoryRecord = await _memoryStore!.GetWithPointIdAsync(_qdrantCollectionName, key);
+        //var memoryRecord = await _memoryStore!.GetWithPointIdAsync(_qdrantCollectionName, key);
+
+        var memoryRecord = await _kernel!.Memory.GetAsync(_qdrantCollectionName, "unittest1");
 
         Console.WriteLine(memoryRecord!.Metadata.Text);
     }
@@ -63,7 +64,8 @@ public class Qdrant_Tests : TestBase
     [TestMethod]
     public async Task DeleteCollection_Test()
     {
-        await _memoryStore!.DeleteCollectionAsync(_qdrantCollectionName);
+        await Task.CompletedTask;
+        //await _memoryStore!.DeleteCollectionAsync(_qdrantCollectionName);
     }
 
     [TestMethod]

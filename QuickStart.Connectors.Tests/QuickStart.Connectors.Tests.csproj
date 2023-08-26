@@ -10,11 +10,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdeaTech.QuickStart" Version="1.0.0" />
+    <Compile Remove="Milvus\MilvusPythonToCSharp.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Milvus\MilvusPythonToCSharp.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdeaTech.QuickStart" Version="1.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0-preview-23371-04" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="0.19.230804.2-preview" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Postgres" Version="0.19.230804.2-preview" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Qdrant" Version="0.19.230804.2-preview" />
+    <PackageReference Include="Milvus.Client" Version="2.2.2-preview.2" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.0">
