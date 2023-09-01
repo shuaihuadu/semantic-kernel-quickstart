@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickStart.Connectors.Tests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notebook", "notebook", "{A3917062-DB2E-4224-A80A-8949E1A1769F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connectors", "connectors", "{7AA1CA58-F647-43C2-856E-63CD3AC33F78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connectors.Memory.Milvus", "connectors\Connectors.Memory.Milvus\Connectors.Memory.Milvus.csproj", "{70464535-B3C6-4077-A177-548430AF8C0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,9 +21,16 @@ Global
 		{5AC63399-D7D4-492E-8DE5-CC4BC3744508}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AC63399-D7D4-492E-8DE5-CC4BC3744508}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AC63399-D7D4-492E-8DE5-CC4BC3744508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70464535-B3C6-4077-A177-548430AF8C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70464535-B3C6-4077-A177-548430AF8C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70464535-B3C6-4077-A177-548430AF8C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70464535-B3C6-4077-A177-548430AF8C0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{70464535-B3C6-4077-A177-548430AF8C0B} = {7AA1CA58-F647-43C2-856E-63CD3AC33F78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FBE33D1-316E-435B-9770-90C3C2DC2E1C}
