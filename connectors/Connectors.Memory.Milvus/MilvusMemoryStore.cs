@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Connectors.Memory.Milvus;
+﻿namespace Connectors.Memory.Milvus;
 
 public class MilvusMemoryStore : IMemoryStore
 {
@@ -16,7 +14,6 @@ public class MilvusMemoryStore : IMemoryStore
     {
         this._milvusDbClient = milvusDbClient;
         this._logger = loggerFactory is not null ? loggerFactory.CreateLogger(nameof(MilvusMemoryStore)) : NullLogger.Instance;
-
     }
 
     /// <inheritdoc/>
@@ -44,18 +41,20 @@ public class MilvusMemoryStore : IMemoryStore
     }
 
     /// <inheritdoc/>
-    public Task<MemoryRecord?> GetAsync(string collectionName, string key, bool withEmbedding = false, CancellationToken cancellationToken = default)
+    public async Task<MemoryRecord?> GetAsync(string collectionName, string key, bool withEmbedding = false, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var result = await this._milvusDbClient.GetFiledDataByIdsAsync(collectionName, new[] { key }, withEmbedding, cancellationToken);
+
+        return result.FirstOrDefault();
     }
 
     /// <inheritdoc/>
     public async IAsyncEnumerable<MemoryRecord> GetBatchAsync(string collectionName, IEnumerable<string> keys, bool withEmbeddings = false,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var result = this._milvusDbClient.GetFiledDataByIdsAsync(collectionName, keys, withEmbeddings, cancellationToken);
+        var result = await this._milvusDbClient.GetFiledDataByIdsAsync(collectionName, keys, withEmbeddings, cancellationToken);
 
-        await foreach (var item in result)
+        foreach (var item in result)
         {
             yield return item;
         }
@@ -94,12 +93,19 @@ public class MilvusMemoryStore : IMemoryStore
     /// <inheritdoc/>
     public async Task<string> UpsertAsync(string collectionName, MemoryRecord record, CancellationToken cancellationToken = default)
     {
-        return string.Empty;
+        var ids = await _milvusDbClient.UpsertVectorsAsync(collectionName, new[] { record }, cancellationToken);
+
+        return ids.FirstOrDefault() ?? string.Empty;
     }
 
     /// <inheritdoc/>
-    public IAsyncEnumerable<string> UpsertBatchAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<string> UpsertBatchAsync(string collectionName, IEnumerable<MemoryRecord> records, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var ids = await _milvusDbClient.UpsertVectorsAsync(collectionName, records, cancellationToken);
+
+        foreach (var id in ids)
+        {
+            yield return id;
+        }
     }
 }

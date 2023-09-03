@@ -37,7 +37,7 @@ public interface IMilvusDbClient
     /// <param name="withEmbeddings">Whether to include the vector data in the returned result.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
     /// <returns>The Qdrant vector record associated with the given ID if found, null if not.</returns>
-    IAsyncEnumerable<MemoryRecord> GetFiledDataByIdsAsync(string collectionName, IEnumerable<string> keys, bool withEmbeddings, CancellationToken cancellationToken);
+    Task<IReadOnlyList<MemoryRecord>> GetFiledDataByIdsAsync(string collectionName, IEnumerable<string> keys, bool withEmbeddings, CancellationToken cancellationToken);
 
     /// <summary>
     /// Upsert a group of vectors into a collection.
@@ -45,5 +45,5 @@ public interface IMilvusDbClient
     /// <param name="collectionName">The name assigned to a collection of vectors.</param>
     /// <param name="records">The vector records to upsert.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
-    Task UpsertVectorsAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<string>> UpsertVectorsAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default);
 }

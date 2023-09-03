@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Connectors.Memory.Milvus;
+﻿namespace Connectors.Memory.Milvus;
 
 public class MilvusDbClient : IMilvusDbClient
 {
@@ -15,7 +13,9 @@ public class MilvusDbClient : IMilvusDbClient
     public const int VECTOR_SIZE = 1536;
     public const int VARCHAR_MAX_LENGTH = 65535;
 
-    public MilvusDbClient(string host, int port = 19530, string? userName = null, string? password = null, string? database = null, ILoggerFactory? loggerFactory = null)
+    public const int MilvusPort = 19530;
+
+    public MilvusDbClient(string host, int port = MilvusPort, string? userName = null, string? password = null, string? database = null, ILoggerFactory? loggerFactory = null)
     {
         this._milvusClient = new MilvusClient(host, port, userName, password, database, loggerFactory: loggerFactory);
         this._logger = loggerFactory is not null ? loggerFactory.CreateLogger(nameof(MilvusDbClient)) : NullLogger.Instance;
@@ -69,13 +69,13 @@ public class MilvusDbClient : IMilvusDbClient
     }
 
     /// <inheritdoc />
-    public async IAsyncEnumerable<MemoryRecord> GetFiledDataByIdsAsync(string collectionName, IEnumerable<string> keys, bool withEmbeddings, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<MemoryRecord>> GetFiledDataByIdsAsync(string collectionName, IEnumerable<string> keys, bool withEmbeddings, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var collection = this._milvusClient.GetCollection(collectionName);
 
         var expression = GetIdQueryExpression(keys);
 
-        QueryParameters queryParameters = new QueryParameters();
+        QueryParameters queryParameters = new();
 
         queryParameters.OutputFields.Add("*");
 
@@ -86,42 +86,24 @@ public class MilvusDbClient : IMilvusDbClient
 
         var queryResult = await collection.QueryAsync(expression, queryParameters, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-        var memoryRecords = this.GetMemoryRecordFromFieldData(queryResult);
-
-        foreach (var memoryRecord in memoryRecords)
-        {
-            yield return memoryRecord;
-        }
+        return this.GetMemoryRecordFromFieldData(queryResult);
     }
 
-    public Task UpsertVectorsAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<string>> UpsertVectorsAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default)
     {
-        return Task.CompletedTask;
-        //MilvusCollection collection = _milvusClient.GetCollection(collectionName);
+        MilvusCollection collection = _milvusClient.GetCollection(collectionName);
 
-        //// Convert the records to dicts  
-        //var insertList = records.Select(record => MemoryRecordToMilvusDict(record)).ToList();
+        var ids = records.Select(r => r.Key).ToList();
 
-        //// The ids to remove  
-        //var deleteIds = insertList.Select(insert => insert[ID_FIELD]).ToList();
+        var deleteExpression = GetIdQueryExpression(ids);
 
-        //try
-        //{
-        //    // First delete then insert to have upsert
-        //    collection.DeleteAsync(GetIdQueryExpression(deleteIds));
+        MutationResult deleteResult = await collection.DeleteAsync(deleteExpression, cancellationToken: cancellationToken);
 
-        //    collection.InsertAsync()
+        var fieldDatas = GetFieldDataFromMemoryRecord(records.ToArray());
 
-        //    await _client.Insert(collectionName, insertList, batchSize);
+        MutationResult insertResult = await collection.InsertAsync(fieldDatas, cancellationToken: cancellationToken);
 
-        //    _milvusClient.Ins
-
-        //}
-        //catch (Exception e)
-        //{
-        //    _logger.Debug($"Upsert failed due to: {e}");
-        //    throw;
-        //}
+        return insertResult.Ids.StringIds ?? Enumerable.Empty<string>().ToList().AsReadOnly();
     }
 
     private string GetIdQueryExpression(IEnumerable<string> ids)
@@ -132,7 +114,7 @@ public class MilvusDbClient : IMilvusDbClient
     }
 
 
-    private IEnumerable<MemoryRecord> GetMemoryRecordFromFieldData(IEnumerable<FieldData> fieldDatas)
+    private IReadOnlyList<MemoryRecord> GetMemoryRecordFromFieldData(IEnumerable<FieldData> fieldDatas)
     {
         var idFiled = fieldDatas.FirstOrDefault(field => field.FieldName == ID_FIELD);
         var metaField = fieldDatas.FirstOrDefault(field => field.FieldName == META_FIELD);
@@ -160,9 +142,26 @@ public class MilvusDbClient : IMilvusDbClient
         return result;
     }
 
-    private FieldData GetFieldDataFromMemoryRecoed(MemoryRecord memoryRecord, string fieldName)
+    private IReadOnlyList<FieldData> GetFieldDataFromMemoryRecord(MemoryRecord memoryRecord)
     {
-        return FieldData.Create(fieldName, new List<string> { memoryRecord.Key });
+        return this.GetFieldDataFromMemoryRecord(new MemoryRecord[] { memoryRecord });
+    }
+
+    private IReadOnlyList<FieldData> GetFieldDataFromMemoryRecord(IReadOnlyList<MemoryRecord> memoryRecords)
+    {
+        if (memoryRecords == null || memoryRecords.Count == 0)
+        {
+            return Array.Empty<FieldData>();
+        }
+
+        var ids = memoryRecords.Select(record => record.Key).ToList().AsReadOnly();
+        var embeddings = memoryRecords.Select(record => record.Embedding).ToList().AsReadOnly();
+        var metas = memoryRecords.Select(record => record.GetSerializedMetadata()).ToList().AsReadOnly();
+
+        return new List<FieldData> {
+            FieldData.CreateVarChar(ID_FIELD, ids),
+            FieldData.CreateFloatVector(EMBEDDING_FIELD, embeddings),
+            FieldData.CreateJson(META_FIELD, metas)
+        }.AsReadOnly();
     }
 }
-
