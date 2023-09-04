@@ -41,13 +41,21 @@ public class MilvusDbClient : IMilvusDbClient
 
         CollectionSchema collectionSchema = new CollectionSchema
         {
-            Name = collectionName
+            Name = collectionName,
+            EnableDynamicFields = true
         };
 
         collectionSchema.Fields.Add(FieldSchema.CreateVarchar(ID_FIELD, VARCHAR_MAX_LENGTH, true, false));
         collectionSchema.Fields.Add(FieldSchema.CreateFloatVector(EMBEDDING_FIELD, VECTOR_SIZE));
 
-        await this._milvusClient.CreateCollectionAsync(collectionName, collectionSchema, cancellationToken: cancellationToken).ConfigureAwait(false);
+        MilvusCollection collection = await this._milvusClient.CreateCollectionAsync(collectionName, collectionSchema, cancellationToken: cancellationToken).ConfigureAwait(false);
+
+        await collection.CreateIndexAsync(EMBEDDING_FIELD, IndexType.IvfFlat, SimilarityMetricType.Ip, extraParams: new Dictionary<string, string>
+        {
+            ["nlist"] = "128"
+        }, cancellationToken: cancellationToken).ConfigureAwait(false);
+
+        await collection.LoadAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -161,7 +169,90 @@ public class MilvusDbClient : IMilvusDbClient
         return new List<FieldData> {
             FieldData.CreateVarChar(ID_FIELD, ids),
             FieldData.CreateFloatVector(EMBEDDING_FIELD, embeddings),
-            FieldData.CreateJson(META_FIELD, metas)
+            FieldData.CreateJson(META_FIELD, metas,true)
         }.AsReadOnly();
     }
+    /*
+    public void CreateCollection(string collectionName,
+                             int dimension,
+                             string primaryFieldName = "id",  // default is "id"  
+                             string idType = "int",  // or "string"  
+                             string vectorFieldName = "vector",  // default is "vector"  
+                             string metricType = "IP",
+                             bool autoId = false,
+                             float timeout = 0,
+                             Dictionary<string, object> kwargs = null)
+    {
+        if (kwargs == null)
+        {
+            kwargs = new Dictionary<string, object>();
+        }
+
+        if (!kwargs.ContainsKey("enable_dynamic_field"))
+        {
+            kwargs.Add("enable_dynamic_field", true);
+        }
+
+        var schema = CreateSchema(autoId, kwargs);
+
+        DataType pkDataType;
+
+        if (idType == "int")
+        {
+            pkDataType = DataType.INT64;
+        }
+        else if (idType == "string" || idType == "str")
+        {
+            pkDataType = DataType.VARCHAR;
+        }
+        else
+        {
+            throw new PrimaryKeyException("PrimaryFieldType");
+        }
+
+        if (pkDataType == DataType.VARCHAR && autoId)
+        {
+            throw new AutoIDException("AutoIDFieldType");
+        }
+
+        var pkArgs = new Dictionary<string, object>();
+
+        if (kwargs.ContainsKey("max_length") && pkDataType == DataType.VARCHAR)
+        {
+            pkArgs.Add("max_length", kwargs["max_length"]);
+        }
+
+        schema.AddField(primaryFieldName, pkDataType, true, pkArgs);
+        var vectorType = DataType.FLOAT_VECTOR;
+        schema.AddField(vectorFieldName, vectorType, dimension);
+        schema.Verify();
+
+        var conn = GetConnection();
+
+        if (!kwargs.ContainsKey("consistency_level"))
+        {
+            kwargs.Add("consistency_level", DEFAULT_CONSISTENCY_LEVEL);
+        }
+
+        try
+        {
+            conn.CreateCollection(collectionName, schema, timeout, kwargs);
+            Console.WriteLine("Successfully created collection: " + collectionName);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Failed to create collection: " + collectionName);
+            throw ex;
+        }
+
+        var indexParams = new Dictionary<string, object>
+    {
+        {"metric_type", metricType},
+        {"params", new Dictionary<string, object>()}
+    };
+
+        CreateIndex(collectionName, vectorFieldName, indexParams, timeout);
+        Load(collectionName, timeout);
+    }
+    */
 }

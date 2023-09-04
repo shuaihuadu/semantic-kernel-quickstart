@@ -5,8 +5,8 @@ namespace Connectors.Memory.Milvus.Tests
     [TestClass]
     public class MilvusMemoryStore_Tests
     {
-        //string collectionName = "unit_test_collection";
-        string collectionName = "test_collection";
+        string collectionName = "unit_test_collection";
+        //string collectionName = "test_collection";
 
         private readonly IMilvusDbClient _milvusDbClient = new MilvusDbClient("192.168.186.129");
 
@@ -46,14 +46,14 @@ namespace Connectors.Memory.Milvus.Tests
         [TestMethod]
         public async Task ItCanGetBatchWithoutVectorAsync()
         {
-            var data = await _milvusMemoryStore!.GetBatchAsync(collectionName, new string[] { "test_id1", "test_id2" }, false).ToListAsync();
+            var data = await _milvusMemoryStore!.GetBatchAsync(collectionName, new string[] { "0", "1" }, false).ToListAsync();
 
             Assert.IsTrue(data.Any());
         }
         [TestMethod]
         public async Task ItCanGetBatchWithVectorAsync()
         {
-            var data = await _milvusMemoryStore!.GetBatchAsync(collectionName, new string[] { "test_id1", "test_id2" }, true).ToListAsync();
+            var data = await _milvusMemoryStore!.GetBatchAsync(collectionName, new string[] { "0", "1" }, true).ToListAsync();
 
             Assert.IsTrue(data.Any());
             Assert.IsTrue(data[0].Embedding.Length > 0);
@@ -64,7 +64,7 @@ namespace Connectors.Memory.Milvus.Tests
         {
             var records = new List<MemoryRecord>();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 records.Add(MemoryRecord.LocalRecord($"{i}", $"text{i}", $"description{i}", new float[1536], $"", $"{i}"));
             }
