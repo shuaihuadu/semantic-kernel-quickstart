@@ -50,10 +50,7 @@ public class MilvusDbClient : IMilvusDbClient
 
         MilvusCollection collection = await this._milvusClient.CreateCollectionAsync(collectionName, collectionSchema, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-        await collection.CreateIndexAsync(EMBEDDING_FIELD, IndexType.IvfFlat, SimilarityMetricType.Ip, extraParams: new Dictionary<string, string>
-        {
-            ["nlist"] = "128"
-        }, cancellationToken: cancellationToken).ConfigureAwait(false);
+        await collection.CreateIndexAsync(EMBEDDING_FIELD, milvusIndexType: IndexType.AutoIndex, milvusMetricType: SimilarityMetricType.Ip, cancellationToken: cancellationToken).ConfigureAwait(false);
 
         await collection.LoadAsync().ConfigureAwait(false);
     }
