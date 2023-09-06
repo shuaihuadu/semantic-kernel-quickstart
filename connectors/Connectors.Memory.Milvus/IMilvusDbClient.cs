@@ -1,49 +1,57 @@
-﻿namespace Connectors.Memory.Milvus;
+﻿namespace Microsoft.SemanticKernel.Connectors.Memory.Milvus;
 
 public interface IMilvusDbClient
 {
     /// <summary>
-    /// Check if a vector collection exists.
+    /// Check if a collection exists.
     /// </summary>
-    /// <param name="collectionName">The name assigned to a collection of vectors.</param>
+    /// <param name="collectionName">The name assigned to a collection of entities.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
     Task<bool> DoesCollectionExistAsync(string collectionName, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// List all vector collections.
+    /// List all collections.
     /// </summary>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
     IAsyncEnumerable<string> ListCollectionsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Create a Milvus vector collection.
+    /// Create a Milvus collection.
     /// </summary>
-    /// <param name="collectionName">The name assigned to a collection of vectors.</param>
+    /// <param name="collectionName">The name assigned to a collection of entities.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
     Task CreateCollectionAsync(string collectionName, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Delete a vector collection.
+    /// Delete a Milvus collection.
     /// </summary>
-    /// <param name="collectionName">The name assigned to a collection of vectors.</param>
+    /// <param name="collectionName">The name assigned to a collection of entities.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
     Task DeleteCollectionAsync(string collectionName, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Get a specific vectors by unique identifier.
+    /// Get a specific entities by unique identifier.
     /// </summary>
-    /// <param name="collectionName">The name assigned to a collection of vectors.</param>
-    /// <param name="keys">The unique IDs.</param>
+    /// <param name="collectionName">The name assigned to a collection of entities.</param>
+    /// <param name="ids">The unique IDs.</param>
     /// <param name="withEmbeddings">Whether to include the vector data in the returned result.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
-    /// <returns>The Qdrant vector record associated with the given ID if found, null if not.</returns>
-    Task<IReadOnlyList<MemoryRecord>> GetFiledDataByIdsAsync(string collectionName, IEnumerable<string> keys, bool withEmbeddings, CancellationToken cancellationToken);
+    /// <returns>The Milvus entity associated with the given ID if found, null if not.</returns>
+    Task<IReadOnlyList<MemoryRecord>> GetFieldDataByIdsAsync(string collectionName, IEnumerable<string> ids, bool withEmbeddings, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Upsert a group of vectors into a collection.
+    /// Upsert a group of entities into a collection.
     /// </summary>
-    /// <param name="collectionName">The name assigned to a collection of vectors.</param>
-    /// <param name="records">The vector records to upsert.</param>
+    /// <param name="collectionName">The name assigned to a collection of entities.</param>
+    /// <param name="records">The entities to upsert.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
-    Task<IReadOnlyList<string>> UpsertVectorsAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<string>> UpsertEntitiesAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Delete entities by its unique identifier.
+    /// </summary>
+    /// <param name="collectionName">The name assigned to a collection of entities.</param>
+    /// <param name="ids">The unique IDs.</param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
+    Task DeleteEntitiesByIdsAsync(string collectionName, IEnumerable<string> ids, CancellationToken cancellationToken = default);
 }

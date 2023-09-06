@@ -1,4 +1,4 @@
-﻿namespace Connectors.Memory.Milvus;
+﻿namespace Microsoft.SemanticKernel.Connectors.Memory.Milvus;
 
 public class MilvusDbClient : IMilvusDbClient
 {
@@ -74,11 +74,11 @@ public class MilvusDbClient : IMilvusDbClient
     }
 
     /// <inheritdoc />
-    public async Task<IReadOnlyList<MemoryRecord>> GetFiledDataByIdsAsync(string collectionName, IEnumerable<string> keys, bool withEmbeddings, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<MemoryRecord>> GetFieldDataByIdsAsync(string collectionName, IEnumerable<string> ids, bool withEmbeddings, CancellationToken cancellationToken)
     {
         var collection = this._milvusClient.GetCollection(collectionName);
 
-        var expression = GetIdQueryExpression(keys);
+        var expression = GetIdQueryExpression(ids);
 
         QueryParameters queryParameters = new();
 
@@ -94,7 +94,8 @@ public class MilvusDbClient : IMilvusDbClient
         return this.GetMemoryRecordFromFieldData(queryResult);
     }
 
-    public async Task<IReadOnlyList<string>> UpsertVectorsAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public async Task<IReadOnlyList<string>> UpsertEntitiesAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default)
     {
         MilvusCollection collection = _milvusClient.GetCollection(collectionName);
 
@@ -109,6 +110,16 @@ public class MilvusDbClient : IMilvusDbClient
         MutationResult insertResult = await collection.InsertAsync(fieldDatas, cancellationToken: cancellationToken);
 
         return insertResult.Ids.StringIds ?? Enumerable.Empty<string>().ToList().AsReadOnly();
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteEntitiesByIdsAsync(string collectionName, IEnumerable<string> ids, CancellationToken cancellationToken = default)
+    {
+        MilvusCollection collection = _milvusClient.GetCollection(collectionName);
+
+        var deleteExpression = GetIdQueryExpression(ids);
+
+        await collection.DeleteAsync(deleteExpression, cancellationToken: cancellationToken);
     }
 
     private string GetIdQueryExpression(IEnumerable<string> ids)
@@ -169,87 +180,4 @@ public class MilvusDbClient : IMilvusDbClient
             FieldData.CreateJson(META_FIELD, metas,true)
         }.AsReadOnly();
     }
-    /*
-    public void CreateCollection(string collectionName,
-                             int dimension,
-                             string primaryFieldName = "id",  // default is "id"  
-                             string idType = "int",  // or "string"  
-                             string vectorFieldName = "vector",  // default is "vector"  
-                             string metricType = "IP",
-                             bool autoId = false,
-                             float timeout = 0,
-                             Dictionary<string, object> kwargs = null)
-    {
-        if (kwargs == null)
-        {
-            kwargs = new Dictionary<string, object>();
-        }
-
-        if (!kwargs.ContainsKey("enable_dynamic_field"))
-        {
-            kwargs.Add("enable_dynamic_field", true);
-        }
-
-        var schema = CreateSchema(autoId, kwargs);
-
-        DataType pkDataType;
-
-        if (idType == "int")
-        {
-            pkDataType = DataType.INT64;
-        }
-        else if (idType == "string" || idType == "str")
-        {
-            pkDataType = DataType.VARCHAR;
-        }
-        else
-        {
-            throw new PrimaryKeyException("PrimaryFieldType");
-        }
-
-        if (pkDataType == DataType.VARCHAR && autoId)
-        {
-            throw new AutoIDException("AutoIDFieldType");
-        }
-
-        var pkArgs = new Dictionary<string, object>();
-
-        if (kwargs.ContainsKey("max_length") && pkDataType == DataType.VARCHAR)
-        {
-            pkArgs.Add("max_length", kwargs["max_length"]);
-        }
-
-        schema.AddField(primaryFieldName, pkDataType, true, pkArgs);
-        var vectorType = DataType.FLOAT_VECTOR;
-        schema.AddField(vectorFieldName, vectorType, dimension);
-        schema.Verify();
-
-        var conn = GetConnection();
-
-        if (!kwargs.ContainsKey("consistency_level"))
-        {
-            kwargs.Add("consistency_level", DEFAULT_CONSISTENCY_LEVEL);
-        }
-
-        try
-        {
-            conn.CreateCollection(collectionName, schema, timeout, kwargs);
-            Console.WriteLine("Successfully created collection: " + collectionName);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Failed to create collection: " + collectionName);
-            throw ex;
-        }
-
-        var indexParams = new Dictionary<string, object>
-    {
-        {"metric_type", metricType},
-        {"params", new Dictionary<string, object>()}
-    };
-
-        CreateIndex(collectionName, vectorFieldName, indexParams, timeout);
-        Load(collectionName, timeout);
-    }
-    */
 }

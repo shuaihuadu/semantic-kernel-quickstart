@@ -9,17 +9,5 @@
 \App_Data
 *.pubxml
 *.user
-/src/McDonalds.AOAI.Apim/appsettings.Staging.json
-/src/McDonalds.AOAI.Apim/appsettings.Development.json
-src/McDonalds.WeWorkApp/App_Data
-/tests/McDonalds.UnitTests/appsettings.json
-/database/McDonalds.SqlDatabase/McDonalds.SqlDatabase.jfm
-/database/McDonalds.SqlDatabase/McDonalds.SqlDatabase.dbmdl
-/src/McDonalds.WeWorkApp/Properties/PublishProfiles/mcd-poc-dev-wework-api - FTP.pubxml
-/src/McDonalds.WeWorkApp/Properties/PublishProfiles/mcd-poc-dev-wework-api - ReadOnly - FTP.pubxml
-/src/McDonalds.WeWorkApp/Properties/PublishProfiles/mcd-poc-dev-wework-api - Web Deploy.pubxml
-/src/McDonalds.WeWorkApp/Properties/PublishProfiles/mcd-poc-dev-wework-api - Zip Deploy.pubxml
 /.idea
-/MidJourney/McDonalds.MidJourney.WrapApp/appsettings.Debug.json
-/database/McDonalds.SqlDatabase/McDonalds.SqlDatabase.refactorlog
-/QuickStart.Connectors.Tests/appsettings.UnitTest.json
+appsettings.Production.json

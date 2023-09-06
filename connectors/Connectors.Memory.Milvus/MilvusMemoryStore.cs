@@ -1,4 +1,4 @@
-﻿namespace Connectors.Memory.Milvus;
+﻿namespace Microsoft.SemanticKernel.Connectors.Memory.Milvus;
 
 public class MilvusMemoryStore : IMemoryStore
 {
@@ -43,16 +43,15 @@ public class MilvusMemoryStore : IMemoryStore
     /// <inheritdoc/>
     public async Task<MemoryRecord?> GetAsync(string collectionName, string key, bool withEmbedding = false, CancellationToken cancellationToken = default)
     {
-        var result = await this._milvusDbClient.GetFiledDataByIdsAsync(collectionName, new[] { key }, withEmbedding, cancellationToken);
+        var result = await this._milvusDbClient.GetFieldDataByIdsAsync(collectionName, new[] { key }, withEmbedding, cancellationToken);
 
         return result.FirstOrDefault();
     }
 
     /// <inheritdoc/>
-    public async IAsyncEnumerable<MemoryRecord> GetBatchAsync(string collectionName, IEnumerable<string> keys, bool withEmbeddings = false,
-        [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<MemoryRecord> GetBatchAsync(string collectionName, IEnumerable<string> keys, bool withEmbeddings = false, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var result = await this._milvusDbClient.GetFiledDataByIdsAsync(collectionName, keys, withEmbeddings, cancellationToken);
+        var result = await this._milvusDbClient.GetFieldDataByIdsAsync(collectionName, keys, withEmbeddings, cancellationToken);
 
         foreach (var item in result)
         {
@@ -81,19 +80,19 @@ public class MilvusMemoryStore : IMemoryStore
     /// <inheritdoc/>
     public async Task RemoveAsync(string collectionName, string key, CancellationToken cancellationToken = default)
     {
-
+        await this._milvusDbClient.DeleteEntitiesByIdsAsync(collectionName, new string[] { key }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public Task RemoveBatchAsync(string collectionName, IEnumerable<string> keys, CancellationToken cancellationToken = default)
+    public async Task RemoveBatchAsync(string collectionName, IEnumerable<string> keys, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        await this._milvusDbClient.DeleteEntitiesByIdsAsync(collectionName, keys, cancellationToken);
     }
 
     /// <inheritdoc/>
     public async Task<string> UpsertAsync(string collectionName, MemoryRecord record, CancellationToken cancellationToken = default)
     {
-        var ids = await _milvusDbClient.UpsertVectorsAsync(collectionName, new[] { record }, cancellationToken);
+        var ids = await this._milvusDbClient.UpsertEntitiesAsync(collectionName, new[] { record }, cancellationToken);
 
         return ids.FirstOrDefault() ?? string.Empty;
     }
@@ -101,7 +100,7 @@ public class MilvusMemoryStore : IMemoryStore
     /// <inheritdoc/>
     public async IAsyncEnumerable<string> UpsertBatchAsync(string collectionName, IEnumerable<MemoryRecord> records, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var ids = await _milvusDbClient.UpsertVectorsAsync(collectionName, records, cancellationToken);
+        var ids = await this._milvusDbClient.UpsertEntitiesAsync(collectionName, records, cancellationToken);
 
         foreach (var id in ids)
         {

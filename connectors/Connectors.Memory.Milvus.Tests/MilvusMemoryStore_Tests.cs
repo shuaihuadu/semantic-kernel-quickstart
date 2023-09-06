@@ -1,3 +1,4 @@
+using Microsoft.SemanticKernel.Connectors.Memory.Milvus;
 using Microsoft.SemanticKernel.Memory;
 
 namespace Connectors.Memory.Milvus.Tests
@@ -60,7 +61,7 @@ namespace Connectors.Memory.Milvus.Tests
         }
 
         [TestMethod]
-        public async Task ItCanInsertDataAsync()
+        public async Task ItCanBatchInsertDataAsync()
         {
             var records = new List<MemoryRecord>();
 
@@ -73,6 +74,27 @@ namespace Connectors.Memory.Milvus.Tests
             {
                 Console.WriteLine(id);
             }
+        }
+
+        [TestMethod]
+        public async Task ItCanRemoveDataAsync()
+        {
+            var id = "99";
+
+            await _milvusMemoryStore!.RemoveAsync(collectionName, id);
+        }
+
+        [TestMethod]
+        public async Task ItCanRemoveBatchDataAsync()
+        {
+            var ids = new List<string>();
+
+            for (int i = 0; i < 99; i++)
+            {
+                ids.Add(i.ToString());
+            }
+
+            await _milvusMemoryStore!.RemoveBatchAsync(collectionName, ids);
         }
     }
 }

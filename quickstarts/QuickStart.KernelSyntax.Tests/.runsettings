@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+	<!-- configuration elements -->
+	<RunConfiguration>
+		<EnvironmentVariables>
+			<ASPNETCORE_ENVIRONMENT>UnitTest</ASPNETCORE_ENVIRONMENT>
+			<NETCORE_ENVIRONMENT>UnitTest</NETCORE_ENVIRONMENT>
+		</EnvironmentVariables>
+	</RunConfiguration>
+</RunSettings>
