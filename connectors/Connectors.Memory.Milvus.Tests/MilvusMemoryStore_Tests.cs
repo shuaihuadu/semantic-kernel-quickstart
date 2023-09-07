@@ -27,11 +27,6 @@ namespace Connectors.Memory.Milvus.Tests
             var collections = _milvusMemoryStore.GetCollectionsAsync().ToEnumerable();
 
             Assert.IsTrue(collections.Any());
-
-            foreach (var collection in collections)
-            {
-                Console.WriteLine(collection);
-            }
         }
 
         [TestMethod]
@@ -61,7 +56,7 @@ namespace Connectors.Memory.Milvus.Tests
         }
 
         [TestMethod]
-        public async Task ItCanBatchInsertDataAsync()
+        public async Task ItCanInsertBatchDataAsync()
         {
             var records = new List<MemoryRecord>();
 
@@ -95,6 +90,17 @@ namespace Connectors.Memory.Milvus.Tests
             }
 
             await _milvusMemoryStore!.RemoveBatchAsync(collectionName, ids);
+        }
+
+        [TestMethod]
+        public async Task ItCanGetNearestEntitiesAsync()
+        {
+            var embedding = new float[1536];
+
+            await foreach (var entity in _milvusMemoryStore!.GetNearestMatchesAsync(collectionName, embedding, 3))
+            {
+                Console.WriteLine(entity.Item2);
+            }
         }
     }
 }

@@ -54,4 +54,15 @@ public interface IMilvusDbClient
     /// <param name="ids">The unique IDs.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
     Task DeleteEntitiesByIdsAsync(string collectionName, IEnumerable<string> ids, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Find the nearest vectors in a collection using vector similarity search.
+    /// </summary>
+    /// <param name="collectionName">The name assigned to a collection of vectors.</param>
+    /// <param name="target">The vector to compare the collection's vectors with.</param>
+    /// <param name="minRelevanceScore">The minimum relevance score for returned results.</param>
+    /// <param name="limit">The maximum number of similarity results to return.</param>
+    /// <param name="withEmbeddings">Whether to include the vector data in the returned results.</param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
+    Task<IReadOnlyList<(MemoryRecord, double)>> FindNearestInCollectionAsync(string collectionName, ReadOnlyMemory<float> target, double minRelevanceScore, int limit = 1, bool withEmbeddings = false, CancellationToken cancellationToken = default);
 }

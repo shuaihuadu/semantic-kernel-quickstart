@@ -66,15 +66,25 @@ public class MilvusMemoryStore : IMemoryStore
     }
 
     /// <inheritdoc/>
-    public Task<(MemoryRecord, double)?> GetNearestMatchAsync(string collectionName, ReadOnlyMemory<float> embedding, double minRelevanceScore = 0, bool withEmbedding = false, CancellationToken cancellationToken = default)
+    public async Task<(MemoryRecord, double)?> GetNearestMatchAsync(string collectionName, ReadOnlyMemory<float> embedding, double minRelevanceScore = 0, bool withEmbedding = false, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await GetNearestMatchesAsync(collectionName, embedding, 1, minRelevanceScore, withEmbedding, cancellationToken).FirstOrDefaultAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public IAsyncEnumerable<(MemoryRecord, double)> GetNearestMatchesAsync(string collectionName, ReadOnlyMemory<float> embedding, int limit, double minRelevanceScore = 0, bool withEmbeddings = false, CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<(MemoryRecord, double)> GetNearestMatchesAsync(
+        string collectionName,
+        ReadOnlyMemory<float> embedding,
+        int limit, double minRelevanceScore = 0,
+        bool withEmbeddings = false,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var records = await this._milvusDbClient.FindNearestInCollectionAsync(collectionName, embedding, minRelevanceScore, limit, withEmbeddings, cancellationToken);
+
+        foreach (var item in records)
+        {
+            yield return (MemoryRecord.FromJsonMetadata("", embedding), 0d);
+        }
     }
 
     /// <inheritdoc/>

@@ -122,6 +122,14 @@ public class MilvusDbClient : IMilvusDbClient
         await collection.DeleteAsync(deleteExpression, cancellationToken: cancellationToken);
     }
 
+    /// <inheritdoc />
+    public async Task<IReadOnlyList<(MemoryRecord, double)>> FindNearestInCollectionAsync(string collectionName, ReadOnlyMemory<float> target, double minRelevanceScore, int limit = 1, bool withEmbeddings = false, CancellationToken cancellationToken = default)
+    {
+        (SearchResults, SimilarityMetricType) searchResults = await this.InnerSearchAsync(collectionName, target, limit, withEmbeddings, cancellationToken);
+
+        return this.SearchResultsToMemoryRecord(searchResults.Item1);
+    }
+
     private string GetIdQueryExpression(IEnumerable<string> ids)
     {
         ids = ids.Select(entry => $"\"{entry}\"").ToList();
@@ -129,6 +137,57 @@ public class MilvusDbClient : IMilvusDbClient
         return $"{ID_FIELD} in [{string.Join(",", ids)}]";
     }
 
+    private async Task<(SearchResults, SimilarityMetricType)> InnerSearchAsync(string collectionName, ReadOnlyMemory<float> target, int limit = 1, bool withEmbeddings = false, CancellationToken cancellationToken = default)
+    {
+        var collection = this._milvusClient.GetCollection(collectionName);
+
+        ReadOnlyMemory<float>[] vectors = new ReadOnlyMemory<float>[]
+        {
+            target
+        };
+
+        SearchParameters searchParameters = new();
+
+        searchParameters.OutputFields.Add("*");
+
+        if (withEmbeddings)
+        {
+            searchParameters.OutputFields.Add(EMBEDDING_FIELD);
+        }
+
+        SearchResults? searchResults = null;
+
+        SimilarityMetricType similarityMetricType = SimilarityMetricType.Ip;
+
+        try
+        {
+            searchResults = await collection.SearchAsync(EMBEDDING_FIELD, vectors, similarityMetricType, limit, searchParameters, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogDebug(ex, $"Search failed with IP, testing L2: {ex.Message}");
+
+            similarityMetricType = SimilarityMetricType.L2;
+
+            searchResults = await collection.SearchAsync(EMBEDDING_FIELD, vectors, similarityMetricType, limit, searchParameters, cancellationToken).ConfigureAwait(false);
+        }
+
+        return (searchResults, similarityMetricType);
+    }
+
+    private IReadOnlyList<(MemoryRecord, double)> SearchResultsToMemoryRecord(SearchResults searchResults)
+    {
+        var result = new List<(MemoryRecord, double)>();
+
+        var memoryRecords = this.GetMemoryRecordFromFieldData(searchResults.FieldsData);
+
+        for (int i = 0; i < memoryRecords.Count; i++)
+        {
+            result.Add((memoryRecords[i], searchResults.Scores[i]));
+        }
+
+        return result.AsReadOnly();
+    }
 
     private IReadOnlyList<MemoryRecord> GetMemoryRecordFromFieldData(IEnumerable<FieldData> fieldDatas)
     {
