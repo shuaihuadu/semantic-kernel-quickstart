@@ -81,9 +81,9 @@ public class MilvusMemoryStore : IMemoryStore
     {
         var records = await this._milvusDbClient.FindNearestInCollectionAsync(collectionName, embedding, minRelevanceScore, limit, withEmbeddings, cancellationToken);
 
-        foreach (var item in records)
+        foreach (var record in records)
         {
-            yield return (MemoryRecord.FromJsonMetadata("", embedding), 0d);
+            yield return (record.Item1, record.Item2);
         }
     }
 

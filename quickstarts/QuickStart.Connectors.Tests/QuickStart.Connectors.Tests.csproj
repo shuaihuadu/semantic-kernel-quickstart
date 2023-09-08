@@ -37,6 +37,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\connectors\Connectors.Memory.Milvus\Connectors.Memory.Milvus.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Update=".runsettings">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

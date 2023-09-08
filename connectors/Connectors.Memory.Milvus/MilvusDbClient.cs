@@ -99,6 +99,11 @@ public class MilvusDbClient : IMilvusDbClient
     {
         MilvusCollection collection = _milvusClient.GetCollection(collectionName);
 
+        foreach (var record in records)
+        {
+            record.Key = record.Metadata.Id;
+        }
+
         var ids = records.Select(r => r.Key).ToList();
 
         var deleteExpression = GetIdQueryExpression(ids);
@@ -229,7 +234,8 @@ public class MilvusDbClient : IMilvusDbClient
             return Array.Empty<FieldData>();
         }
 
-        var ids = memoryRecords.Select(record => record.Key).ToList().AsReadOnly();
+        //var ids = memoryRecords.Select(record => record.Key).ToList().AsReadOnly();
+        var ids = memoryRecords.Select(record => record.Metadata.Id).ToList().AsReadOnly();
         var embeddings = memoryRecords.Select(record => record.Embedding).ToList().AsReadOnly();
         var metas = memoryRecords.Select(record => record.GetSerializedMetadata()).ToList().AsReadOnly();
 
