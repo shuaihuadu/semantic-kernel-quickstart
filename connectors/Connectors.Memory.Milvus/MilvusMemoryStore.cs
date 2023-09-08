@@ -45,7 +45,7 @@ public class MilvusMemoryStore : IMemoryStore
     {
         var result = await this._milvusDbClient.GetFieldDataByIdsAsync(collectionName, new[] { key }, withEmbedding, cancellationToken);
 
-        return result.FirstOrDefault();
+        return result.FirstOrDefault()?.ToMemoryRecord();
     }
 
     /// <inheritdoc/>
@@ -55,7 +55,7 @@ public class MilvusMemoryStore : IMemoryStore
 
         foreach (var item in result)
         {
-            yield return item;
+            yield return item.ToMemoryRecord();
         }
     }
 
@@ -83,7 +83,7 @@ public class MilvusMemoryStore : IMemoryStore
 
         foreach (var record in records)
         {
-            yield return (record.Item1, record.Item2);
+            yield return (record.Item1.ToMemoryRecord(), record.Item2);
         }
     }
 
@@ -102,7 +102,7 @@ public class MilvusMemoryStore : IMemoryStore
     /// <inheritdoc/>
     public async Task<string> UpsertAsync(string collectionName, MemoryRecord record, CancellationToken cancellationToken = default)
     {
-        var ids = await this._milvusDbClient.UpsertEntitiesAsync(collectionName, new[] { record }, cancellationToken);
+        var ids = await this._milvusDbClient.UpsertEntitiesAsync(collectionName, new[] { new MilvusMemoryRecord(record) }, cancellationToken);
 
         return ids.FirstOrDefault() ?? string.Empty;
     }
@@ -110,7 +110,7 @@ public class MilvusMemoryStore : IMemoryStore
     /// <inheritdoc/>
     public async IAsyncEnumerable<string> UpsertBatchAsync(string collectionName, IEnumerable<MemoryRecord> records, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var ids = await this._milvusDbClient.UpsertEntitiesAsync(collectionName, records, cancellationToken);
+        var ids = await this._milvusDbClient.UpsertEntitiesAsync(collectionName, records.Select(record => new MilvusMemoryRecord(record)), cancellationToken);
 
         foreach (var id in ids)
         {

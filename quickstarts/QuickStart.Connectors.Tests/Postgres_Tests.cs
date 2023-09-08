@@ -3,8 +3,8 @@
 [TestClass]
 public class Postgres_Tests : TestBase
 {
-    private PostgresMemoryStore _memoryStore;
-    private IKernel _kernel;
+    private PostgresMemoryStore? _memoryStore;
+    private IKernel? _kernel;
 
     const string _postgreCollectionName = "postgres-unit-test";
 

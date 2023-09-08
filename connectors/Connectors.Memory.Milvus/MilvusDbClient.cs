@@ -74,7 +74,7 @@ public class MilvusDbClient : IMilvusDbClient
     }
 
     /// <inheritdoc />
-    public async Task<IReadOnlyList<MemoryRecord>> GetFieldDataByIdsAsync(string collectionName, IEnumerable<string> ids, bool withEmbeddings, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<MilvusMemoryRecord>> GetFieldDataByIdsAsync(string collectionName, IEnumerable<string> ids, bool withEmbeddings, CancellationToken cancellationToken)
     {
         var collection = this._milvusClient.GetCollection(collectionName);
 
@@ -91,20 +91,15 @@ public class MilvusDbClient : IMilvusDbClient
 
         var queryResult = await collection.QueryAsync(expression, queryParameters, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-        return this.GetMemoryRecordFromFieldData(queryResult);
+        return this.GetMilvusEntityRecordFromFieldData(queryResult);
     }
 
     /// <inheritdoc />
-    public async Task<IReadOnlyList<string>> UpsertEntitiesAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<string>> UpsertEntitiesAsync(string collectionName, IEnumerable<MilvusMemoryRecord> records, CancellationToken cancellationToken = default)
     {
         MilvusCollection collection = _milvusClient.GetCollection(collectionName);
 
-        foreach (var record in records)
-        {
-            record.Key = record.Metadata.Id;
-        }
-
-        var ids = records.Select(r => r.Key).ToList();
+        var ids = records.Select(r => r.Id).ToList();
 
         var deleteExpression = GetIdQueryExpression(ids);
 
@@ -128,11 +123,11 @@ public class MilvusDbClient : IMilvusDbClient
     }
 
     /// <inheritdoc />
-    public async Task<IReadOnlyList<(MemoryRecord, double)>> FindNearestInCollectionAsync(string collectionName, ReadOnlyMemory<float> target, double minRelevanceScore, int limit = 1, bool withEmbeddings = false, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<(MilvusMemoryRecord, double)>> FindNearestInCollectionAsync(string collectionName, ReadOnlyMemory<float> target, double minRelevanceScore, int limit = 1, bool withEmbeddings = false, CancellationToken cancellationToken = default)
     {
         (SearchResults, SimilarityMetricType) searchResults = await this.InnerSearchAsync(collectionName, target, limit, withEmbeddings, cancellationToken);
 
-        return this.SearchResultsToMemoryRecord(searchResults.Item1);
+        return this.SearchResultsToMilvusEntityRecord(searchResults.Item1);
     }
 
     private string GetIdQueryExpression(IEnumerable<string> ids)
@@ -180,11 +175,11 @@ public class MilvusDbClient : IMilvusDbClient
         return (searchResults, similarityMetricType);
     }
 
-    private IReadOnlyList<(MemoryRecord, double)> SearchResultsToMemoryRecord(SearchResults searchResults)
+    private IReadOnlyList<(MilvusMemoryRecord, double)> SearchResultsToMilvusEntityRecord(SearchResults searchResults)
     {
-        var result = new List<(MemoryRecord, double)>();
+        var result = new List<(MilvusMemoryRecord, double)>();
 
-        var memoryRecords = this.GetMemoryRecordFromFieldData(searchResults.FieldsData);
+        var memoryRecords = this.GetMilvusEntityRecordFromFieldData(searchResults.FieldsData);
 
         for (int i = 0; i < memoryRecords.Count; i++)
         {
@@ -194,13 +189,13 @@ public class MilvusDbClient : IMilvusDbClient
         return result.AsReadOnly();
     }
 
-    private IReadOnlyList<MemoryRecord> GetMemoryRecordFromFieldData(IEnumerable<FieldData> fieldDatas)
+    private IReadOnlyList<MilvusMemoryRecord> GetMilvusEntityRecordFromFieldData(IEnumerable<FieldData> fieldDatas)
     {
         var idFiled = fieldDatas.FirstOrDefault(field => field.FieldName == ID_FIELD);
         var metaField = fieldDatas.FirstOrDefault(field => field.FieldName == META_FIELD);
         var embeddingField = fieldDatas.FirstOrDefault(field => field.FieldName == EMBEDDING_FIELD);
 
-        var result = new List<MemoryRecord>();
+        var result = new List<MilvusMemoryRecord>();
 
         if (idFiled != null && metaField != null)
         {
@@ -215,29 +210,29 @@ public class MilvusDbClient : IMilvusDbClient
 
             for (var i = 0; i < idFiled!.RowCount; i++)
             {
-                result.Add(MemoryRecord.FromJsonMetadata(metaStringField!.Data[i], vectorField == null ? null : vectorField.Data[i], idStringField!.Data[i]));
+                result.Add(new MilvusMemoryRecord(idStringField!.Data[i], vectorField == null ? null : vectorField.Data[i], metaStringField!.Data[i]));
             }
         }
 
         return result;
     }
 
-    private IReadOnlyList<FieldData> GetFieldDataFromMemoryRecord(MemoryRecord memoryRecord)
+    private IReadOnlyList<FieldData> GetFieldDataFromMilvusEntityRecord(MilvusMemoryRecord record)
     {
-        return this.GetFieldDataFromMemoryRecord(new MemoryRecord[] { memoryRecord });
+        return this.GetFieldDataFromMemoryRecord(new MilvusMemoryRecord[] { record });
     }
 
-    private IReadOnlyList<FieldData> GetFieldDataFromMemoryRecord(IReadOnlyList<MemoryRecord> memoryRecords)
+    private IReadOnlyList<FieldData> GetFieldDataFromMemoryRecord(IReadOnlyList<MilvusMemoryRecord> records)
     {
-        if (memoryRecords == null || memoryRecords.Count == 0)
+        if (records == null || records.Count == 0)
         {
             return Array.Empty<FieldData>();
         }
 
         //var ids = memoryRecords.Select(record => record.Key).ToList().AsReadOnly();
-        var ids = memoryRecords.Select(record => record.Metadata.Id).ToList().AsReadOnly();
-        var embeddings = memoryRecords.Select(record => record.Embedding).ToList().AsReadOnly();
-        var metas = memoryRecords.Select(record => record.GetSerializedMetadata()).ToList().AsReadOnly();
+        var ids = records.Select(record => record.Id).ToList().AsReadOnly();
+        var embeddings = records.Select(record => record.Embedding).ToList().AsReadOnly();
+        var metas = records.Select(record => record.Meta).ToList().AsReadOnly();
 
         return new List<FieldData> {
             FieldData.CreateVarChar(ID_FIELD, ids),

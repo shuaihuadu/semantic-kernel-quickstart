@@ -3,9 +3,9 @@
 [TestClass]
 public class Milvus_Tests : TestBase
 {
-    private MilvusMemoryStore _memoryStore;
-    private IMilvusDbClient _milvusDbClient;
-    private IKernel _kernel;
+    private MilvusMemoryStore? _memoryStore;
+    private IMilvusDbClient? _milvusDbClient;
+    private IKernel? _kernel;
 
     const string _milvusCollectionName = "milvus_unit_test";
 

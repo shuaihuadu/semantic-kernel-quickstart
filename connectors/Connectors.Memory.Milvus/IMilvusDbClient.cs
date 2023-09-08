@@ -37,7 +37,7 @@ public interface IMilvusDbClient
     /// <param name="withEmbeddings">Whether to include the vector data in the returned result.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
     /// <returns>The Milvus entity associated with the given ID if found, null if not.</returns>
-    Task<IReadOnlyList<MemoryRecord>> GetFieldDataByIdsAsync(string collectionName, IEnumerable<string> ids, bool withEmbeddings, CancellationToken cancellationToken);
+    Task<IReadOnlyList<MilvusMemoryRecord>> GetFieldDataByIdsAsync(string collectionName, IEnumerable<string> ids, bool withEmbeddings, CancellationToken cancellationToken);
 
     /// <summary>
     /// Upsert a group of entities into a collection.
@@ -45,7 +45,7 @@ public interface IMilvusDbClient
     /// <param name="collectionName">The name assigned to a collection of entities.</param>
     /// <param name="records">The entities to upsert.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
-    Task<IReadOnlyList<string>> UpsertEntitiesAsync(string collectionName, IEnumerable<MemoryRecord> records, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<string>> UpsertEntitiesAsync(string collectionName, IEnumerable<MilvusMemoryRecord> records, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete entities by its unique identifier.
@@ -64,5 +64,5 @@ public interface IMilvusDbClient
     /// <param name="limit">The maximum number of similarity results to return.</param>
     /// <param name="withEmbeddings">Whether to include the vector data in the returned results.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> to monitor for cancellation requests. The default is <see cref="CancellationToken.None"/>.</param>
-    Task<IReadOnlyList<(MemoryRecord, double)>> FindNearestInCollectionAsync(string collectionName, ReadOnlyMemory<float> target, double minRelevanceScore, int limit = 1, bool withEmbeddings = false, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<(MilvusMemoryRecord, double)>> FindNearestInCollectionAsync(string collectionName, ReadOnlyMemory<float> target, double minRelevanceScore, int limit = 1, bool withEmbeddings = false, CancellationToken cancellationToken = default);
 }
