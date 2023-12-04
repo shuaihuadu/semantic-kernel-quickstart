@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
@@ -11,23 +11,17 @@
 
 	<Import Project="$(SolutionDir)/Solution Items/appsettings.props" />
 	<ItemGroup>
-		<Compile Remove="Milvus\MilvusPythonToCSharp.cs" />
-	</ItemGroup>
-	<ItemGroup>
 	  <Content Remove="D:\Github\semantic-kernel-quickstart\/Solution Items/appsettings.UnitTest.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="Milvus\MilvusPythonToCSharp.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="IdeaTech.QuickStart" Version="1.0.3" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0-preview-23424-02" />
-		<PackageReference Include="Microsoft.SemanticKernel" Version="0.22.230905.3-preview" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Postgres" Version="0.22.230905.3-preview" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Qdrant" Version="0.22.230905.3-preview" />
-		<PackageReference Include="Milvus.Client" Version="2.2.2-preview.4" />
+		<PackageReference Include="IdeaTech.QuickStart" Version="1.0.4" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.0.0-beta8" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Milvus" Version="1.0.0-beta8" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Postgres" Version="1.0.0-beta8" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Qdrant" Version="1.0.0-beta8" />
+		<PackageReference Include="Milvus.Client" Version="2.2.2-preview.6" />
 		<PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
 		<PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
 		<PackageReference Include="coverlet.collector" Version="6.0.0">
@@ -37,13 +31,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\connectors\Connectors.Memory.Milvus\Connectors.Memory.Milvus.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update=".runsettings">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

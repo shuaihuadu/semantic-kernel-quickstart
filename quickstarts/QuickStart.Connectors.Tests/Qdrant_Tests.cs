@@ -1,7 +1,7 @@
 namespace QuickStart.Connectors.Tests;
 
 [TestClass]
-public class Qdrant_Tests : TestBase
+public class Qdrant_Tests
 {
     private QdrantMemoryStore? _memoryStore;
     private IKernel? _kernel;
@@ -11,11 +11,11 @@ public class Qdrant_Tests : TestBase
     [TestInitialize]
     public void InitKernel()
     {
-        _memoryStore = new(QuickStartConfiguration.QdrantOptions.Endpoint, 1536);
+        _memoryStore = new("", 1536);
 
         _kernel = Kernel.Builder
-            .WithAzureTextEmbeddingGenerationService(QuickStartConfiguration.AzureOpenAIEmbeddingOptions.EmbeddingDeploymentName, QuickStartConfiguration.AzureOpenAIEmbeddingOptions.Endpoint, QuickStartConfiguration.AzureOpenAIEmbeddingOptions.ApiKey)
-            .WithAzureChatCompletionService(QuickStartConfiguration.AzureOpenAIOptions.GPT35ModelDeploymentName, QuickStartConfiguration.AzureOpenAIOptions.Endpoint, QuickStartConfiguration.AzureOpenAIOptions.ApiKey)
+            .WithAzureOpenAITextEmbeddingGenerationService(QuickStartConfiguration.AzureOpenAIEmbeddings.DeploymentName, QuickStartConfiguration.AzureOpenAIEmbeddings.Endpoint, QuickStartConfiguration.AzureOpenAIEmbeddings.ApiKey)
+            .WithAzureOpenAIChatCompletionService(QuickStartConfiguration.AzureOpenAI.ChatDeploymentName, QuickStartConfiguration.AzureOpenAI.Endpoint, QuickStartConfiguration.AzureOpenAI.ApiKey)
             .WithMemoryStorage(_memoryStore)
             .Build();
     }

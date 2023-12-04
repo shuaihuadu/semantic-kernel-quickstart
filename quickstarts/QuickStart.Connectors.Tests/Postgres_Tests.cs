@@ -1,7 +1,7 @@
 ﻿namespace QuickStart.Connectors.Tests;
 
 [TestClass]
-public class Postgres_Tests : TestBase
+public class Postgres_Tests
 {
     private PostgresMemoryStore? _memoryStore;
     private IKernel? _kernel;
@@ -11,7 +11,7 @@ public class Postgres_Tests : TestBase
     [TestInitialize]
     public void InitKernel()
     {
-        NpgsqlDataSourceBuilder dataSourceBuilder = new(QuickStartConfiguration.PostgresOptions.ConnectionString);
+        NpgsqlDataSourceBuilder dataSourceBuilder = new(QuickStartConfiguration.Postgres.ConnectionString);
 
         dataSourceBuilder.UseVector();
 
@@ -20,8 +20,8 @@ public class Postgres_Tests : TestBase
         _memoryStore = new PostgresMemoryStore(dataSource, 1536);
 
         _kernel = Kernel.Builder
-            .WithAzureTextEmbeddingGenerationService(QuickStartConfiguration.AzureOpenAIEmbeddingOptions.EmbeddingDeploymentName, QuickStartConfiguration.AzureOpenAIEmbeddingOptions.Endpoint, QuickStartConfiguration.AzureOpenAIEmbeddingOptions.ApiKey)
-            .WithAzureChatCompletionService(QuickStartConfiguration.AzureOpenAIOptions.GPT35ModelDeploymentName, QuickStartConfiguration.AzureOpenAIOptions.Endpoint, QuickStartConfiguration.AzureOpenAIOptions.ApiKey)
+            .WithAzureOpenAITextEmbeddingGenerationService(QuickStartConfiguration.AzureOpenAIEmbeddings.DeploymentName, QuickStartConfiguration.AzureOpenAIEmbeddings.Endpoint, QuickStartConfiguration.AzureOpenAIEmbeddings.ApiKey)
+            .WithAzureOpenAIChatCompletionService(QuickStartConfiguration.AzureOpenAI.ChatDeploymentName, QuickStartConfiguration.AzureOpenAI.Endpoint, QuickStartConfiguration.AzureOpenAI.ApiKey)
             .WithMemoryStorage(_memoryStore)
             .Build();
     }

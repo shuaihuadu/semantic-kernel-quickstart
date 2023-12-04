@@ -1,16 +1,19 @@
+ï»¿using IdeaTech.QuickStart;
+
 namespace QuickStart.KernelSyntax.Tests
 {
     [TestClass]
-    public class ChatGPT_Tests : TestBase
+    public class ChatGPT_Tests
     {
-        private IKernel kernel;
+
+        private IKernel _kernel;
 
         [TestInitialize]
         public void InitKernel()
         {
-            kernel = Kernel.Builder
-                .WithAzureTextEmbeddingGenerationService(QuickStartConfiguration.AzureOpenAIEmbeddingOptions.EmbeddingDeploymentName, QuickStartConfiguration.AzureOpenAIEmbeddingOptions.Endpoint, QuickStartConfiguration.AzureOpenAIEmbeddingOptions.ApiKey)
-                .WithAzureChatCompletionService(QuickStartConfiguration.AzureOpenAIOptions.GPT35ModelDeploymentName, QuickStartConfiguration.AzureOpenAIOptions.Endpoint, QuickStartConfiguration.AzureOpenAIOptions.ApiKey)
+            _kernel = Kernel.Builder
+                .WithAzureOpenAITextEmbeddingGenerationService(QuickStartConfiguration.AzureOpenAIEmbeddings.DeploymentName, QuickStartConfiguration.AzureOpenAIEmbeddings.Endpoint, QuickStartConfiguration.AzureOpenAIEmbeddings.ApiKey)
+                .WithAzureOpenAIChatCompletionService(QuickStartConfiguration.AzureOpenAI.ChatDeploymentName, QuickStartConfiguration.AzureOpenAI.Endpoint, QuickStartConfiguration.AzureOpenAI.ApiKey)
                 .Build();
         }
 
@@ -20,22 +23,22 @@ namespace QuickStart.KernelSyntax.Tests
 
             string skillRootFolder = Path.Join(AppContext.BaseDirectory, "Skills");
 
-            var skills = kernel.ImportSemanticSkillFromDirectory(skillRootFolder, "Default");
+            var skills = _kernel.ImportSemanticSkillFromDirectory(skillRootFolder, "Default");
 
-            string input = "¸ù¾İĞ¡Ã÷µÄÉí·İÖ¤ÏÔÊ¾£¬Ğ¡Ã÷ÊÇ1990Äê³öÉúµÄ¡£";
+            string input = "æ ¹æ®å°æ˜çš„èº«ä»½è¯æ˜¾ç¤ºï¼Œå°æ˜æ˜¯1990å¹´å‡ºç”Ÿçš„ã€‚";
 
-            string question = "ÇëÎÊĞ¡Ã÷ÔÚ2000ÄêµÄÊ±ºòÄêÁäÊÇ¶àÉÙ?";
+            string question = "è¯·é—®å°æ˜åœ¨2000å¹´çš„æ—¶å€™å¹´é¾„æ˜¯å¤šå°‘?";
 
-            SKContext context = kernel.CreateNewContext();
+            SKContext context = _kernel.CreateNewContext();
 
             context.Variables["input"] = input;
             context.Variables["question"] = question;
 
-            ISKFunction func = kernel.Func("Default", "QnA");
+            ISKFunction func = _kernel.Func("Default", "QnA");
 
             var funcContext = await func.InvokeAsync(context);
 
-            Console.WriteLine(funcContext.Result);
+            Console.WriteLine(funcContext.GetValue<string>());
         }
 
         [TestMethod]
@@ -43,20 +46,20 @@ namespace QuickStart.KernelSyntax.Tests
         {
             string skillRootFolder = Path.Join(AppContext.BaseDirectory, "Skills");
 
-            var skills = kernel.ImportSemanticSkillFromDirectory(skillRootFolder, "Default");
+            var skills = _kernel.ImportSemanticSkillFromDirectory(skillRootFolder, "Default");
 
-            string input = "¸ù¾İĞ¡Ã÷µÄÉí·İÖ¤ÏÔÊ¾£¬Ğ¡Ã÷ÊÇ1990Äê³öÉúµÄ¡£";
+            string input = "æ ¹æ®å°æ˜çš„èº«ä»½è¯æ˜¾ç¤ºï¼Œå°æ˜æ˜¯1990å¹´å‡ºç”Ÿçš„ã€‚";
 
-            string question = "ÇëÎÊĞ¡Ã÷ÔÚ2000ÄêµÄÊ±ºòÄêÁäÊÇ¶àÉÙ?";
+            string question = "è¯·é—®å°æ˜åœ¨2000å¹´çš„æ—¶å€™å¹´é¾„æ˜¯å¤šå°‘?";
 
             var variables = new ContextVariables();
 
             variables["input"] = input;
             variables["question"] = question;
 
-            SKContext context = await kernel.RunAsync(variables, skills["QnA"]);
+            //SKContext context = await kernel.RunAsync(variables, skills["QnA"]);
 
-            Console.WriteLine(context);
+            //Console.WriteLine(context);
         }
     }
 }

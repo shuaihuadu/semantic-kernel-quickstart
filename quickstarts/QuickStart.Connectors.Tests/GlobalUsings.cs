@@ -1,7 +1,5 @@
-global using IdeaTech.QuickStart.Configurations;
-global using IdeaTech.QuickStart.Tests;
+global using IdeaTech.QuickStart;
 global using Microsoft.SemanticKernel;
-global using Microsoft.SemanticKernel.Connectors.Memory.Milvus;
 global using Microsoft.SemanticKernel.Connectors.Memory.Postgres;
 global using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;

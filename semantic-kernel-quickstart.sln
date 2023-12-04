@@ -7,15 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notebook", "notebook", "{A3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connectors", "connectors", "{7AA1CA58-F647-43C2-856E-63CD3AC33F78}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connectors.Memory.Milvus", "connectors\Connectors.Memory.Milvus\Connectors.Memory.Milvus.csproj", "{70464535-B3C6-4077-A177-548430AF8C0B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connectors.Memory.Milvus.Tests", "connectors\Connectors.Memory.Milvus.Tests\Connectors.Memory.Milvus.Tests.csproj", "{B65663B9-C43F-43EC-9352-5FD7B5316A36}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D80CB06D-FF2E-44B2-9E45-3CE67A804FE5}"
 	ProjectSection(SolutionItems) = preProject
 		Solution Items\.runsettings = Solution Items\.runsettings
-		Solution Items\appsettings.props = Solution Items\appsettings.props
 		Solution Items\appsettings.Production.json = Solution Items\appsettings.Production.json
+		Solution Items\appsettings.props = Solution Items\appsettings.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "quickstarts", "quickstarts", "{763CCA52-FC86-412F-8BCF-CE89115D6CE3}"
@@ -30,14 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{70464535-B3C6-4077-A177-548430AF8C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70464535-B3C6-4077-A177-548430AF8C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70464535-B3C6-4077-A177-548430AF8C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70464535-B3C6-4077-A177-548430AF8C0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B65663B9-C43F-43EC-9352-5FD7B5316A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B65663B9-C43F-43EC-9352-5FD7B5316A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B65663B9-C43F-43EC-9352-5FD7B5316A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B65663B9-C43F-43EC-9352-5FD7B5316A36}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34BD216A-856D-424C-8E0E-2E36F2F6EA01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{34BD216A-856D-424C-8E0E-2E36F2F6EA01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34BD216A-856D-424C-8E0E-2E36F2F6EA01}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,8 +39,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{70464535-B3C6-4077-A177-548430AF8C0B} = {7AA1CA58-F647-43C2-856E-63CD3AC33F78}
-		{B65663B9-C43F-43EC-9352-5FD7B5316A36} = {7AA1CA58-F647-43C2-856E-63CD3AC33F78}
 		{34BD216A-856D-424C-8E0E-2E36F2F6EA01} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{D5C80A1F-A411-4A72-A560-5478BD392DBC} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 	EndGlobalSection
