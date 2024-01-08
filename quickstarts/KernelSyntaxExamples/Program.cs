@@ -1,16 +1,22 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "";
+const string filter = "Example06_TemplateLanguage";
 
 LoadUserSecrets();
 
 using CancellationTokenSource cts = new();
 CancellationToken cancellationToken = cts.ConsoleCancellationToken();
+
 await RunExamplesAsync(filter, cancellationToken);
+
+Console.ReadKey();
 
 static async Task RunExamplesAsync(string? filter, CancellationToken cancellationToken)
 {
-    List<string> examples = (Assembly.GetExecutingAssembly().GetTypes()).Select(type => type.Name).ToList();
+    List<string> examples = (Assembly.GetExecutingAssembly().GetTypes())
+        .Select(type => string.IsNullOrEmpty(type.FullName) ? string.Empty : type.FullName)
+        .Where(type => !string.IsNullOrEmpty(type))
+        .ToList();
 
     foreach (var example in examples)
     {
@@ -51,7 +57,7 @@ static async Task RunExamplesAsync(string? filter, CancellationToken cancellatio
 static void LoadUserSecrets()
 {
     IConfigurationRoot configRoot = new ConfigurationBuilder()
-        .AddJsonFile("", true)
+        .AddJsonFile("appsettings.Development.json", true)
         .AddEnvironmentVariables()
         .AddUserSecrets<Env>()
         .Build();

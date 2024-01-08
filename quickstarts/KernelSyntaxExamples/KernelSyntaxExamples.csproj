@@ -18,4 +18,10 @@
     <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.0.1-alpha" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

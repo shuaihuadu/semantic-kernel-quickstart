@@ -11,3 +11,4 @@
 *.user
 /.idea
 appsettings.Production.json
+/quickstarts/KernelSyntaxExamples/appsettings.Development.json

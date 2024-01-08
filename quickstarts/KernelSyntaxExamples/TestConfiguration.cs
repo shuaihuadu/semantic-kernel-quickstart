@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
 public sealed class TestConfiguration
 {

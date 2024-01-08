@@ -1,6 +1,4 @@
-﻿using Microsoft.SemanticKernel.Plugins.Core;
-
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
 public static class Example01_MethodFunctions
 {
