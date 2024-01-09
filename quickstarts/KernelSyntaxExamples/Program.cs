@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example06_TemplateLanguage";
+const string filter = "Example07_BingAndGooglePlugins";
 
 LoadUserSecrets();
 
