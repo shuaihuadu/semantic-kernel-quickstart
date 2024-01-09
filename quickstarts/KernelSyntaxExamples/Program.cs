@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example07_BingAndGooglePlugins";
+const string filter = "Example14_SemanticMemory";
 
 LoadUserSecrets();
 
