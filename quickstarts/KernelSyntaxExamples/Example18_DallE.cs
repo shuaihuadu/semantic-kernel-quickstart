@@ -1,0 +1,77 @@
+﻿namespace KernelSyntaxExamples;
+
+public static class Example18_DallE
+{
+    public static async Task RunAsync()
+    {
+        await AzureOpenAIDallEAsync();
+    }
+
+    public static async Task AzureOpenAIDallEAsync()
+    {
+        Console.WriteLine("========Azure OpenAI Dall-E 3 Text To Image ========");
+
+        IKernelBuilder kernelBuilder = Kernel.CreateBuilder()
+            .AddAzureOpenAITextToImage(
+                deploymentName: TestConfiguration.AzureOpenAI.ImageDeploymentName,
+                endpoint: TestConfiguration.AzureOpenAI.ImageEndpoint,
+                apiKey: TestConfiguration.AzureOpenAI.ImageApiKey,
+                modelId: TestConfiguration.AzureOpenAI.ImageModelId,
+                apiVersion: "2023-12-01-preview")
+            .AddAzureOpenAIChatCompletion(
+                deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
+                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
+                apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+
+        //kernelBuilder.Services.ConfigureHttpClientDefaults(configure1 =>
+        //{
+        //    configure1.AddStandardResilienceHandler().Configure(configure2 =>
+        //    {
+        //        configure2.Retry.MaxRetryAttempts = 5;
+        //    });
+        //});
+
+        Kernel kernel = kernelBuilder.Build();
+
+        ITextToImageService dallE = kernel.GetRequiredService<ITextToImageService>();
+
+        string imageDescription = "A cute baby sea otter";
+
+        string image = await dallE.GenerateImageAsync(imageDescription, 1024, 1024);
+
+        Console.WriteLine(imageDescription);
+        Console.WriteLine("Image URL: " + image);
+
+        Console.WriteLine("======== Chat with images ========");
+
+        IChatCompletionService completionService = kernel.GetRequiredService<IChatCompletionService>();
+
+        ChatHistory chatHistory = new(
+            "You're chatting with a user. Instead of replying directly to the user" +
+            " provide the description of an image that expresses what you want to say." +
+            " The user won't see your message, they will see only the image. The system " +
+            " generates an image using your description, so it's important you describe the image with details.");
+
+        string message = "Hi, I'm from Tokyo, where are you from?";
+        chatHistory.AddUserMessage(message);
+        Console.WriteLine("User: " + message);
+
+        ChatMessageContent reply = await completionService.GetChatMessageContentAsync(chatHistory);
+        chatHistory.Add(reply);
+
+        image = await dallE.GenerateImageAsync(reply.Content!, 1024, 1024);
+        Console.WriteLine("Bot: " + image);
+        Console.WriteLine("Img description: " + reply);
+
+        message = "Oh, wow. Not sure where that is, could you provide more details?";
+        chatHistory.AddUserMessage(message);
+        Console.WriteLine("User: " + message);
+
+        reply = await completionService.GetChatMessageContentAsync(chatHistory);
+        chatHistory.Add(reply);
+
+        image = await dallE.GenerateImageAsync(reply.Content!, 1024, 1024);
+        Console.WriteLine("Bot: " + image);
+        Console.WriteLine("Img description: " + reply);
+    }
+}

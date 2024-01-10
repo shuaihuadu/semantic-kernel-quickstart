@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example17_ChatGPT";
+const string filter = "Example18_DallE";
 
 LoadUserSecrets();
 

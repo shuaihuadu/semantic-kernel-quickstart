@@ -26,6 +26,7 @@ global using Microsoft.SemanticKernel.Plugins.Core;
 global using Microsoft.SemanticKernel.Plugins.Web;
 global using Microsoft.SemanticKernel.Plugins.Web.Bing;
 global using Microsoft.SemanticKernel.TextGeneration;
+global using Microsoft.SemanticKernel.TextToImage;
 global using Npgsql;
 global using StackExchange.Redis;
 global using System.ComponentModel;
