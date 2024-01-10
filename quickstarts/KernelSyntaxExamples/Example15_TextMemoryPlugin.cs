@@ -6,10 +6,33 @@ public static class Example15_TextMemoryPlugin
 
     public static async Task RunAsync(CancellationToken cancellationToken = default)
     {
+        //The bellow memorystore can be run on my PC:
+
         IMemoryStore store;
 
-        store = new VolatileMemoryStore();
+        // Volatile Memory Store - an in-memory store that is not persisted
+        // store = new VolatileMemoryStore();
 
+        // Sqlite Memory Store - a file-based store that persists data in a Sqlite database
+        // store = await CreateSampleSqliteMemoryStoreAsync();
+
+        // Milvus Memory Store
+        // store = CreateSampleMilvusMemoryStore();
+
+        // Qdrant Memory Store - a store that persists data in a local or remote Qdrant database
+        // store = CreateSampleQdrantMemoryStore();
+
+        // Postgres Memory Store
+        // store = CreateSamplePostgresMemoryStore();
+
+        // DuckDB Memory Store - a file-based store that persists data in a DuckDB database
+        //store = await CreateSampleDuckDbMemoryStoreAsync();
+
+        // Chroma Memory Store
+        //store = CreateSampleChromaMemoryStore();
+
+        // Weaviate Memory Store
+        store = CreateSampleWeaviateMemoryStore();
         await RunWithStoreAsync(store, cancellationToken);
     }
 
