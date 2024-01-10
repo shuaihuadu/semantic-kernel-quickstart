@@ -15,9 +15,7 @@ public static class Example13_ConversationSummaryPlugin
 
         Kernel kernel = InitializeKernel();
 
-#pragma warning disable SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         KernelPlugin conversationSummaryPlugin = kernel.ImportPluginFromType<ConversationSummaryPlugin>();
-#pragma warning restore SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
         FunctionResult summary = await kernel.InvokeAsync(conversationSummaryPlugin["SummarizeConversation"], new() { ["input"] = ChatTranscript });
 
@@ -31,9 +29,7 @@ public static class Example13_ConversationSummaryPlugin
 
         Kernel kernel = InitializeKernel();
 
-#pragma warning disable SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         KernelPlugin conversationSummaryPlugin = kernel.ImportPluginFromType<ConversationSummaryPlugin>();
-#pragma warning restore SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
         FunctionResult summary = await kernel.InvokeAsync(conversationSummaryPlugin["GetConversationActionItems"], new() { ["input"] = ChatTranscript });
 
@@ -47,9 +43,7 @@ public static class Example13_ConversationSummaryPlugin
 
         Kernel kernel = InitializeKernel();
 
-#pragma warning disable SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         KernelPlugin conversationSummaryPlugin = kernel.ImportPluginFromType<ConversationSummaryPlugin>();
-#pragma warning restore SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
         FunctionResult summary = await kernel.InvokeAsync(conversationSummaryPlugin["GetConversationTopics"], new() { ["input"] = ChatTranscript });
 

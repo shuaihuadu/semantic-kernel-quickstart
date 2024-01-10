@@ -21,9 +21,7 @@ public static class Example06_TemplateLanguage
             .AddAzureOpenAIChatCompletion(deploymentName, endpoint, apiKey)
             .Build();
 
-#pragma warning disable SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         kernel.ImportPluginFromType<TimePlugin>("time");
-#pragma warning restore SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
         const string FunctionDefinition = @"
 Today is: {{time.Date}}

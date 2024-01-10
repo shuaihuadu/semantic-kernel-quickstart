@@ -2,7 +2,6 @@
 
 public static class Example14_SemanticMemory
 {
-#pragma warning disable SKEXP0003 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     private const string MemoryCollectionName = "SKGitHub";
 
     public static async Task RunAsync()
@@ -11,16 +10,23 @@ public static class Example14_SemanticMemory
         Console.WriteLine("======== Semantic Memory using Azure AI Search ========");
         Console.WriteLine("==============================================================");
 
-#pragma warning disable SKEXP0021 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-#pragma warning disable SKEXP0011 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         ISemanticTextMemory memoryWithACS = new MemoryBuilder()
             .WithAzureOpenAITextEmbeddingGeneration(TestConfiguration.AzureOpenAIEmbeddings.DeploymentName, TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ApiKey)
             .WithMemoryStore(new AzureAISearchMemoryStore(TestConfiguration.AzureAISearch.Endpoint, TestConfiguration.AzureAISearch.ApiKey))
             .Build();
-#pragma warning restore SKEXP0011 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-#pragma warning restore SKEXP0021 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
         await RunExampleAsync(memoryWithACS);
+
+        Console.WriteLine("====================================================");
+        Console.WriteLine("======== Semantic Memory (volatile, in RAM) ========");
+        Console.WriteLine("====================================================");
+
+        ISemanticTextMemory memoryWithVolatile = new MemoryBuilder()
+            .WithAzureOpenAITextEmbeddingGeneration(TestConfiguration.AzureOpenAIEmbeddings.DeploymentName, TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ApiKey)
+            .WithMemoryStore(new VolatileMemoryStore())
+            .Build();
+
+        await RunExampleAsync(memoryWithVolatile);
     }
 
     public static async Task RunExampleAsync(ISemanticTextMemory memory)
@@ -72,8 +78,6 @@ public static class Example14_SemanticMemory
 
         Console.WriteLine("\n----------------------");
     }
-
-#pragma warning restore SKEXP0003 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
     private static Dictionary<string, string> SampleData()
     {

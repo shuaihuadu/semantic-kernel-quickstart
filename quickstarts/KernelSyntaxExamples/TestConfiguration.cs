@@ -33,8 +33,9 @@ public sealed class TestConfiguration
     public static RedisConfig Redis => LoadSection<RedisConfig>();
     public static JiraConfig Jira => LoadSection<JiraConfig>();
     public static ChromaConfig Chroma => LoadSection<ChromaConfig>();
-    public static KustoConfig Kust => LoadSection<KustoConfig>();
+    public static KustoConfig Kusto => LoadSection<KustoConfig>();
     public static MongoDBConfig Mongo => LoadSection<MongoDBConfig>();
+    public static MilvusConfig Milvus => LoadSection<MilvusConfig>();
 
     private static T LoadSection<T>([CallerMemberName] string? caller = null)
     {
@@ -168,6 +169,13 @@ public sealed class TestConfiguration
     public class MongoDBConfig
     {
         public string ConnectionString { get; set; }
+    }
+
+    public class MilvusConfig
+    {
+        public string Host { get; set; }
+
+        public int Port { get; set; }
     }
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor.

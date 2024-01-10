@@ -27,10 +27,8 @@ public static class Example07_BingAndGooglePlugins
         }
         else
         {
-#pragma warning disable SKEXP0054 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
             BingConnector bingConnector = new(bingApiKey);
             WebSearchEnginePlugin webSearchEngine = new(bingConnector);
-#pragma warning restore SKEXP0054 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
             kernel.ImportPluginFromObject(webSearchEngine, "bing");
 

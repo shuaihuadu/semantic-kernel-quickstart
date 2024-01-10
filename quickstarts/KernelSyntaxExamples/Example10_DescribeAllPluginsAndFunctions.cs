@@ -13,9 +13,7 @@ public static class Example10_DescribeAllPluginsAndFunctions
 
         kernel.ImportPluginFromType<StaticTextPlugin>();
 
-#pragma warning disable SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         kernel.ImportPluginFromType<TextPlugin>();
-#pragma warning restore SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
         string folder = RepoFiles.SamplePluginsPath();
         kernel.ImportPluginFromPromptDirectory(Path.Combine(folder, "SummarizePlugin"));
