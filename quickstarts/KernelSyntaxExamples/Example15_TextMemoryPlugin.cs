@@ -11,7 +11,7 @@ public static class Example15_TextMemoryPlugin
         IMemoryStore store;
 
         // Volatile Memory Store - an in-memory store that is not persisted
-        // store = new VolatileMemoryStore();
+        store = new VolatileMemoryStore();
 
         // Sqlite Memory Store - a file-based store that persists data in a Sqlite database
         // store = await CreateSampleSqliteMemoryStoreAsync();
@@ -31,8 +31,6 @@ public static class Example15_TextMemoryPlugin
         // Chroma Memory Store
         //store = CreateSampleChromaMemoryStore();
 
-        // Weaviate Memory Store
-        store = CreateSampleWeaviateMemoryStore();
         await RunWithStoreAsync(store, cancellationToken);
     }
 
