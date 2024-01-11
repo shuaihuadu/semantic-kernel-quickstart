@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example22_OpenAIPlugin_AzureKeyVault";
+const string filter = "Example25_ReadOnlyMemoryStore";
 
 LoadUserSecrets();
 
