@@ -107,6 +107,7 @@ public sealed class TestConfiguration
     public class KeyVaultConfig
     {
         public string Endpoint { get; set; }
+        public string TenantId { get; set; }
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
     }
