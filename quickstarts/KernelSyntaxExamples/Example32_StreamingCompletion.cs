@@ -4,6 +4,8 @@ public static class Example32_StreamingCompletion
 {
     public static async Task RunAsync()
     {
+        //text-davinci-003 已弃用
+
         //await AzureOpenAITextGenerationStreamAsync();
 
         await OpenAITextGenerationStreamAsync();

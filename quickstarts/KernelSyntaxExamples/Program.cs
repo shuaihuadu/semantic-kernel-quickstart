@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example32_StreamingCompletion";
+const string filter = "Example36_MultiCompletion";
 
 LoadUserSecrets();
 
