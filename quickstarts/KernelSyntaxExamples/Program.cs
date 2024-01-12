@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example30_ChatWithPrompts";
+const string filter = "Example32_StreamingCompletion";
 
 LoadUserSecrets();
 

@@ -22,7 +22,7 @@ public static class Example30_ChatWithPrompts
         KernelArguments arguments = new()
         {
             ["selectedText"] = selectedText,
-            ["startTime"] = DateTimeOffset.Now.ToString("hh:mm:ss tt zz", CultureInfo.CurrentCulture),
+            ["startTime"] = DateTimeOffset.UtcNow.ToString("hh:mm:ss tt zz", CultureInfo.CurrentCulture),
             ["userMessage"] = "extract locations as a bullet point list"
         };
 
