@@ -11,11 +11,17 @@
 	<ItemGroup>
 	  <None Remove="Resources\22-ai-plugin.json" />
 	  <None Remove="Resources\22-openapi.json" />
+	  <None Remove="Resources\30-system-prompt.txt" />
+	  <None Remove="Resources\30-user-context.txt" />
+	  <None Remove="Resources\30-user-prompt.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\22-ai-plugin.json" />
 	  <EmbeddedResource Include="Resources\22-openapi.json" />
+	  <EmbeddedResource Include="Resources\30-system-prompt.txt" />
+	  <EmbeddedResource Include="Resources\30-user-context.txt" />
+	  <EmbeddedResource Include="Resources\30-user-prompt.txt" />
 	</ItemGroup>
 
 	<ItemGroup>

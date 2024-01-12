@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example25_ReadOnlyMemoryStore";
+const string filter = "Example30_ChatWithPrompts";
 
 LoadUserSecrets();
 

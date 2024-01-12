@@ -1,4 +1,5 @@
-﻿global using KernelSyntaxExamples.Plugins;
+﻿global using Azure.Identity;
+global using KernelSyntaxExamples.Plugins;
 global using KernelSyntaxExamples.Reliability;
 global using KernelSyntaxExamples.RepoUtils;
 global using KernelSyntaxExamples.Resources;

@@ -45,7 +45,6 @@ public static class Example25_ReadOnlyMemoryStore
             }
         }
 
-
         public Task CreateCollectionAsync(string collectionName, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
