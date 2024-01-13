@@ -24,6 +24,7 @@ global using Microsoft.SemanticKernel.Connectors.Redis;
 global using Microsoft.SemanticKernel.Connectors.Sqlite;
 global using Microsoft.SemanticKernel.Connectors.Weaviate;
 global using Microsoft.SemanticKernel.Memory;
+global using Microsoft.SemanticKernel.Planning.Handlebars;
 global using Microsoft.SemanticKernel.Plugins.Core;
 global using Microsoft.SemanticKernel.Plugins.Grpc;
 global using Microsoft.SemanticKernel.Plugins.OpenApi;

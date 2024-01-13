@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example43_GetModelResult";
+const string filter = "Example48_GroundednessChecks";
 
 LoadUserSecrets();
 

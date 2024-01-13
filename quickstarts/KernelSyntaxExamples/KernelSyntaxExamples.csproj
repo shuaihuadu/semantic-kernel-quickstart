@@ -49,6 +49,7 @@
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Redis" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Sqlite" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Weaviate" Version="1.0.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.0.1-preview" />
 		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Grpc" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.0.1-alpha" />
