@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example36_MultiCompletion";
+const string filter = "Example43_GetModelResult";
 
 LoadUserSecrets();
 
