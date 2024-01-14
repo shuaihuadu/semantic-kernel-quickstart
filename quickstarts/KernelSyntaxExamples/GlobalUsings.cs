@@ -1,4 +1,7 @@
-﻿global using Azure.Identity;
+﻿global using Azure.AI.OpenAI;
+global using Azure.Core;
+global using Azure.Core.Pipeline;
+global using Azure.Identity;
 global using KernelSyntaxExamples.Plugins;
 global using KernelSyntaxExamples.Reliability;
 global using KernelSyntaxExamples.RepoUtils;

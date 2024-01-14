@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example48_GroundednessChecks";
+const string filter = "Example54_AzureChatCompletionWithData";
 
 LoadUserSecrets();
 
