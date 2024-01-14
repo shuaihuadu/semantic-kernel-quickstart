@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example56_TemplateMethodFunctionsWithMultipleArguments";
+const string filter = "Example57_KernelHooks";
 
 LoadUserSecrets();
 
