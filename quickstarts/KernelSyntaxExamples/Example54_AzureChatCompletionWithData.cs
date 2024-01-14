@@ -2,7 +2,7 @@
 
 public static class Example54_AzureChatCompletionWithData
 {
-
+    // https://learn.microsoft.com/en-us/azure/ai-services/openai/use-your-data-quickstart
     public static async Task RunAsync()
     {
         await ExampleWithChatCompletionAsync();
@@ -38,7 +38,7 @@ public static class Example54_AzureChatCompletionWithData
         chatHistory.AddAssistantMessage(response);
 
         //ask = "What are Emily and David studying?";
-        ask = "How much?";
+        ask = "Where is the Triple Landscape Hotel?";
 
         Console.WriteLine($"Ask: {ask}");
         Console.WriteLine("Response: ");
@@ -73,7 +73,7 @@ public static class Example54_AzureChatCompletionWithData
         Console.WriteLine();
 
         //ask = "What are Emily and David studying?";
-        ask = "How much?";
+        ask = "Where is the Triple Landscape Hotel?";
         result = await kernel.InvokeAsync(function, new() { ["input"] = ask });
 
         Console.WriteLine($"Ask: {ask}");

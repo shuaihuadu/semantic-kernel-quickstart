@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example54_AzureChatCompletionWithData";
+const string filter = "Example56_TemplateMethodFunctionsWithMultipleArguments";
 
 LoadUserSecrets();
 
