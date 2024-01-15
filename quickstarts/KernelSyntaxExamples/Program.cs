@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example57_KernelHooks";
+const string filter = "Example66_FunctionCallingStepwisePlanner";
 
 LoadUserSecrets();
 

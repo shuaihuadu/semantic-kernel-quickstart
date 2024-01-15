@@ -51,6 +51,7 @@
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Kusto" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Milvus" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.MongoDB" Version="1.0.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.0.1" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Pinecone" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Postgres" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.0.1-alpha" />
@@ -58,6 +59,7 @@
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Sqlite" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Weaviate" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.0.1-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Planners.OpenAI" Version="1.0.1-preview" />
 		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Grpc" Version="1.0.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.0.1-alpha" />
