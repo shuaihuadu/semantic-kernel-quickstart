@@ -29,6 +29,7 @@ global using Microsoft.SemanticKernel.Connectors.Qdrant;
 global using Microsoft.SemanticKernel.Connectors.Redis;
 global using Microsoft.SemanticKernel.Connectors.Sqlite;
 global using Microsoft.SemanticKernel.Connectors.Weaviate;
+global using Microsoft.SemanticKernel.Experimental.Orchestration;
 global using Microsoft.SemanticKernel.Memory;
 global using Microsoft.SemanticKernel.Planning;
 global using Microsoft.SemanticKernel.Planning.Handlebars;

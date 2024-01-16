@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example69_MutableKernelPlugin";
+const string filter = "Example74_FlowOrchestrator";
 
 LoadUserSecrets();
 
