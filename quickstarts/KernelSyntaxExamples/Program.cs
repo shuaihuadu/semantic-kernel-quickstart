@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example68_GPTVision";
+const string filter = "Example69_MutableKernelPlugin";
 
 LoadUserSecrets();
 
