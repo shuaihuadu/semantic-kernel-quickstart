@@ -34,7 +34,8 @@ public static class Example66_FunctionCallingStepwisePlanner
             .AddAzureOpenAIChatCompletion(
                 deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
                 endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
+                apiKey: TestConfiguration.AzureOpenAI.ApiKey,
+                modelId: TestConfiguration.AzureOpenAI.ChatModelId)
             .Build();
 
         kernel.ImportPluginFromType<EmailPlugin>();

@@ -1,6 +1,6 @@
 ﻿using KernelSyntaxExamples;
 
-const string filter = "Example74_FlowOrchestrator";
+const string filter = "Example66_FunctionCallingStepwisePlanner";
 
 LoadUserSecrets();
 

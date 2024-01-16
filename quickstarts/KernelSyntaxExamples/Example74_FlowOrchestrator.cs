@@ -4,17 +4,18 @@ public static class Example74_FlowOrchestrator
 {
     public static Task RunAsync()
     {
-        //TODO This file build action is "Content"
         Console.WriteLine("Loading {0}", typeof(SimpleCalculatorPlugin).AssemblyQualifiedName);
 
-        return RunExampleAsync();
+        //return RunExampleAsync();
+
+        return RunInteractiveAsync();
     }
 
     private static async Task RunInteractiveAsync()
     {
         BingConnector bingConnector = new(TestConfiguration.Bing.ApiKey);
 
-        WebSearchEnginePlugin webSearchEnginePlugin = new WebSearchEnginePlugin(bingConnector);
+        WebSearchEnginePlugin webSearchEnginePlugin = new(bingConnector);
 
         using ILoggerFactory loggerFactory = LoggerFactory.Create(loggerBuilder => loggerBuilder.AddConsole().AddFilter(null, LogLevel.Error));
 
@@ -83,7 +84,7 @@ public static class Example74_FlowOrchestrator
                 Console.WriteLine("Assistant: " + response);
             }
 
-            if (result.IsComplete(s_flow))
+            if (result.IsComplete(flow))
             {
                 Console.WriteLine("\tEmail Address: " + result.Metadata!["email_addresses"]);
                 Console.WriteLine("\tEmail Payload: " + result.Metadata!["email"]);
@@ -101,7 +102,7 @@ public static class Example74_FlowOrchestrator
     {
         BingConnector bingConnector = new BingConnector(TestConfiguration.Bing.ApiKey);
 
-        WebSearchEnginePlugin webSearchEnginePlugin = new WebSearchEnginePlugin(bingConnector);
+        WebSearchEnginePlugin webSearchEnginePlugin = new(bingConnector);
 
         using ILoggerFactory loggerFactory = LoggerFactory.Create(loggerBuilder => loggerBuilder.AddConsole().AddFilter(null, LogLevel.Error));
 
@@ -244,7 +245,7 @@ Do not expose the regex in your response.
                 return "Thanks for providing the info, the following email would be used in subsequent steps: " + email_addresses;
             }
 
-            arguments["email_addresses"] = string.Equals;
+            arguments["email_addresses"] = string.Empty;
             arguments.PromptInput();
 
             ChatMessageContent response = await this.chatCompletionService.GetChatMessageContentAsync(chat).ConfigureAwait(false);
