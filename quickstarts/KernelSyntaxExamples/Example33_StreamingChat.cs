@@ -1,15 +1,16 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example33_StreamingChat
+public class Example33_StreamingChat : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         await AzureOpenAIChatStreamSampleAsync();
     }
 
-    private static async Task AzureOpenAIChatStreamSampleAsync()
+    private async Task AzureOpenAIChatStreamSampleAsync()
     {
-        Console.WriteLine("======== Azure Open AI - ChatGPT Streaming ========");
+        this.WriteLine("======== Azure Open AI - ChatGPT Streaming ========");
 
         AzureOpenAIChatCompletionService chatCompletionService = new(
             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
@@ -20,10 +21,10 @@ public static class Example33_StreamingChat
         await StartStreamingChatAsync(chatCompletionService);
     }
 
-    private static async Task StartStreamingChatAsync(AzureOpenAIChatCompletionService chatCompletionService)
+    private async Task StartStreamingChatAsync(AzureOpenAIChatCompletionService chatCompletionService)
     {
-        Console.WriteLine("Chat content:");
-        Console.WriteLine("------------------------");
+        this.WriteLine("Chat content:");
+        this.WriteLine("------------------------");
 
         ChatHistory chatHistory = new("You are a librarian, expert about books");
         await MessageOutputAsync(chatHistory);
@@ -39,7 +40,7 @@ public static class Example33_StreamingChat
         await StreamMessageOutputAsync(chatCompletionService, chatHistory, AuthorRole.Assistant);
     }
 
-    private static async Task StreamMessageOutputAsync(IChatCompletionService chatCompletionService, ChatHistory chatHistory, AuthorRole authorRole)
+    private async Task StreamMessageOutputAsync(IChatCompletionService chatCompletionService, ChatHistory chatHistory, AuthorRole authorRole)
     {
         bool roleWritten = false;
 
@@ -49,7 +50,7 @@ public static class Example33_StreamingChat
         {
             if (!roleWritten && chatUpdate.Role.HasValue)
             {
-                Console.Write($"{chatUpdate.Role.Value}: {chatUpdate.Content}");
+                this.Write($"{chatUpdate.Role.Value}: {chatUpdate.Content}");
 
                 roleWritten = true;
             }
@@ -58,22 +59,26 @@ public static class Example33_StreamingChat
             {
                 fullMessage += chatUpdate.Content;
 
-                Console.Write(chatUpdate.Content);
+                this.Write(chatUpdate.Content);
             }
         }
 
-        Console.WriteLine("\n------------------------");
+        this.WriteLine("\n------------------------");
 
         chatHistory.AddMessage(authorRole, fullMessage);
     }
 
-    private static Task MessageOutputAsync(ChatHistory chatHistory)
+    private Task MessageOutputAsync(ChatHistory chatHistory)
     {
         ChatMessageContent message = chatHistory.Last();
 
-        Console.WriteLine($"{message.Role}: {message.Content}");
-        Console.WriteLine("------------------------");
+        this.WriteLine($"{message.Role}: {message.Content}");
+        this.WriteLine("------------------------");
 
         return Task.CompletedTask;
+    }
+
+    public Example33_StreamingChat(ITestOutputHelper output) : base(output)
+    {
     }
 }

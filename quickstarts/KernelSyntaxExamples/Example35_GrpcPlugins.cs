@@ -1,8 +1,9 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example35_GrpcPlugins
+public class Example35_GrpcPlugins : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact(Skip = "Setup crendentials")]
+    public async Task RunAsync()
     {
         Kernel kernel = new();
 
@@ -15,5 +16,9 @@ public static class Example35_GrpcPlugins
         FunctionResult result = await kernel.InvokeAsync(plugin["<operation-name>"], arguments);
 
         Console.WriteLine("Plugin response: {0}", result.GetValue<string>());
+    }
+
+    public Example35_GrpcPlugins(ITestOutputHelper output) : base(output)
+    {
     }
 }

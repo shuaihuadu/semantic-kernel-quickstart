@@ -1,10 +1,13 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example30_ChatWithPrompts
+public class Example30_ChatWithPrompts : BaseTest
 {
-    public static async Task RunAsync()
+
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== Chat with prompts ========");
+        this.WriteLine("======== Chat with prompts ========");
 
         string systemPromptTemplate = EmbeddedResource.Read("30-system-prompt.txt");
         string selectedText = EmbeddedResource.Read("30-user-context.txt");
@@ -29,10 +32,10 @@ public static class Example30_ChatWithPrompts
         KernelPromptTemplateFactory kernelPromptTemplateFactory = new();
 
         string systemMessage = await kernelPromptTemplateFactory.Create(new PromptTemplateConfig(systemPromptTemplate)).RenderAsync(kernel, arguments);
-        Console.WriteLine($"------------------------------------\n{systemMessage}");
+        this.WriteLine($"------------------------------------\n{systemMessage}");
 
         string userMessage = await kernelPromptTemplateFactory.Create(new PromptTemplateConfig(userPromptTemplate)).RenderAsync(kernel, arguments);
-        Console.WriteLine($"------------------------------------\n{userMessage}");
+        this.WriteLine($"------------------------------------\n{userMessage}");
 
         IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
@@ -42,6 +45,10 @@ public static class Example30_ChatWithPrompts
 
         ChatMessageContent answer = await chatCompletionService.GetChatMessageContentAsync(chatHistory);
 
-        Console.WriteLine($"------------------------------------\n{answer}");
+        this.WriteLine($"------------------------------------\n{answer}");
+    }
+
+    public Example30_ChatWithPrompts(ITestOutputHelper output) : base(output)
+    {
     }
 }

@@ -1,8 +1,9 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example40_DIContainer
+public class Example40_DIContainer : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         IServiceCollection services = new ServiceCollection();
 
@@ -40,5 +41,9 @@ public static class Example40_DIContainer
 
             this._logger.LogWarning("Result - {value}", result.GetValue<string>());
         }
+    }
+
+    public Example40_DIContainer(ITestOutputHelper output) : base(output)
+    {
     }
 }

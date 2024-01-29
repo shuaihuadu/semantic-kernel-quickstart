@@ -1,19 +1,20 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example32_StreamingCompletion
+public class Example32_StreamingCompletion : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         //text-davinci-003 已弃用
 
-        //await AzureOpenAITextGenerationStreamAsync();
+        await AzureOpenAITextGenerationStreamAsync();
 
-        await OpenAITextGenerationStreamAsync();
+        //await OpenAITextGenerationStreamAsync();
     }
 
-    private static async Task AzureOpenAITextGenerationStreamAsync()
+    public async Task AzureOpenAITextGenerationStreamAsync()
     {
-        Console.WriteLine("======== Azure OpenAI - Text Completion - Raw Streaming ========");
+        this.WriteLine("======== Azure OpenAI - Text Completion - Raw Streaming ========");
 
         IChatCompletionService chatCompletionService = new AzureOpenAIChatCompletionService(
             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
@@ -24,16 +25,16 @@ public static class Example32_StreamingCompletion
         await TextGenerationStreamAsync(chatCompletionService);
     }
 
-    private static async Task OpenAITextGenerationStreamAsync()
+    public async Task OpenAITextGenerationStreamAsync()
     {
-        Console.WriteLine("======== Open AI - Text Completion - Raw Streaming ========");
+        this.WriteLine("======== Open AI - Text Completion - Raw Streaming ========");
 
         IChatCompletionService chatCompletionService = new OpenAIChatCompletionService("gpt-4", TestConfiguration.OpenAI.ApiKey);
 
         await TextGenerationStreamAsync(chatCompletionService);
     }
 
-    private static async Task TextGenerationStreamAsync(IChatCompletionService chatCompletionService)
+    private async Task TextGenerationStreamAsync(IChatCompletionService chatCompletionService)
     {
         OpenAIPromptExecutionSettings executionSettings = new()
         {
@@ -46,13 +47,17 @@ public static class Example32_StreamingCompletion
 
         string prompt = "Write one paragraph why AI is awesome";
 
-        Console.WriteLine($"Prompt: {prompt}");
+        this.WriteLine($"Prompt: {prompt}");
 
         await foreach (var content in chatCompletionService.GetStreamingChatMessageContentsAsync(prompt, executionSettings))
         {
-            Console.Write(content);
+            this.Write(content);
         }
 
-        Console.WriteLine();
+        this.WriteLine();
+    }
+
+    public Example32_StreamingCompletion(ITestOutputHelper output) : base(output)
+    {
     }
 }
