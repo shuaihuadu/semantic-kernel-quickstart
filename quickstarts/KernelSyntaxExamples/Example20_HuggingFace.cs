@@ -1,17 +1,18 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example20_HuggingFace
+public class Example20_HuggingFace : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         //TODO Hugging Face 
         await RunInferenceApiExampleAsync();
         await RunLlamaExampleAsync();
     }
 
-    private static async Task RunInferenceApiExampleAsync()
+    private async Task RunInferenceApiExampleAsync()
     {
-        Console.WriteLine("\n======== HuggingFace Inference API example ========\n");
+        this.WriteLine("\n======== HuggingFace Inference API example ========\n");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddHuggingFaceTextGeneration(
@@ -23,12 +24,12 @@ public static class Example20_HuggingFace
 
         FunctionResult result = await kernel.InvokeAsync(questionAnswerFunction, new() { ["input"] = "What is New York?" });
 
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
     }
 
-    private static async Task RunLlamaExampleAsync()
+    private async Task RunLlamaExampleAsync()
     {
-        Console.WriteLine("\n======== HuggingFace Llama 2 example ========\n");
+        this.WriteLine("\n======== HuggingFace Llama 2 example ========\n");
 
         const string Model = "meta-llama/Llama-2-7b-hf";
 
@@ -45,6 +46,10 @@ public static class Example20_HuggingFace
 
         FunctionResult result = await kernel.InvokeAsync(questionAnswerFunction, new() { ["input"] = "What is New York?" });
 
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
+    }
+
+    public Example20_HuggingFace(ITestOutputHelper output) : base(output)
+    {
     }
 }

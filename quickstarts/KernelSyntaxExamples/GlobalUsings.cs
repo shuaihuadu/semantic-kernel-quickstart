@@ -63,6 +63,7 @@ global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using System.Text.RegularExpressions;
+global using xRetry;
 global using Xunit;
 global using Xunit.Abstractions;
 global using static Microsoft.SemanticKernel.Text.TextChunker;

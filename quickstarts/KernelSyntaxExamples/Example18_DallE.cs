@@ -1,15 +1,17 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example18_DallE
+public class Example18_DallE : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         await AzureOpenAIDallEAsync();
     }
 
-    public static async Task AzureOpenAIDallEAsync()
+    [Fact(Skip = "Generating the Image can take too long and often break the test")]
+    public async Task AzureOpenAIDallEAsync()
     {
-        Console.WriteLine("========Azure OpenAI Dall-E 3 Text To Image ========");
+        this.WriteLine("========Azure OpenAI Dall-E 3 Text To Image ========");
 
         IKernelBuilder kernelBuilder = Kernel.CreateBuilder()
             .AddAzureOpenAITextToImage(
@@ -39,10 +41,10 @@ public static class Example18_DallE
 
         string image = await dallE.GenerateImageAsync(imageDescription, 1024, 1024);
 
-        Console.WriteLine(imageDescription);
-        Console.WriteLine("Image URL: " + image);
+        this.WriteLine(imageDescription);
+        this.WriteLine("Image URL: " + image);
 
-        Console.WriteLine("======== Chat with images ========");
+        this.WriteLine("======== Chat with images ========");
 
         IChatCompletionService completionService = kernel.GetRequiredService<IChatCompletionService>();
 
@@ -54,24 +56,28 @@ public static class Example18_DallE
 
         string message = "Hi, I'm from Tokyo, where are you from?";
         chatHistory.AddUserMessage(message);
-        Console.WriteLine("User: " + message);
+        this.WriteLine("User: " + message);
 
         ChatMessageContent reply = await completionService.GetChatMessageContentAsync(chatHistory);
         chatHistory.Add(reply);
 
         image = await dallE.GenerateImageAsync(reply.Content!, 1024, 1024);
-        Console.WriteLine("Bot: " + image);
-        Console.WriteLine("Img description: " + reply);
+        this.WriteLine("Bot: " + image);
+        this.WriteLine("Img description: " + reply);
 
         message = "Oh, wow. Not sure where that is, could you provide more details?";
         chatHistory.AddUserMessage(message);
-        Console.WriteLine("User: " + message);
+        this.WriteLine("User: " + message);
 
         reply = await completionService.GetChatMessageContentAsync(chatHistory);
         chatHistory.Add(reply);
 
         image = await dallE.GenerateImageAsync(reply.Content!, 1024, 1024);
-        Console.WriteLine("Bot: " + image);
-        Console.WriteLine("Img description: " + reply);
+        this.WriteLine("Bot: " + image);
+        this.WriteLine("Img description: " + reply);
+    }
+
+    public Example18_DallE(ITestOutputHelper output) : base(output)
+    {
     }
 }

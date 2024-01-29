@@ -1,17 +1,24 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example15_TextMemoryPlugin
+public class Example15_TextMemoryPlugin : BaseTest
 {
     private const string MemoryCollectionName = "aboutMe";
 
-    public static async Task RunAsync(CancellationToken cancellationToken = default)
+    [Theory]
+    [InlineData("Volatile")]
+    [InlineData("AzureAISearch")]
+    public async Task RunAsync(string provider)
     {
         //The bellow memorystore can be run on my PC:
 
         IMemoryStore store;
 
         // Volatile Memory Store - an in-memory store that is not persisted
-        store = new VolatileMemoryStore();
+        switch (provider)
+        {
+            case "AzureAISearch": store = CreateSampleAzureAISearchMemoryStore(); break;
+            default: store = new VolatileMemoryStore(); break;
+        }
 
         // Sqlite Memory Store - a file-based store that persists data in a Sqlite database
         // store = await CreateSampleSqliteMemoryStoreAsync();
@@ -31,10 +38,10 @@ public static class Example15_TextMemoryPlugin
         // Chroma Memory Store
         //store = CreateSampleChromaMemoryStore();
 
-        await RunWithStoreAsync(store, cancellationToken);
+        await RunWithStoreAsync(store);
     }
 
-    private static async Task RunWithStoreAsync(IMemoryStore memoryStore, CancellationToken cancellationToken)
+    private async Task RunWithStoreAsync(IMemoryStore memoryStore)
     {
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -54,38 +61,38 @@ public static class Example15_TextMemoryPlugin
 
         SemanticTextMemory semanticTextMemory = new(memoryStore, embeddingGenerationService);
 
-        Console.WriteLine("== PART 1a: Saving Memories through the ISemanticTextMemory object ==");
+        this.WriteLine("== PART 1a: Saving Memories through the ISemanticTextMemory object ==");
 
-        Console.WriteLine("Saving memory with key 'info1': \"My name is Andrea\"");
+        this.WriteLine("Saving memory with key 'info1': \"My name is Andrea\"");
 
-        await semanticTextMemory.SaveInformationAsync(MemoryCollectionName, id: "info1", text: "My name is SK", cancellationToken: cancellationToken);
+        await semanticTextMemory.SaveInformationAsync(MemoryCollectionName, id: "info1", text: "My name is SK");
 
-        Console.WriteLine("Saving memory with key 'info2': \"I work as a tourist operator\"");
-        await semanticTextMemory.SaveInformationAsync(MemoryCollectionName, id: "info2", text: "I work as a tourist operator", cancellationToken: cancellationToken);
+        this.WriteLine("Saving memory with key 'info2': \"I work as a tourist operator\"");
+        await semanticTextMemory.SaveInformationAsync(MemoryCollectionName, id: "info2", text: "I work as a tourist operator");
 
-        Console.WriteLine("Saving memory with key 'info3': \"I've been living in Seattle since 2005\"");
-        await semanticTextMemory.SaveInformationAsync(MemoryCollectionName, id: "info3", text: "I've been living in Seattle since 2005", cancellationToken: cancellationToken);
+        this.WriteLine("Saving memory with key 'info3': \"I've been living in Seattle since 2005\"");
+        await semanticTextMemory.SaveInformationAsync(MemoryCollectionName, id: "info3", text: "I've been living in Seattle since 2005");
 
-        Console.WriteLine("Saving memory with key 'info4': \"I visited France and Italy five times since 2015\"");
-        await semanticTextMemory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "I visited France and Italy five times since 2015", cancellationToken: cancellationToken);
+        this.WriteLine("Saving memory with key 'info4': \"I visited France and Italy five times since 2015\"");
+        await semanticTextMemory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "I visited France and Italy five times since 2015");
 
-        Console.WriteLine("== PART 1b: Retrieving Memories through the ISemanticTextMemory object ==");
+        this.WriteLine("== PART 1b: Retrieving Memories through the ISemanticTextMemory object ==");
 
-        MemoryQueryResult? memoryQueryResult = await semanticTextMemory.GetAsync(MemoryCollectionName, "info1", cancellationToken: cancellationToken);
+        MemoryQueryResult? memoryQueryResult = await semanticTextMemory.GetAsync(MemoryCollectionName, "info1");
 
-        Console.WriteLine("Memory with key 'info1':" + memoryQueryResult?.Metadata.Text ?? "ERROR: memory not found");
+        this.WriteLine("Memory with key 'info1':" + memoryQueryResult?.Metadata.Text ?? "ERROR: memory not found");
 
-        Console.WriteLine("== PART 2: Search Memories through the ISemanticTextMemory object ==");
+        this.WriteLine("== PART 2: Search Memories through the ISemanticTextMemory object ==");
 
         string query = "France";
 
-        Console.WriteLine("Query:{0}", query);
+        this.WriteLine($"Query:{query}");
 
         IAsyncEnumerable<MemoryQueryResult> searchResults = semanticTextMemory.SearchAsync(MemoryCollectionName, query, 2);
 
         await foreach (MemoryQueryResult result in searchResults)
         {
-            Console.WriteLine($"Result: {result.Metadata.Text}, Score: {result.Relevance}");
+            this.WriteLine($"Result: {result.Metadata.Text}, Score: {result.Relevance}");
         }
     }
 
@@ -185,5 +192,9 @@ public static class Example15_TextMemoryPlugin
         IMemoryStore store = new MilvusMemoryStore(TestConfiguration.Milvus.Host, TestConfiguration.Milvus.Port);
 
         return store;
+    }
+
+    public Example15_TextMemoryPlugin(ITestOutputHelper output) : base(output)
+    {
     }
 }

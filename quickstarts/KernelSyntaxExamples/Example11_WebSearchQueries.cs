@@ -1,10 +1,12 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example11_WebSearchQueries
+public class Example11_WebSearchQueries : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== WebSearchQueries ========");
+        this.WriteLine("======== WebSearchQueries ========");
 
         Kernel kernel = new();
 
@@ -13,7 +15,11 @@ public static class Example11_WebSearchQueries
         string ask = "What's the tallest building in Europe?";
         FunctionResult result = await kernel.InvokeAsync(kernelPlugin["BingSearchUrl"], new() { ["query"] = ask });
 
-        Console.WriteLine(ask + "\n");
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(ask + "\n");
+        this.WriteLine(result.GetValue<string>());
+    }
+
+    public Example11_WebSearchQueries(ITestOutputHelper output) : base(output)
+    {
     }
 }

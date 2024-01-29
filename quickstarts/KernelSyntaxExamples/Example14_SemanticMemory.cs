@@ -1,14 +1,16 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example14_SemanticMemory
+public class Example14_SemanticMemory : BaseTest
 {
     private const string MemoryCollectionName = "SKGitHub";
 
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("==============================================================");
-        Console.WriteLine("======== Semantic Memory using Azure AI Search ========");
-        Console.WriteLine("==============================================================");
+        this.WriteLine("==============================================================");
+        this.WriteLine("======== Semantic Memory using Azure AI Search ========");
+        this.WriteLine("==============================================================");
 
         ISemanticTextMemory memoryWithACS = new MemoryBuilder()
             .WithAzureOpenAITextEmbeddingGeneration(TestConfiguration.AzureOpenAIEmbeddings.DeploymentName, TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ApiKey)
@@ -17,9 +19,9 @@ public static class Example14_SemanticMemory
 
         await RunExampleAsync(memoryWithACS);
 
-        Console.WriteLine("====================================================");
-        Console.WriteLine("======== Semantic Memory (volatile, in RAM) ========");
-        Console.WriteLine("====================================================");
+        this.WriteLine("====================================================");
+        this.WriteLine("======== Semantic Memory (volatile, in RAM) ========");
+        this.WriteLine("====================================================");
 
         ISemanticTextMemory memoryWithVolatile = new MemoryBuilder()
             .WithAzureOpenAITextEmbeddingGeneration(TestConfiguration.AzureOpenAIEmbeddings.DeploymentName, TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ApiKey)
@@ -29,7 +31,7 @@ public static class Example14_SemanticMemory
         await RunExampleAsync(memoryWithVolatile);
     }
 
-    public static async Task RunExampleAsync(ISemanticTextMemory memory)
+    public async Task RunExampleAsync(ISemanticTextMemory memory)
     {
         await StoreMemoryAsync(memory);
 
@@ -38,9 +40,9 @@ public static class Example14_SemanticMemory
         await SearchMemoryAsync(memory, "Can I build a chat with SK?");
     }
 
-    private static async Task SearchMemoryAsync(ISemanticTextMemory memory, string query)
+    private async Task SearchMemoryAsync(ISemanticTextMemory memory, string query)
     {
-        Console.WriteLine("\nQuery: " + query + "\n");
+        this.WriteLine("\nQuery: " + query + "\n");
 
         IAsyncEnumerable<MemoryQueryResult> memoryQueryResults = memory.SearchAsync(MemoryCollectionName, query, limit: 2, minRelevanceScore: 0.5);
 
@@ -48,17 +50,17 @@ public static class Example14_SemanticMemory
 
         await foreach (MemoryQueryResult memoryQueryResult in memoryQueryResults)
         {
-            Console.WriteLine($"Result {++i}:");
-            Console.WriteLine("  URL:     : " + memoryQueryResult.Metadata.Id);
-            Console.WriteLine("  Title    : " + memoryQueryResult.Metadata.Description);
-            Console.WriteLine("  Relevance: " + memoryQueryResult.Relevance);
-            Console.WriteLine();
+            this.WriteLine($"Result {++i}:");
+            this.WriteLine("  URL:     : " + memoryQueryResult.Metadata.Id);
+            this.WriteLine("  Title    : " + memoryQueryResult.Metadata.Description);
+            this.WriteLine("  Relevance: " + memoryQueryResult.Relevance);
+            this.WriteLine();
         };
     }
 
-    private static async Task StoreMemoryAsync(ISemanticTextMemory memory)
+    private async Task StoreMemoryAsync(ISemanticTextMemory memory)
     {
-        Console.WriteLine("\nAdding some GitHub file URLs and their descriptions to the semantic memory.");
+        this.WriteLine("\nAdding some GitHub file URLs and their descriptions to the semantic memory.");
 
         Dictionary<string, string> githubFiles = SampleData();
 
@@ -73,10 +75,10 @@ public static class Example14_SemanticMemory
                 description: githubFile.Value,
                 text: githubFile.Value);
 
-            Console.Write($" #{++i} saved.");
+            this.Write($" #{++i} saved.");
         }
 
-        Console.WriteLine("\n----------------------");
+        this.WriteLine("\n----------------------");
     }
 
     private static Dictionary<string, string> SampleData()
@@ -94,5 +96,9 @@ public static class Example14_SemanticMemory
             ["https://github.com/microsoft/semantic-kernel/blob/main/dotnet/src/SemanticKernel/Memory/VolatileMemoryStore.cs"]
                 = "C# class that defines a volatile embedding store",
         };
+    }
+
+    public Example14_SemanticMemory(ITestOutputHelper output) : base(output)
+    {
     }
 }
