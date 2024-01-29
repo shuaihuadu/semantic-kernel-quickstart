@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples.GettingStart;
 
 public class Step3_Yaml_Prompt : BaseTest
 {

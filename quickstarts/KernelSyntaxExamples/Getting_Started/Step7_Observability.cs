@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples.GettingStart;
 
 public class Step7_Observability : BaseTest
 {

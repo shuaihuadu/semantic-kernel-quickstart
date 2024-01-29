@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples.GettingStart;
 
 public class Step6_Responsible_AI : BaseTest
 {

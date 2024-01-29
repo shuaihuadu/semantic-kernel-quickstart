@@ -1,5 +1,4 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples.GettingStart;
 
 public class Step8_Pipelining : BaseTest
 {

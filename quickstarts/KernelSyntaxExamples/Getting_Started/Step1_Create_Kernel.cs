@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples.GettingStart;
 
 public class Step1_Create_Kernel : BaseTest
 {

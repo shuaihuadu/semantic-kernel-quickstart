@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples.GettingStart;
 
 public class Step5_Chat_Prompt : BaseTest
 {
