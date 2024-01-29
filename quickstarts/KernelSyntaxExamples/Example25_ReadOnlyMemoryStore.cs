@@ -1,29 +1,30 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example25_ReadOnlyMemoryStore
+public class Example25_ReadOnlyMemoryStore : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         IMemoryStore store = new ReadOnlyMemoryStore(s_jsonVectorEntries);
 
         ReadOnlyMemory<float> embedding = new([1000, 20, 0.3F]);
 
-        Console.WriteLine("Reading data from custom read-only memory store");
+        this.WriteLine("Reading data from custom read-only memory store");
 
         MemoryRecord? memoryRecord = await store.GetAsync("collection", "key3");
 
         if (memoryRecord != null)
         {
-            Console.WriteLine("ID = {0}, Embedding = {1}", memoryRecord.Metadata.Id, string.Join(", ", MemoryMarshal.ToEnumerable(memoryRecord.Embedding)));
+            this.WriteLine($"ID = {memoryRecord.Metadata.Id}, Embedding = {string.Join(", ", MemoryMarshal.ToEnumerable(memoryRecord.Embedding))}");
         }
 
-        Console.WriteLine("Getting most similar vector to {0}", string.Join(", ", MemoryMarshal.ToEnumerable(embedding)));
+        this.WriteLine($"Getting most similar vector to {string.Join(", ", MemoryMarshal.ToEnumerable(embedding))}");
 
         (MemoryRecord Record, double Score)? result = await store.GetNearestMatchAsync("collection", embedding, 0.0);
 
         if (result.HasValue)
         {
-            Console.WriteLine("Embedding = {0}, Similarity = {1}", string.Join(", ", MemoryMarshal.ToEnumerable(result.Value.Item1.Embedding)), result.Value.Item2);
+            this.WriteLine($"Embedding = {string.Join(", ", MemoryMarshal.ToEnumerable(result.Value.Item1.Embedding))}, Similarity = {result.Value.Item2}");
         }
     }
 
@@ -219,4 +220,8 @@ public static class Example25_ReadOnlyMemoryStore
             ""timestamp"": null
         }
     ]";
+
+    public Example25_ReadOnlyMemoryStore(ITestOutputHelper output) : base(output)
+    {
+    }
 }

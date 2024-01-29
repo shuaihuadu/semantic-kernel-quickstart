@@ -1,10 +1,11 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example27_PromptFunctionsUsingChatGPT
+public class Example27_PromptFunctionsUsingChatGPT : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== Using Chat GPT model for text generation ========");
+        this.WriteLine("======== Using Chat GPT model for text generation ========");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -18,6 +19,10 @@ public static class Example27_PromptFunctionsUsingChatGPT
 
         FunctionResult functionResult = await kernel.InvokeAsync(kernelFunction, new() { ["input"] = "Earth" });
 
-        Console.WriteLine(functionResult.GetValue<string>());
+        this.WriteLine(functionResult.GetValue<string>());
+    }
+
+    public Example27_PromptFunctionsUsingChatGPT(ITestOutputHelper output) : base(output)
+    {
     }
 }

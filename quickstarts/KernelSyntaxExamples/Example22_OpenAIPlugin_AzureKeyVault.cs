@@ -1,11 +1,14 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example22_OpenAIPlugin_AzureKeyVault
+public class Example22_OpenAIPlugin_AzureKeyVault : BaseTest
 {
     private const string SecretName = "Foo";
     private const string SecretValue = "Bar";
 
-    public static async Task RunAsync()
+    //[Fact]
+    [Fact(Skip = "Setup credentials")]
+    public async Task RunAsync()
     {
         OpenAIAuthenticationProvider openAIAuthenticationProvider = new(
             new Dictionary<string, Dictionary<string, string>>()
@@ -47,7 +50,7 @@ public static class Example22_OpenAIPlugin_AzureKeyVault
         await GetSecretFromAzureKeyVaultWithRetryAsync(kernel, plugin);
     }
 
-    public static async Task AddSecretToAzureKeyVaultAsync(Kernel kernel, KernelPlugin plugin)
+    public async Task AddSecretToAzureKeyVaultAsync(Kernel kernel, KernelPlugin plugin)
     {
         KernelArguments arguments = new()
         {
@@ -61,10 +64,10 @@ public static class Example22_OpenAIPlugin_AzureKeyVault
 
         RestApiOperationResponse? response = functionResult.GetValue<RestApiOperationResponse>();
 
-        Console.WriteLine("SetSecret function result: {0}", response?.Content?.ToString());
+        this.WriteLine($"SetSecret function result: {response?.Content?.ToString()}");
     }
 
-    public static async Task GetSecretFromAzureKeyVaultWithRetryAsync(Kernel kernel, KernelPlugin plugin)
+    public async Task GetSecretFromAzureKeyVaultWithRetryAsync(Kernel kernel, KernelPlugin plugin)
     {
         KernelArguments arguments = new();
 
@@ -75,7 +78,12 @@ public static class Example22_OpenAIPlugin_AzureKeyVault
 
         RestApiOperationResponse? response = functionResult.GetValue<RestApiOperationResponse>();
 
-        Console.WriteLine("GetSecret function result: {0}", response?.Content?.ToString());
+        this.WriteLine($"GetSecret function result: {response?.Content?.ToString()}");
+    }
+
+
+    public Example22_OpenAIPlugin_AzureKeyVault(ITestOutputHelper output) : base(output)
+    {
     }
 }
 

@@ -1,13 +1,10 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example21_OpenAIPlugins
+public class Example21_OpenAIPlugins : BaseTest
 {
-    public static async Task RunAsync()
-    {
-        await CallKlarnaAsync();
-    }
-
-    public static async Task RunOpenAIPluginAsync()
+    [Fact(Skip = "Run it only after filling the template below")]
+    public async Task RunOpenAIPluginAsync()
     {
         Kernel kernel = new();
 
@@ -21,10 +18,11 @@ public static class Example21_OpenAIPlugins
 
         RestApiOperationResponse? result = functionResult.GetValue<RestApiOperationResponse>();
 
-        Console.WriteLine("Function execution result: {0}", result?.Content?.ToString());
+        this.WriteLine($"Function execution result: {result?.Content?.ToString()}");
     }
 
-    public static async Task CallKlarnaAsync()
+    [Fact]
+    public async Task CallKlarnaAsync()
     {
         Kernel kernel = new();
 
@@ -42,6 +40,10 @@ public static class Example21_OpenAIPlugins
 
         RestApiOperationResponse? result = functionResult.GetValue<RestApiOperationResponse>();
 
-        Console.WriteLine("Function execution result: {0}", result?.Content?.ToString());
+        this.WriteLine($"Function execution result: {result?.Content?.ToString()}");
+    }
+
+    public Example21_OpenAIPlugins(ITestOutputHelper output) : base(output)
+    {
     }
 }

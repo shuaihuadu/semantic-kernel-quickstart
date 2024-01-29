@@ -1,10 +1,11 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example26_AADAuth
+public class Example26_AADAuth : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact(Skip = "Setup credentials")]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== SK with AAD Auth ========");
+        this.WriteLine("======== SK with AAD Auth ========");
 
         DefaultAzureCredentialOptions authOptions = new DefaultAzureCredentialOptions
         {
@@ -34,6 +35,10 @@ public static class Example26_AADAuth
         chatHistory.AddUserMessage("Tell me a joke about hourglasses");
 
         ChatMessageContent reply = await chatCompletionService.GetChatMessageContentAsync(chatHistory);
-        Console.WriteLine(reply);
+        this.WriteLine(reply);
+    }
+
+    public Example26_AADAuth(ITestOutputHelper output) : base(output)
+    {
     }
 }

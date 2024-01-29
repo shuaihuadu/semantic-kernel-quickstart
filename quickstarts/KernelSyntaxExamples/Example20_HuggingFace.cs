@@ -2,7 +2,7 @@
 
 public class Example20_HuggingFace : BaseTest
 {
-    [Fact]
+    [Fact(Skip = "TODO Hugging Face ")]
     public async Task RunAsync()
     {
         //TODO Hugging Face 
