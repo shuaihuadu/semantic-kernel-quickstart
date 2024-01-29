@@ -1,8 +1,10 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example10_DescribeAllPluginsAndFunctions
+public class Example10_DescribeAllPluginsAndFunctions : BaseTest
 {
-    public static Task RunAsync()
+    [Fact]
+    public Task RunAsync()
     {
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -13,17 +15,25 @@ public static class Example10_DescribeAllPluginsAndFunctions
 
         kernel.ImportPluginFromType<StaticTextPlugin>();
 
-        kernel.ImportPluginFromType<TextPlugin>();
+        kernel.ImportPluginFromType<TextPlugin>("AnotherTextPlugin");
 
         string folder = RepoFiles.SamplePluginsPath();
         kernel.ImportPluginFromPromptDirectory(Path.Combine(folder, "SummarizePlugin"));
 
+        KernelFunction function1 = kernel.CreateFunctionFromPrompt("tell a joke about {{$input}}", new OpenAIPromptExecutionSettings { MaxTokens = 150 });
+
+        KernelFunction function2 = kernel.CreateFunctionFromPrompt(
+             "write a novel about {{$input}} in {{$language}} language",
+             new OpenAIPromptExecutionSettings { MaxTokens = 150 },
+             functionName: "Novel",
+             description: "Write a bedtime story");
+
         IList<KernelFunctionMetadata> kernelFunctionMetadatas = kernel.Plugins.GetFunctionsMetadata();
 
-        Console.WriteLine("**********************************************");
-        Console.WriteLine("****** Registered plugins and functions ******");
-        Console.WriteLine("**********************************************");
-        Console.WriteLine();
+        this.WriteLine("**********************************************");
+        this.WriteLine("****** Registered plugins and functions ******");
+        this.WriteLine("**********************************************");
+        this.WriteLine();
 
         foreach (KernelFunctionMetadata kernelFunctionMetadata in kernelFunctionMetadatas)
         {
@@ -33,22 +43,25 @@ public static class Example10_DescribeAllPluginsAndFunctions
         return Task.CompletedTask;
     }
 
-    private static void PrintFunction(KernelFunctionMetadata kernelFunctionMetadata)
+    private void PrintFunction(KernelFunctionMetadata kernelFunctionMetadata)
     {
-        Console.WriteLine($"Plugin: {kernelFunctionMetadata.PluginName}");
-        Console.WriteLine($"    {kernelFunctionMetadata.Name}: {kernelFunctionMetadata.Description}");
+        this.WriteLine($"Plugin: {kernelFunctionMetadata.PluginName}");
+        this.WriteLine($"    {kernelFunctionMetadata.Name}: {kernelFunctionMetadata.Description}");
 
         if (kernelFunctionMetadata.Parameters.Count > 0)
         {
-            Console.WriteLine("     Params:");
+            this.WriteLine("     Params:");
 
             foreach (var parameter in kernelFunctionMetadata.Parameters)
             {
-                Console.WriteLine($"      - {parameter.Name}: {parameter.Description}");
-                Console.WriteLine($"        default: '{parameter.DefaultValue}'");
+                this.WriteLine($"      - {parameter.Name}: {parameter.Description}");
+                this.WriteLine($"        default: '{parameter.DefaultValue}'");
             }
         }
 
-        Console.WriteLine();
+        this.WriteLine();
+    }
+    public Example10_DescribeAllPluginsAndFunctions(ITestOutputHelper output) : base(output)
+    {
     }
 }

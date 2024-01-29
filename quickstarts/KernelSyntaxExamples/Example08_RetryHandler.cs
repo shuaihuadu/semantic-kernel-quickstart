@@ -1,10 +1,9 @@
-﻿using Polly.Timeout;
+﻿namespace KernelSyntaxExamples;
 
-namespace KernelSyntaxExamples;
-
-public static class Example08_RetryHandler
+public class Example08_RetryHandler : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         IKernelBuilder builder = Kernel.CreateBuilder();
 
@@ -17,8 +16,8 @@ public static class Example08_RetryHandler
         {
             configure1.AddStandardResilienceHandler().Configure(configure2 =>
             {
-                //configure2.Retry.ShouldHandle = args => ValueTask.FromResult(args.Outcome.Result?.StatusCode is HttpStatusCode.Unauthorized);
-                configure2.Retry.ShouldHandle = args => ValueTask.FromResult(args.Outcome.Exception is TimeoutRejectedException);
+                configure2.Retry.ShouldHandle = args => ValueTask.FromResult(args.Outcome.Result?.StatusCode is HttpStatusCode.Unauthorized);
+                // configure2.Retry.ShouldHandle = args => ValueTask.FromResult(args.Outcome.Exception is TimeoutRejectedException);
             });
         });
 
@@ -39,5 +38,9 @@ public static class Example08_RetryHandler
         {
             logger.LogInformation("Error: {Message}", ex.Message);
         }
+    }
+
+    public Example08_RetryHandler(ITestOutputHelper output) : base(output)
+    {
     }
 }

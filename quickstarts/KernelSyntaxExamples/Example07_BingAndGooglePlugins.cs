@@ -1,8 +1,10 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example07_BingAndGooglePlugins
+public class Example07_BingAndGooglePlugins : BaseTest
 {
-    public static async Task RunAsync()
+    //[Fact(Skip = "Setup Credentials")]
+    [Fact]
+    public async Task RunAsync()
     {
         string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
@@ -10,7 +12,7 @@ public static class Example07_BingAndGooglePlugins
 
         if (string.IsNullOrEmpty(deploymentName) || string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(apiKey))
         {
-            Console.WriteLine("Azure OpenAI credentials not found. Skipping example.");
+            this.WriteLine("Azure OpenAI credentials not found. Skipping example.");
 
             return;
         }
@@ -23,7 +25,7 @@ public static class Example07_BingAndGooglePlugins
 
         if (string.IsNullOrEmpty(bingApiKey))
         {
-            Console.WriteLine("Bing credentials not found. Skipping example.");
+            this.WriteLine("Bing credentials not found. Skipping example.");
         }
         else
         {
@@ -37,9 +39,9 @@ public static class Example07_BingAndGooglePlugins
         }
     }
 
-    private static async Task Example1Async(Kernel kernel, string searchPluginName)
+    private async Task Example1Async(Kernel kernel, string searchPluginName)
     {
-        Console.WriteLine("======== Bing and Google Search Plugins ========");
+        this.WriteLine("======== Bing and Google Search Plugins ========");
 
         //string question = "What's the largest building in the world?";
         string question = "What's the capital of China?";
@@ -48,14 +50,14 @@ public static class Example07_BingAndGooglePlugins
 
         FunctionResult result = await kernel.InvokeAsync(function, new() { ["query"] = question });
 
-        Console.WriteLine(question);
-        Console.WriteLine($"----- {searchPluginName} -----");
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(question);
+        this.WriteLine($"----- {searchPluginName} -----");
+        this.WriteLine(result.GetValue<string>());
     }
 
-    private static async Task Example2Async(Kernel kernel)
+    private async Task Example2Async(Kernel kernel)
     {
-        Console.WriteLine("======== Use Search Plugin to answer user questions ========");
+        this.WriteLine("======== Use Search Plugin to answer user questions ========");
 
         const string SemanticFunction = @"Answer questions only when you know the facts or the information is provided.
 When you don't have sufficient information you reply with a list of commands to find the information needed.
@@ -116,12 +118,12 @@ Answer: ";
 
             IPromptTemplate promptTemplate = promptTemplateFactory.Create(new PromptTemplateConfig(result));
 
-            Console.WriteLine("---- Fetching information from Bing...");
+            this.WriteLine("---- Fetching information from Bing...");
 
             string information = await promptTemplate.RenderAsync(kernel);
 
-            Console.WriteLine("Information found:");
-            Console.WriteLine(information);
+            this.WriteLine("Information found:");
+            this.WriteLine(information);
 
             answer = await kernel.InvokeAsync(oracle, new()
             {
@@ -131,10 +133,13 @@ Answer: ";
         }
         else
         {
-            Console.WriteLine("AI had all the information, no need to query Bing.");
+            this.WriteLine("AI had all the information, no need to query Bing.");
         }
 
-        Console.WriteLine("----- ANSWER:");
-        Console.Write(answer.GetValue<string>());
+        this.WriteLine("----- ANSWER:");
+        this.Write(answer.GetValue<string>());
+    }
+    public Example07_BingAndGooglePlugins(ITestOutputHelper output) : base(output)
+    {
     }
 }

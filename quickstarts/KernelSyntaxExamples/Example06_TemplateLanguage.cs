@@ -1,10 +1,12 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example06_TemplateLanguage
+public class Example06_TemplateLanguage : BaseTest
 {
-    public static async Task RunAsync()
+
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== TemplateLanguage ========");
+        this.WriteLine("======== TemplateLanguage ========");
 
         string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
@@ -12,7 +14,7 @@ public static class Example06_TemplateLanguage
 
         if (string.IsNullOrEmpty(deploymentName) || string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(apiKey))
         {
-            Console.WriteLine("Azure OpenAI credentials not found. Skipping example.");
+            this.WriteLine("Azure OpenAI credentials not found. Skipping example.");
 
             return;
         }
@@ -32,13 +34,13 @@ Is it morning, afternoon, evening, or night (morning/afternoon/evening/night)?
 Is it weekend time (weekend/not weekend)?
 ";
 
-        Console.WriteLine("--- Rendered Prompt");
+        this.WriteLine("--- Rendered Prompt");
 
         var promptTemplateFactory = new KernelPromptTemplateFactory();
         var promptTemplate = promptTemplateFactory.Create(new PromptTemplateConfig(FunctionDefinition));
         var renderedPrompt = await promptTemplate.RenderAsync(kernel);
 
-        Console.WriteLine(renderedPrompt);
+        this.WriteLine(renderedPrompt);
 
         KernelFunction kindOfDay = kernel.CreateFunctionFromPrompt(FunctionDefinition, new PromptExecutionSettings
         {
@@ -49,10 +51,14 @@ Is it weekend time (weekend/not weekend)?
             }
         });
 
-        Console.WriteLine("--- Prompt Function result");
+        this.WriteLine("--- Prompt Function result");
 
         FunctionResult result = await kernel.InvokeAsync(kindOfDay);
 
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
+    }
+
+    public Example06_TemplateLanguage(ITestOutputHelper output) : base(output)
+    {
     }
 }

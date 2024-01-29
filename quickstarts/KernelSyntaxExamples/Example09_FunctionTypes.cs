@@ -1,10 +1,12 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example09_FunctionTypes
+public class Example09_FunctionTypes : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== Method Function types ========");
+        this.WriteLine("======== Method Function types ========");
 
         IKernelBuilder builder = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -51,5 +53,8 @@ public static class Example09_FunctionTypes
         await kernel.InvokeAsync(plugin[nameof(LocalExamplePlugin.TaskInjectingCancellationTokenWithStringResult)]);
 
         await kernel.InvokeAsync(kernel.Plugins["Examples"][nameof(LocalExamplePlugin.NoInputWithVoidResult)]);
+    }
+    public Example09_FunctionTypes(ITestOutputHelper output) : base(output)
+    {
     }
 }

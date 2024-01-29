@@ -1,10 +1,12 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example03_Arguments
+public class Example03_Arguments : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== Arguments ========");
+        this.WriteLine("======== Arguments ========");
 
         Kernel kernel = new();
 
@@ -17,14 +19,18 @@ public static class Example03_Arguments
         };
 
         string? resultValue = await kernel.InvokeAsync<string>(textPlugin["AppendDay"], arguments);
-        Console.WriteLine($"string -> {resultValue}");
+        this.WriteLine($"string -> {resultValue}");
 
         FunctionResult functionResult = await kernel.InvokeAsync(textPlugin["AppendDay"], arguments);
 
         var metadata = functionResult.Metadata;
 
-        Console.WriteLine($"FunctionResult.GetValue<string>() -> {functionResult.GetValue<string>()}");
+        this.WriteLine($"FunctionResult.GetValue<string>() -> {functionResult.GetValue<string>()}");
 
-        Console.WriteLine($"FunctionResult.ToString() -> {functionResult}");
+        this.WriteLine($"FunctionResult.ToString() -> {functionResult}");
     }
+    public Example03_Arguments(ITestOutputHelper output) : base(output)
+    {
+    }
+
 }

@@ -1,10 +1,11 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example05_InlineFunctionDefinition
+public class Example05_InlineFunctionDefinition : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== Inline Function Definition ========");
+        this.WriteLine("======== Inline Function Definition ========");
 
         string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
@@ -12,7 +13,7 @@ public static class Example05_InlineFunctionDefinition
 
         if (string.IsNullOrEmpty(deploymentName) || string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(apiKey))
         {
-            Console.WriteLine("Azure OpenAI credentials not found. Skipping example.");
+            this.WriteLine("Azure OpenAI credentials not found. Skipping example.");
 
             return;
         }
@@ -46,10 +47,10 @@ Event: {{$input}}
         });
 
         FunctionResult result = await kernel.InvokeAsync(excuseFunction, new() { ["input"] = "I missed the F1 final race" });
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
 
         result = await kernel.InvokeAsync(excuseFunction, new() { ["input"] = "sorry I forgot your birthday" });
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
 
         var fixedFunction = kernel.CreateFunctionFromPrompt($"Translate this data {DateTimeOffset.Now:f} to French format", new PromptExecutionSettings
         {
@@ -63,6 +64,9 @@ Event: {{$input}}
         });
 
         result = await kernel.InvokeAsync(fixedFunction);
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
+    }
+    public Example05_InlineFunctionDefinition(ITestOutputHelper output) : base(output)
+    {
     }
 }

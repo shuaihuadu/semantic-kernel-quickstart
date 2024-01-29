@@ -1,17 +1,22 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example01_MethodFunctions
+public class Example01_MethodFunctions : BaseTest
 {
-    public static Task RunAsync()
+    [Fact]
+    public Task RunAsync()
     {
-        Console.WriteLine("======== Functions ========");
+        this.WriteLine("======== Functions ========");
 
         TextPlugin textPlugin = new();
 
         string result = textPlugin.Uppercase("quick start");
 
-        Console.WriteLine(result);
+        this.WriteLine(result);
 
         return Task.CompletedTask;
+    }
+    public Example01_MethodFunctions(ITestOutputHelper output) : base(output)
+    {
     }
 }

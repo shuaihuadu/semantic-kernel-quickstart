@@ -2,7 +2,7 @@
 
 public static class Example59_OpenAIFunctionCalling
 {
-    public static async Task RunAsync()
+    public static Task RunAsync()
     {
         IKernelBuilder builder = Kernel.CreateBuilder();
 
@@ -21,5 +21,7 @@ public static class Example59_OpenAIFunctionCalling
         Console.WriteLine("======== Example 2: Use automated function calling with a streaming prompt ========");
         Console.WriteLine("======== Example 3: Use manual function calling with a non-streaming prompt ========");
         Console.WriteLine("======== Example 4: Use automated function calling with a streaming chat ========");
+
+        return Task.CompletedTask;
     }
 }
