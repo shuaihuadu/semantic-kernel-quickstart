@@ -100,13 +100,13 @@ internal sealed class LocalExamplePlugin
     }
 
     [KernelFunction, Description("Example function injecting itself as a parameter")]
-    public async Task<string> TaskInjectingKernelFunctionWithStringResult(KernelFunction executingFunction)
+    public Task<string> TaskInjectingKernelFunctionWithStringResult(KernelFunction executingFunction)
     {
         string result = $"Name: {executingFunction.Name}, Description: {executingFunction.Description}";
 
         Console.WriteLine($"Running {nameof(this.TaskInjectingKernelFunctionWithStringResult)} -> Injected Function -> result: {result}");
 
-        return result;
+        return Task.FromResult(result);
     }
 
     [KernelFunction]
@@ -157,23 +157,23 @@ internal sealed class LocalExamplePlugin
     }
 
     [KernelFunction]
-    public async Task<string> TaskInjectingCultureInfoOrIFormatProviderWithStringResult(CultureInfo cultureInfo, IFormatProvider formatProvider)
+    public Task<string> TaskInjectingCultureInfoOrIFormatProviderWithStringResult(CultureInfo cultureInfo, IFormatProvider formatProvider)
     {
         string result = $"Culture Name: {cultureInfo.Name}, FormatProvider Equals CultureInfo?: {formatProvider.Equals(cultureInfo)}";
 
         Console.WriteLine($"Running {nameof(TaskInjectingCultureInfoOrIFormatProviderWithStringResult)} -> Injected CultureInfo, IFormateProvider -> result: {result}");
 
-        return result;
+        return Task.FromResult(result);
     }
 
     [KernelFunction]
-    public async Task<string> TaskInjectingCancellationTokenWithStringResult(CancellationToken cancellationToken)
+    public Task<string> TaskInjectingCancellationTokenWithStringResult(CancellationToken cancellationToken)
     {
         string result = $"Cancellation requested: {cancellationToken.IsCancellationRequested}";
 
         Console.WriteLine($"Running {nameof(TaskInjectingCancellationTokenWithStringResult)} -> Injected Cancellation Token -> result: {result}");
 
-        return result;
+        return Task.FromResult(result);
     }
 
     public override string ToString()

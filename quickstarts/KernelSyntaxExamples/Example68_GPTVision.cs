@@ -5,6 +5,7 @@ public static class Example68_GPTVision
     public static async Task RunAsync()
     {
         const string ImageUri = "https://img1.baidu.com/it/u=155773520,725746039&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500";
+        const string ImageUri2 = "https://pics2.baidu.com/feed/42166d224f4a20a4b343e2fa7656ec2f720ed045.jpeg@f_auto?token=830b80889236bf1e4922dd1cf1b6bfd0";
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -29,7 +30,8 @@ public static class Example68_GPTVision
         chatHistory.AddUserMessage(new ChatMessageContentItemCollection
         {
             new TextContent("What's in this image?"),
-            new ImageContent(new Uri(ImageUri))
+            new ImageContent(new Uri(ImageUri)),
+            new ImageContent(new Uri(ImageUri2))
         });
         await MessageOutputAsync(chatHistory);
 
