@@ -1,8 +1,10 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example67_KernelStreaming
+public class Example67_KernelStreaming : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
         string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
@@ -12,7 +14,7 @@ public static class Example67_KernelStreaming
             || endpoint == null
             || apiKey == null)
         {
-            Console.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
+            this.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
             return;
         }
 
@@ -33,20 +35,24 @@ public static class Example67_KernelStreaming
 
         bool roleDisplayed = false;
 
-        Console.WriteLine("\n===  Prompt Function - Streaming ===\n");
+        this.WriteLine("\n===  Prompt Function - Streaming ===\n");
 
         await foreach (var update in kernel.InvokeStreamingAsync<OpenAIStreamingChatMessageContent>(funnyParagraphFunction))
         {
             if (roleDisplayed && update.Role.HasValue)
             {
-                Console.WriteLine($"Role: {update.Role}");
+                this.WriteLine($"Role: {update.Role}");
                 roleDisplayed = true;
             }
 
             if (update.Content is { Length: > 0 })
             {
-                Console.Write(update.Content);
+                this.Write(update.Content);
             }
         }
+    }
+
+    public Example67_KernelStreaming(ITestOutputHelper output) : base(output)
+    {
     }
 }

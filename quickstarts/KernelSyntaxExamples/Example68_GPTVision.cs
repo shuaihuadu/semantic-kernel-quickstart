@@ -1,8 +1,9 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example68_GPTVision
+public class Example68_GPTVision : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         const string ImageUri = "https://img1.baidu.com/it/u=155773520,725746039&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500";
         const string ImageUri2 = "https://pics2.baidu.com/feed/42166d224f4a20a4b343e2fa7656ec2f720ed045.jpeg@f_auto?token=830b80889236bf1e4922dd1cf1b6bfd0";
@@ -48,7 +49,8 @@ public static class Example68_GPTVision
 
         await MessageOutputAsync(chatHistory);
     }
-    private static Task MessageOutputAsync(ChatHistory chatHistory)
+
+    private Task MessageOutputAsync(ChatHistory chatHistory)
     {
         var message = chatHistory.Last();
 
@@ -58,21 +60,25 @@ public static class Example68_GPTVision
             {
                 if (item is ImageContent imageContent)
                 {
-                    Console.WriteLine($"{imageContent.Uri!.AbsoluteUri}");
+                    this.WriteLine($"{imageContent.Uri!.AbsoluteUri}");
                 }
                 if (item is TextContent textContent)
                 {
-                    Console.WriteLine($"{message.Role}: {textContent.Text}");
+                    this.WriteLine($"{message.Role}: {textContent.Text}");
                 }
             }
         }
         else
         {
-            Console.WriteLine($"{message.Role}: {message.Content}");
+            this.WriteLine($"{message.Role}: {message.Content}");
         }
 
-        Console.WriteLine("------------------------");
+        this.WriteLine("------------------------");
 
         return Task.CompletedTask;
+    }
+
+    public Example68_GPTVision(ITestOutputHelper output) : base(output)
+    {
     }
 }

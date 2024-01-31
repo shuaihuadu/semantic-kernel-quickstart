@@ -1,9 +1,9 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public static class Example69_MutableKernelPlugin
+public class Example69_MutableKernelPlugin : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         MutableKernelPlugin plugin = new("Plugin");
 
@@ -18,14 +18,14 @@ public static class Example69_MutableKernelPlugin
 
         FunctionResult result = await kernel.InvokeAsync(kernel.Plugins["Plugin"]["Function"]);
 
-        Console.WriteLine($"Result: {result.GetValue<string>()}");
+        this.WriteLine($"Result: {result.GetValue<string>()}");
 
         result = await kernel.InvokeAsync(kernel.Plugins["Plugin"]["Date"], new()
         {
             ["format"] = "yyyy/MM/dd HH:mm:ss"
         });
 
-        Console.WriteLine($"Result: {result.GetValue<string>()}");
+        this.WriteLine($"Result: {result.GetValue<string>()}");
     }
 
     public class MutableKernelPlugin : KernelPlugin
@@ -59,5 +59,9 @@ public static class Example69_MutableKernelPlugin
             ArgumentNullException.ThrowIfNull(function);
             this._functions.Add(function.Name, function);
         }
+    }
+
+    public Example69_MutableKernelPlugin(ITestOutputHelper output) : base(output)
+    {
     }
 }

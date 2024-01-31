@@ -1,10 +1,11 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example62_CustomAIServiceSelector
+public class Example62_CustomAIServiceSelector : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== Example62_CustomAIServiceSelector ========");
+        this.WriteLine("======== Example62_CustomAIServiceSelector ========");
 
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
         string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
@@ -14,7 +15,7 @@ public static class Example62_CustomAIServiceSelector
             || endpoint == null
             || apiKey == null)
         {
-            Console.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
+            this.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
             return;
         }
 
@@ -32,7 +33,7 @@ public static class Example62_CustomAIServiceSelector
                 serviceId: "aoai_service_2",
                 modelId: "aoai_model_2");
 
-        builder.Services.AddSingleton<IAIServiceSelector>(new GptAIServiceSelector());
+        builder.Services.AddSingleton<IAIServiceSelector>(new GptAIServiceSelector(this.Output));
 
         Kernel kernel = builder.Build();
 
@@ -40,11 +41,18 @@ public static class Example62_CustomAIServiceSelector
 
         FunctionResult result = await kernel.InvokePromptAsync(prompt);
 
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
     }
 
     private sealed class GptAIServiceSelector : IAIServiceSelector
     {
+        private readonly ITestOutputHelper _output;
+
+        public GptAIServiceSelector(ITestOutputHelper output)
+        {
+            this._output = output;
+        }
+
         bool IAIServiceSelector.TrySelectAIService<T>(
             Kernel kernel,
             KernelFunction function,
@@ -60,7 +68,7 @@ public static class Example62_CustomAIServiceSelector
 
                 if (!string.IsNullOrEmpty(serviceModelId) && serviceModelId.Equals("aoai_model_1", StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine($"Selected model: {serviceModelId} {endpoint}");
+                    this._output.WriteLine($"Selected model: {serviceModelId} {endpoint}");
 
                     service = serviceToCheck;
                     serviceSettings = new OpenAIPromptExecutionSettings();
@@ -74,5 +82,8 @@ public static class Example62_CustomAIServiceSelector
 
             return false;
         }
+    }
+    public Example62_CustomAIServiceSelector(ITestOutputHelper output) : base(output)
+    {
     }
 }

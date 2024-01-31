@@ -1,15 +1,11 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example60_AdvancedMethodFunctions
+public class Example60_AdvancedMethodFunctions : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task MethodFunctionsChainingAsync()
     {
-        await MethodFunctionsChainingAsync();
-    }
-
-    private static async Task MethodFunctionsChainingAsync()
-    {
-        Console.WriteLine("Running Method Function Chaining example...");
+        this.WriteLine("Running Method Function Chaining example...");
 
         Kernel kernel = new();
 
@@ -17,8 +13,8 @@ public static class Example60_AdvancedMethodFunctions
 
         CustomType? customType = await kernel.InvokeAsync<CustomType>(functions["Function1"]);
 
-        Console.WriteLine($"CustomType.Number: {customType!.Number}");
-        Console.WriteLine($"CustomType.Text: {customType.Text}");
+        this.WriteLine($"CustomType.Number: {customType!.Number}");
+        this.WriteLine($"CustomType.Text: {customType.Text}");
     }
 
     private sealed class FunctionsChainingPlugin
@@ -69,5 +65,8 @@ public static class Example60_AdvancedMethodFunctions
         {
             return JsonSerializer.Serialize(value);
         }
+    }
+    public Example60_AdvancedMethodFunctions(ITestOutputHelper output) : base(output)
+    {
     }
 }

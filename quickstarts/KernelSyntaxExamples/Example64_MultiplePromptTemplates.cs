@@ -1,10 +1,14 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example64_MultiplePromptTemplates
+public class Example64_MultiplePromptTemplates : BaseTest
 {
-    public static async Task RunAsync()
+    [RetryTheory(typeof(HttpOperationException))]
+    [InlineData("semantic-kernel", "Hello AI, my name is {{$name}}. What is the origin of my name?")]
+    [InlineData("handlebars", "Hello AI, my name if {{name}}. What is the origin of my name?")]
+    public async Task RunAsync(string templateFormat, string prompt)
     {
-        Console.WriteLine("======== Example64_MultiplePromptTemplates ========");
+        this.WriteLine("======== Example64_MultiplePromptTemplates ========");
 
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
         string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
@@ -14,7 +18,7 @@ public static class Example64_MultiplePromptTemplates
             || endpoint == null
             || apiKey == null)
         {
-            Console.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
+            this.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
             return;
         }
 
@@ -29,16 +33,12 @@ public static class Example64_MultiplePromptTemplates
             new KernelPromptTemplateFactory(),
             new HandlebarsPromptTemplateFactory());
 
-        string skPrompt = "Hello AI, my name is {{$name}}. What is the origin of my name?";
-        string handlerbarsPrompt = "Hello AI, my name if {{name}}. What is the origin of my name?";
-
-        await RunPromptAsync(kernel, skPrompt, "semantic-kernel", promptTemplateFactory);
-        await RunPromptAsync(kernel, handlerbarsPrompt, "handlebars", promptTemplateFactory);
+        await RunPromptAsync(kernel, prompt, templateFormat, promptTemplateFactory);
     }
 
-    public static async Task RunPromptAsync(Kernel kernel, string prompt, string templateFormat, IPromptTemplateFactory promptTemplateFactory)
+    private async Task RunPromptAsync(Kernel kernel, string prompt, string templateFormat, IPromptTemplateFactory promptTemplateFactory)
     {
-        Console.WriteLine($"======== {templateFormat} : {prompt} ========");
+        this.WriteLine($"======== {templateFormat} : {prompt} ========");
 
         KernelFunction function = kernel.CreateFunctionFromPrompt(
             promptConfig: new PromptTemplateConfig
@@ -56,6 +56,10 @@ public static class Example64_MultiplePromptTemplates
 
         FunctionResult result = await kernel.InvokeAsync(function, arguments);
 
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
+    }
+
+    public Example64_MultiplePromptTemplates(ITestOutputHelper output) : base(output)
+    {
     }
 }

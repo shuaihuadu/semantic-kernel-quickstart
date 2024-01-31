@@ -1,8 +1,9 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example63_ChatCompletionPrompts
+public class Example63_ChatCompletionPrompts : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         const string ChatPrompt = @"
             <message role=""user"">What is Seattle?</message>
@@ -20,18 +21,27 @@ public static class Example63_ChatCompletionPrompts
 
         FunctionResult chatPromptResult = await kernel.InvokeAsync(chatSemanticFunction);
 
-        Console.WriteLine("Chat Prompt:");
-        Console.WriteLine(ChatPrompt);
-        Console.WriteLine("Chat Prompt Result:");
-        Console.WriteLine(chatPromptResult.GetValue<string>());
+        this.WriteLine("Chat Prompt:");
+        this.WriteLine(ChatPrompt);
+        this.WriteLine("Chat Prompt Result:");
+        this.WriteLine(chatPromptResult.GetValue<string>());
 
-        Console.Write("Chat Prompt Streaming Result:");
+        this.Write("Chat Prompt Streaming Result:");
+
+        string completeMessage = string.Empty;
 
         await foreach (string message in kernel.InvokeStreamingAsync<string>(chatSemanticFunction))
         {
-            Console.Write(message);
+            completeMessage += message;
+
+            this.Write(message);
         }
 
-        Console.WriteLine();
+        this.WriteLine("---------- Streamed Content ----------");
+        this.WriteLine(completeMessage);
+    }
+
+    public Example63_ChatCompletionPrompts(ITestOutputHelper output) : base(output)
+    {
     }
 }

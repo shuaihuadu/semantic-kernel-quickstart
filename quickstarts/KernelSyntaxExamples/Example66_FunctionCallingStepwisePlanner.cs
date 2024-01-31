@@ -1,12 +1,13 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example66_FunctionCallingStepwisePlanner
+public class Example66_FunctionCallingStepwisePlanner : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         string[] questions = [
             "What is the current hour number, plus 5?",
-            "What is 387 minus 22? Emial the solution to John and Mary.",
+            "What is 387 minus 22? Email the solution to Zhangsan and Lisi.",
             "Write a limerick, translate it to Spanish, and send it to Wangwu"
         ];
 
@@ -22,13 +23,12 @@ public static class Example66_FunctionCallingStepwisePlanner
 
         foreach (string question in questions)
         {
-            //TODO Unrecognized request arguments supplied: tool_choice, tools Status: 400(model_error)
             FunctionCallingStepwisePlannerResult result = await planner.ExecuteAsync(kernel, question);
-            Console.WriteLine($"Q: {question} \n A: {result.FinalAnswer}");
+            this.WriteLine($"Q: {question} \n A: {result.FinalAnswer}");
         }
     }
 
-    private static Kernel InitializeKernel()
+    private Kernel InitializeKernel()
     {
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -43,5 +43,9 @@ public static class Example66_FunctionCallingStepwisePlanner
         kernel.ImportPluginFromType<TimePlugin>();
 
         return kernel;
+    }
+
+    public Example66_FunctionCallingStepwisePlanner(ITestOutputHelper output) : base(output)
+    {
     }
 }
