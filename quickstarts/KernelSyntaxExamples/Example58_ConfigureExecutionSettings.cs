@@ -1,11 +1,12 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example58_ConfigureExecutionSettings
+public class Example58_ConfigureExecutionSettings : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== Example58_ConfigureExecutionSettings ========");
-
+        this.WriteLine("======== Example58_ConfigureExecutionSettings ========");
 
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
         string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
@@ -15,7 +16,7 @@ public static class Example58_ConfigureExecutionSettings
             || endpoint == null
             || apiKey == null)
         {
-            Console.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
+            this.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
             return;
         }
 
@@ -36,7 +37,7 @@ public static class Example58_ConfigureExecutionSettings
                 Temperature = 0.7
             }));
 
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
 
         string configPayload = @"{
             ""schema"":1,
@@ -60,6 +61,10 @@ public static class Example58_ConfigureExecutionSettings
 
         result = await kernel.InvokeAsync(kernelFunction);
 
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
+    }
+
+    public Example58_ConfigureExecutionSettings(ITestOutputHelper output) : base(output)
+    {
     }
 }

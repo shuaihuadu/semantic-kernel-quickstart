@@ -1,24 +1,11 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example55_TextChunker
+public class Example55_TextChunker : BaseTest
 {
-    public static Task RunAsync()
+    [Fact]
+    public void RunExample()
     {
-        RunExample();
-
-        RunExampleForTokenCounterType(TokenCounterType.SharpToken);
-        RunExampleForTokenCounterType(TokenCounterType.MicrosoftML);
-        RunExampleForTokenCounterType(TokenCounterType.MicrosoftMLRoberta);
-        RunExampleForTokenCounterType(TokenCounterType.DeepDev);
-
-        RunExampleWithHeader();
-
-        return Task.CompletedTask;
-    }
-
-    private static void RunExample()
-    {
-        Console.WriteLine("=== Text chunking ===");
+        this.WriteLine("=== Text chunking ===");
 
         List<string> lines = TextChunker.SplitPlainTextLines(Text, 40);
         List<string> paragraphs = TextChunker.SplitPlainTextParagraphs(lines, 120);
@@ -26,9 +13,14 @@ public static class Example55_TextChunker
         WriteParagraphsToConsole(paragraphs);
     }
 
-    private static void RunExampleForTokenCounterType(TokenCounterType counterType)
+    [Theory]
+    [InlineData(TokenCounterType.SharpToken)]
+    [InlineData(TokenCounterType.MicrosoftML)]
+    [InlineData(TokenCounterType.MicrosoftMLRoberta)]
+    [InlineData(TokenCounterType.DeepDev)]
+    public void RunExampleForTokenCounterType(TokenCounterType counterType)
     {
-        Console.WriteLine($"=== Text chunking with a custom({counterType}) token counter ===");
+        this.WriteLine($"=== Text chunking with a custom({counterType}) token counter ===");
 
         Stopwatch sw = new Stopwatch();
         sw.Start();
@@ -40,13 +32,14 @@ public static class Example55_TextChunker
 
         sw.Stop();
 
-        Console.WriteLine($"Elapsed time: {sw.ElapsedMilliseconds} ms");
+        this.WriteLine($"Elapsed time: {sw.ElapsedMilliseconds} ms");
         WriteParagraphsToConsole(paragraphs);
     }
 
-    private static void RunExampleWithHeader()
+    [Fact]
+    public void RunExampleWithHeader()
     {
-        Console.WriteLine("=== Text chunking with chunk header ===");
+        this.WriteLine("=== Text chunking with chunk header ===");
 
         List<string> lines = TextChunker.SplitPlainTextLines(Text, 40);
         List<string> paragraphs = TextChunker.SplitPlainTextParagraphs(lines, 150, chunkHeader: "DOCUMENT NAME:test.text\n\n");
@@ -54,20 +47,20 @@ public static class Example55_TextChunker
         WriteParagraphsToConsole(paragraphs);
     }
 
-    private static void WriteParagraphsToConsole(List<string> paragraphs)
+    private void WriteParagraphsToConsole(List<string> paragraphs)
     {
         for (int i = 0; i < paragraphs.Count; i++)
         {
-            Console.WriteLine(paragraphs[i]);
+            this.WriteLine(paragraphs[i]);
 
             if (i < paragraphs.Count - 1)
             {
-                Console.WriteLine("------------------------");
+                this.WriteLine("------------------------");
             }
         }
     }
 
-    private enum TokenCounterType
+    public enum TokenCounterType
     {
         SharpToken,
         MicrosoftML,
@@ -151,4 +144,8 @@ stretching for over 2,300 kilometers over an area of approximately 344,400 squar
 Coral Sea, off the coast of Queensland, Australia. The Great Barrier Reef can be seen from outer space and is the world's
 biggest single structure made by living organisms. This reef structure is composed of and built by billions of tiny organisms,
 known as coral polyps.";
+
+    public Example55_TextChunker(ITestOutputHelper output) : base(output)
+    {
+    }
 }

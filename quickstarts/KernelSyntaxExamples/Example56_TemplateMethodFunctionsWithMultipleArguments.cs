@@ -1,10 +1,12 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example56_TemplateMethodFunctionsWithMultipleArguments
+public class Example56_TemplateMethodFunctionsWithMultipleArguments : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
-        Console.WriteLine("======== TemplateMethodFunctionsWithMultipleArguments ========");
+        this.WriteLine("======== TemplateMethodFunctionsWithMultipleArguments ========");
 
         string serviceId = TestConfiguration.AzureOpenAI.ServiceId;
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
@@ -14,7 +16,7 @@ public static class Example56_TemplateMethodFunctionsWithMultipleArguments
 
         if (apiKey == null || deploymentName == null || modelId == null || endpoint == null)
         {
-            Console.WriteLine("AzureOpenAI modelId, endpoint, apiKey, or deploymentName not found. Skipping example.");
+            this.WriteLine("AzureOpenAI modelId, endpoint, apiKey, or deploymentName not found. Skipping example.");
             return;
         }
 
@@ -39,7 +41,7 @@ public static class Example56_TemplateMethodFunctionsWithMultipleArguments
 
         const string FunctionDefinition = @"Write a haiku about the following: {{text.Concat input='Harry' input2=$word2}}";
 
-        Console.WriteLine("--- Rendered Prompt");
+        this.WriteLine("--- Rendered Prompt");
 
         KernelPromptTemplateFactory promptTemplateFactory = new();
 
@@ -51,10 +53,14 @@ public static class Example56_TemplateMethodFunctionsWithMultipleArguments
             MaxTokens = 100
         });
 
-        Console.WriteLine("--- Prompt Function result");
+        this.WriteLine("--- Prompt Function result");
 
         FunctionResult result = await kernel.InvokeAsync(kernelFunction, arguments);
 
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
+    }
+
+    public Example56_TemplateMethodFunctionsWithMultipleArguments(ITestOutputHelper output) : base(output)
+    {
     }
 }

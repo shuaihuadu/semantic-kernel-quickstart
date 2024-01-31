@@ -1,9 +1,11 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example52_ApimAuth
+public class Example52_ApimAuth : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact(Skip = "Setup Apim")]
+    public async Task RunAsync()
     {
+        // TODO APIM
         Uri apimUri = new Uri(Env.Var("Apim__Endpoint"));
         string subscriptionKey = Env.Var("Apim__SubscriptionKey");
 
@@ -46,9 +48,13 @@ public static class Example52_ApimAuth
             kernel.Plugins["FunPlugin"]["Excuses"],
             new() { ["input"] = "I have no homework" });
 
-        Console.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.GetValue<string>());
 
         httpClient.Dispose();
+    }
+
+    public Example52_ApimAuth(ITestOutputHelper output) : base(output)
+    {
     }
 }
 

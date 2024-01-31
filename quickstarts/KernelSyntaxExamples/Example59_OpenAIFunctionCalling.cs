@@ -1,8 +1,9 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example59_OpenAIFunctionCalling
+public class Example59_OpenAIFunctionCalling : BaseTest
 {
-    public static Task RunAsync()
+    [Fact(Skip = "Azure OpenAI function call")]
+    public Task RunAsync()
     {
         IKernelBuilder builder = Kernel.CreateBuilder();
 
@@ -23,5 +24,9 @@ public static class Example59_OpenAIFunctionCalling
         Console.WriteLine("======== Example 4: Use automated function calling with a streaming chat ========");
 
         return Task.CompletedTask;
+    }
+
+    public Example59_OpenAIFunctionCalling(ITestOutputHelper output) : base(output)
+    {
     }
 }

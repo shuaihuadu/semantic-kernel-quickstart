@@ -1,17 +1,14 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example54_AzureChatCompletionWithData
+public class Example54_AzureChatCompletionWithData : BaseTest
 {
-    // https://learn.microsoft.com/en-us/azure/ai-services/openai/use-your-data-quickstart
-    public static async Task RunAsync()
-    {
-        await ExampleWithChatCompletionAsync();
-        await ExampleWithKernelAsync();
-    }
 
-    private static async Task ExampleWithChatCompletionAsync()
+    // https://learn.microsoft.com/en-us/azure/ai-services/openai/use-your-data-quickstart
+
+    [RetryFact(typeof(HttpOperationException))]
+    public async Task ExampleWithChatCompletionAsync()
     {
-        Console.WriteLine("=== Example with Chat Completion ===");
+        this.WriteLine("=== Example with Chat Completion ===");
 
         AzureOpenAIChatCompletionWithDataService chatCompletionWithDataService = new(GetCompletionWithDataConfig());
 
@@ -26,9 +23,9 @@ public static class Example54_AzureChatCompletionWithData
         string response = chatMessage.Content!;
         string? toolResponse = chatMessage.ToolContent;
 
-        Console.WriteLine($"Ask: {ask}");
-        Console.WriteLine($"Response: {response}");
-        Console.WriteLine();
+        this.WriteLine($"Ask: {ask}");
+        this.WriteLine($"Response: {response}");
+        this.WriteLine();
 
         if (!string.IsNullOrEmpty(toolResponse))
         {
@@ -40,20 +37,21 @@ public static class Example54_AzureChatCompletionWithData
         //ask = "What are Emily and David studying?";
         ask = "Where is the Triple Landscape Hotel?";
 
-        Console.WriteLine($"Ask: {ask}");
-        Console.WriteLine("Response: ");
+        this.WriteLine($"Ask: {ask}");
+        this.WriteLine("Response: ");
 
         await foreach (var word in chatCompletionWithDataService.GetStreamingChatMessageContentsAsync(chatHistory))
         {
-            Console.Write(word);
+            this.Write(word);
         }
 
-        Console.WriteLine(Environment.NewLine);
+        this.WriteLine(Environment.NewLine);
     }
 
-    private static async Task ExampleWithKernelAsync()
+    [RetryFact(typeof(HttpOperationException))]
+    private async Task ExampleWithKernelAsync()
     {
-        Console.WriteLine("=== Example with Kernel ===");
+        this.WriteLine("=== Example with Kernel ===");
 
         //string ask = "How did Emily and David meet?";
         string ask = "How many hotels?";
@@ -68,17 +66,17 @@ public static class Example54_AzureChatCompletionWithData
 
         FunctionResult result = await kernel.InvokeAsync(function, new() { ["input"] = ask });
 
-        Console.WriteLine($"Ask: {ask}");
-        Console.WriteLine($"Response: {result.GetValue<string>()}");
-        Console.WriteLine();
+        this.WriteLine($"Ask: {ask}");
+        this.WriteLine($"Response: {result.GetValue<string>()}");
+        this.WriteLine();
 
         //ask = "What are Emily and David studying?";
         ask = "Where is the Triple Landscape Hotel?";
         result = await kernel.InvokeAsync(function, new() { ["input"] = ask });
 
-        Console.WriteLine($"Ask: {ask}");
-        Console.WriteLine($"Response: {result.GetValue<string>()}");
-        Console.WriteLine();
+        this.WriteLine($"Ask: {ask}");
+        this.WriteLine($"Response: {result.GetValue<string>()}");
+        this.WriteLine();
     }
 
     private static AzureOpenAIChatCompletionWithDataConfig GetCompletionWithDataConfig()
@@ -92,5 +90,8 @@ public static class Example54_AzureChatCompletionWithData
             DataSourceApiKey = TestConfiguration.AzureAISearch.ApiKey,
             DataSourceIndex = TestConfiguration.AzureAISearch.IndexName
         };
+    }
+    public Example54_AzureChatCompletionWithData(ITestOutputHelper output) : base(output)
+    {
     }
 }

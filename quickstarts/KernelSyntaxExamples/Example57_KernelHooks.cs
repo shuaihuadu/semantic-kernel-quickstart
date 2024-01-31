@@ -1,25 +1,13 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example57_KernelHooks
+#pragma warning disable CS0618 // Events are deprecated
+
+public class Example57_KernelHooks : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task GetUsageAsync()
     {
-        Console.WriteLine("\n======== Using Function Execution Handlers ========\n");
-
-        await GetUsageAsync();
-
-        await GetRenderedPromptAsync();
-
-        await ChangingResultAsync();
-
-        await BeforeInvokeCancellationiAsync();
-
-        await AfterInvokeCancellationAsync();
-    }
-
-    private static async Task GetUsageAsync()
-    {
-        Console.WriteLine("\n======== Get Usage Data ========\n");
+        this.WriteLine("\n======== Get Usage Data ========\n");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -42,18 +30,18 @@ public static class Example57_KernelHooks
 
         void PreHandler(object? sender, FunctionInvokingEventArgs e)
         {
-            Console.WriteLine($"{e.Function.Name} : Pre Execution Handler - Triggered");
+            this.WriteLine($"{e.Function.Name} : Pre Execution Handler - Triggered");
         }
 
         void RemovedPreExecutionHandler(object? sender, FunctionInvokingEventArgs e)
         {
-            Console.WriteLine($"{e.Function.Name} : Pre Execution Handler - Should not trigger");
+            this.WriteLine($"{e.Function.Name} : Pre Execution Handler - Should not trigger");
             e.Cancel = true;
         }
 
         void PostExecutionHandler(object? sender, FunctionInvokedEventArgs e)
         {
-            Console.WriteLine($"{e.Function.Name} : Post Execution Handler - Usage: {e.Result.Metadata?["Usage"]?.AsJson()}");
+            this.WriteLine($"{e.Function.Name} : Post Execution Handler - Usage: {e.Result.Metadata?["Usage"]?.AsJson()}");
         }
 
         kernel.FunctionInvoking += PreHandler;
@@ -66,12 +54,14 @@ public static class Example57_KernelHooks
 
         FunctionResult result = await kernel.InvokeAsync(excuseFunction, new() { ["input"] = Input });
 
-        Console.WriteLine($"Function Result:{result.GetValue<string>()}");
+        this.WriteLine($"Function Result:{result.GetValue<string>()}");
     }
 
-    private static async Task GetRenderedPromptAsync()
+
+    [Fact]
+    public async Task GetRenderedPromptAsync()
     {
-        Console.WriteLine("\n======== Get Rendered Prompt ========\n");
+        this.WriteLine("\n======== Get Rendered Prompt ========\n");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -94,13 +84,13 @@ public static class Example57_KernelHooks
 
         void PromptRendering(object? sender, PromptRenderingEventArgs e)
         {
-            Console.WriteLine($"{e.Function.Name} : Prompt Rendering Handler - Triggered");
+            this.WriteLine($"{e.Function.Name} : Prompt Rendering Handler - Triggered");
             e.Arguments["style"] = "Seinfeld";
         }
 
         void PromptRendered(object? sender, PromptRenderedEventArgs e)
         {
-            Console.WriteLine($"{e.Function.Name} : Prompt Rendered Handler - Triggered");
+            this.WriteLine($"{e.Function.Name} : Prompt Rendered Handler - Triggered");
             e.RenderedPrompt += "USE SHORT, CLEAR, COMPLETE SENTENCES.";
         }
 
@@ -110,12 +100,14 @@ public static class Example57_KernelHooks
         const string Input = "I missed the F1 final race";
         FunctionResult result = await kernel.InvokeAsync(excuseFunction, new() { ["input"] = Input });
 
-        Console.WriteLine($"Function Result: {result.GetValue<string>()}");
+        this.WriteLine($"Function Result: {result.GetValue<string>()}");
     }
 
-    private static async Task ChangingResultAsync()
+
+    [Fact]
+    public async Task ChangingResultAsync()
     {
-        Console.WriteLine("\n======== Changing/Filtering Function Result ========\n");
+        this.WriteLine("\n======== Changing/Filtering Function Result ========\n");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -145,12 +137,14 @@ public static class Example57_KernelHooks
 
         FunctionResult result = await kernel.InvokeAsync(writerFunction);
 
-        Console.WriteLine($"Function Result: {result.GetValue<string>()}");
+        this.WriteLine($"Function Result: {result.GetValue<string>()}");
     }
 
-    public static async Task BeforeInvokeCancellationiAsync()
+
+    [Fact]
+    public async Task BeforeInvokeCancellationiAsync()
     {
-        Console.WriteLine("\n======== Cancelling Pipeline Execution - Invoking event ========\n");
+        this.WriteLine("\n======== Cancelling Pipeline Execution - Invoking event ========\n");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -168,7 +162,7 @@ public static class Example57_KernelHooks
 
         kernel.FunctionInvoking += (object? sender, FunctionInvokingEventArgs e) =>
         {
-            Console.WriteLine($"{e.Function.Name} : FunctionInvoking - Cancelling before execution");
+            this.WriteLine($"{e.Function.Name} : FunctionInvoking - Cancelling before execution");
             e.Cancel = true;
         };
 
@@ -181,12 +175,14 @@ public static class Example57_KernelHooks
 
         FunctionResult result = await kernel.InvokeAsync(writerFunction);
 
-        Console.WriteLine($"Function Invocation Times: {functionInvokeCount}");
+        this.WriteLine($"Function Invocation Times: {functionInvokeCount}");
     }
 
-    public static async Task AfterInvokeCancellationAsync()
+
+    [Fact]
+    public async Task AfterInvokeCancellationAsync()
     {
-        Console.WriteLine("\n======== Cancelling Pipeline Execution - Invoked event ========\n");
+        this.WriteLine("\n======== Cancelling Pipeline Execution - Invoked event ========\n");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -214,7 +210,11 @@ public static class Example57_KernelHooks
 
         FunctionResult result = await kernel.InvokeAsync(function1);
 
-        Console.WriteLine($"Function Invoked Times: {functionInvokeCount}");
-        Console.WriteLine($"Function Invoking Times:{functionInvokingCount}");
+        this.WriteLine($"Function Invoked Times: {functionInvokeCount}");
+        this.WriteLine($"Function Invoking Times:{functionInvokingCount}");
+    }
+
+    public Example57_KernelHooks(ITestOutputHelper output) : base(output)
+    {
     }
 }
