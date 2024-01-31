@@ -1,21 +1,10 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example41_HttpClientUsage
+public class Example41_HttpClientUsage : BaseTest
 {
-    public static Task RunAsync()
-    {
-        UseDefaultHttpClient();
-
-        UseCustomHttpClient();
-
-        UseBasicRegistrationWithHttpClientFactory();
-
-        UseNamedRegistrationWithHttpClientFactory();
-
-        return Task.CompletedTask;
-    }
-
-    private static void UseDefaultHttpClient()
+    [Fact]
+    public void UseDefaultHttpClient()
     {
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -25,7 +14,8 @@ public static class Example41_HttpClientUsage
             .Build();
     }
 
-    private static void UseCustomHttpClient()
+    [Fact]
+    public void UseCustomHttpClient()
     {
         using HttpClient httpClient = new();
 
@@ -38,7 +28,8 @@ public static class Example41_HttpClientUsage
             .Build();
     }
 
-    private static void UseBasicRegistrationWithHttpClientFactory()
+    [Fact]
+    public void UseBasicRegistrationWithHttpClientFactory()
     {
         IServiceCollection services = new ServiceCollection();
         services.AddHttpClient();
@@ -57,7 +48,8 @@ public static class Example41_HttpClientUsage
         });
     }
 
-    private static void UseNamedRegistrationWithHttpClientFactory()
+    [Fact]
+    public void UseNamedRegistrationWithHttpClientFactory()
     {
         IServiceCollection services = new ServiceCollection();
         services.AddHttpClient();
@@ -78,5 +70,9 @@ public static class Example41_HttpClientUsage
                     httpClient: factory.CreateClient("test-client"))
                 .Build();
         });
+    }
+
+    public Example41_HttpClientUsage(ITestOutputHelper output) : base(output)
+    {
     }
 }

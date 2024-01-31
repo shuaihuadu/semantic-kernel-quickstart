@@ -1,8 +1,9 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example49_LogitBias
+public class Example49_LogitBias : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task RunAsync()
     {
         IChatCompletionService chatCompletionService = new AzureOpenAIChatCompletionService(
             TestConfiguration.AzureOpenAI.DeploymentName,
@@ -15,8 +16,8 @@ public static class Example49_LogitBias
 
         executionSettings.TokenSelectionBiases = keys.ToDictionary(key => key, key => -100);
 
-        Console.WriteLine("Chat content:");
-        Console.WriteLine("------------------------");
+        this.WriteLine("Chat content:");
+        this.WriteLine("------------------------");
 
         ChatHistory chatHistory = new("You are a librarian expert");
 
@@ -35,13 +36,18 @@ public static class Example49_LogitBias
 
         await MessageOutputAsync(chatHistory);
     }
-    private static Task MessageOutputAsync(ChatHistory chatHistory)
+
+    private Task MessageOutputAsync(ChatHistory chatHistory)
     {
         var message = chatHistory.Last();
 
-        Console.WriteLine($"{message.Role}: {message.Content}");
-        Console.WriteLine("------------------------");
+        this.WriteLine($"{message.Role}: {message.Content}");
+        this.WriteLine("------------------------");
 
         return Task.CompletedTask;
+    }
+
+    public Example49_LogitBias(ITestOutputHelper output) : base(output)
+    {
     }
 }

@@ -1,15 +1,12 @@
-﻿namespace KernelSyntaxExamples;
+﻿
+namespace KernelSyntaxExamples;
 
-public static class Example44_MultiChatCompletion
+public class Example44_MultiChatCompletion : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task AzureOpenAIMultipleChatCompletionAsync()
     {
-        await AzureOpenAIMultipleChatCompletionAsync();
-    }
-
-    private static async Task AzureOpenAIMultipleChatCompletionAsync()
-    {
-        Console.WriteLine("======== Azure OpenAI - Multiple Chat Completion ========");
+        this.WriteLine("======== Azure OpenAI - Multiple Chat Completion ========");
 
         AzureOpenAIChatCompletionService chatCompletionService = new AzureOpenAIChatCompletionService(
             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
@@ -20,7 +17,7 @@ public static class Example44_MultiChatCompletion
         await RunChatAsync(chatCompletionService);
     }
 
-    private static async Task RunChatAsync(IChatCompletionService chatCompletionService)
+    private async Task RunChatAsync(IChatCompletionService chatCompletionService)
     {
         var chatHistory = new ChatHistory("You are a librarian, expert about books");
 
@@ -42,16 +39,20 @@ public static class Example44_MultiChatCompletion
             await MessageOutputAsync(chatHistory);
         }
 
-        Console.WriteLine();
+        this.WriteLine();
     }
 
-    private static Task MessageOutputAsync(ChatHistory chatHistory)
+    private Task MessageOutputAsync(ChatHistory chatHistory)
     {
         var message = chatHistory.Last();
 
-        Console.WriteLine($"{message.Role}: {message.Content}");
-        Console.WriteLine("------------------------");
+        this.WriteLine($"{message.Role}: {message.Content}");
+        this.WriteLine("------------------------");
 
         return Task.CompletedTask;
+    }
+
+    public Example44_MultiChatCompletion(ITestOutputHelper output) : base(output)
+    {
     }
 }

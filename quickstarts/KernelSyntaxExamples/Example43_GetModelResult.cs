@@ -1,10 +1,11 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example43_GetModelResult
+public class Example43_GetModelResult : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task GetTokenUsageMetadataAsync()
     {
-        Console.WriteLine("======== Inline Function Definition + Invocation ========");
+        this.WriteLine("======== Inline Function Definition + Invocation ========");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -19,8 +20,12 @@ public static class Example43_GetModelResult
 
         FunctionResult result = await kernel.InvokeAsync(kernelFunction, new() { ["input"] = "秦朝" });
 
-        Console.WriteLine(result.GetValue<string>());
-        Console.WriteLine(result.Metadata?["Usage"]?.AsJson());
-        Console.WriteLine();
+        this.WriteLine(result.GetValue<string>());
+        this.WriteLine(result.Metadata?["Usage"]?.AsJson());
+        this.WriteLine();
+    }
+
+    public Example43_GetModelResult(ITestOutputHelper output) : base(output)
+    {
     }
 }

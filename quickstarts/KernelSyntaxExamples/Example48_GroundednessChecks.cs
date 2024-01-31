@@ -1,17 +1,11 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example48_GroundednessChecks
+public class Example48_GroundednessChecks : BaseTest
 {
-
-    public static async Task RunAsync()
+    [Fact]
+    public async Task GroundednessCheckingAsync()
     {
-        await GroundednessCheckingAsync();
-        await PlanningWithGroundednessAsync();
-    }
-
-    public static async Task GroundednessCheckingAsync()
-    {
-        Console.WriteLine("\n======== Groundedness Checks ========");
+        this.WriteLine("\n======== Groundedness Checks ========");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -49,8 +43,8 @@ her a beggar. My father came to her aid and two years later they married.
         FunctionResult result = await kernel.InvokeAsync(entityExtraction, arguments);
 
         string extractionResult = result.GetValue<string>()!;
-        Console.WriteLine("======== Extract Entities ========");
-        Console.WriteLine(extractionResult);
+        this.WriteLine("======== Extract Entities ========");
+        this.WriteLine(extractionResult);
 
         arguments["input"] = extractionResult;
         arguments["reference_context"] = GroundingText;
@@ -58,19 +52,20 @@ her a beggar. My father came to her aid and two years later they married.
         FunctionResult groundingFunctionResult = await kernel.InvokeAsync(referenceCheck, arguments);
         string groundingResult = groundingFunctionResult.GetValue<string>()!;
 
-        Console.WriteLine("\n======== Reference Check ========");
-        Console.WriteLine(groundingResult);
+        this.WriteLine("\n======== Reference Check ========");
+        this.WriteLine(groundingResult);
 
         arguments["input"] = summaryText;
         arguments["reference_context"] = groundingResult;
 
         FunctionResult excisionResult = await kernel.InvokeAsync(entityExcision, arguments);
 
-        Console.WriteLine("\n======== Excise Entities ========");
-        Console.WriteLine(excisionResult.GetValue<string>());
+        this.WriteLine("\n======== Excise Entities ========");
+        this.WriteLine(excisionResult.GetValue<string>());
     }
 
-    public static async Task PlanningWithGroundednessAsync()
+    [Fact]
+    public async Task PlanningWithGroundednessAsync()
     {
         string targetTopic = "people and places";
         string samples = "John, Jane, mother, brother, Paris, Rome";
@@ -82,7 +77,7 @@ which are not grounded in the original.
 
 Text: \n{GroundingText};
 ";
-        Console.WriteLine("\n======== Planning - Groundedness Checks ========");
+        this.WriteLine("\n======== Planning - Groundedness Checks ========");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
@@ -103,13 +98,13 @@ Text: \n{GroundingText};
 
         HandlebarsPlan plan = await planner.CreatePlanAsync(kernel, ask);
 
-        Console.WriteLine($"======== Goal: ========\n{ask}");
-        Console.WriteLine($"======== Plan ========\n{plan}");
+        this.WriteLine($"======== Goal: ========\n{ask}");
+        this.WriteLine($"======== Plan ========\n{plan}");
 
         string result = await plan.InvokeAsync(kernel);
 
-        Console.WriteLine("======== Result ========");
-        Console.WriteLine(result);
+        this.WriteLine("======== Result ========");
+        this.WriteLine(result);
 
     }
 
@@ -149,4 +144,8 @@ a beggar.This last blow overcame her, and she knelt by Beaufort's coffin weeping
 the chamber. He came like a protecting spirit to the poor girl, who committed herself to his care; and after the
 interment of his friend he conducted her to Geneva and placed her under the protection of a relation.Two years
 after this event Caroline became his wife.""";
+
+    public Example48_GroundednessChecks(ITestOutputHelper output) : base(output)
+    {
+    }
 }

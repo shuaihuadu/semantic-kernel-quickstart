@@ -1,18 +1,11 @@
-﻿
+﻿namespace KernelSyntaxExamples;
 
-
-namespace KernelSyntaxExamples;
-
-public static class Example45_MultiStreamingChatCompletion
+public class Example45_MultiStreamingChatCompletion : BaseTest
 {
-    public static async Task RunAsync()
+    [Fact]
+    public async Task AzureOpenAIMultiStreamingChatCompletionAsync()
     {
-        await AzureOpenAIMultiStreamingChatCompletionAsync();
-    }
-
-    private static async Task AzureOpenAIMultiStreamingChatCompletionAsync()
-    {
-        Console.WriteLine("======== Azure OpenAI - Multiple Chat Completions - Raw Streaming ========");
+        this.WriteLine("======== Azure OpenAI - Multiple Chat Completions - Raw Streaming ========");
 
         AzureOpenAIChatCompletionService chatCompletionService = new(
             deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
@@ -23,7 +16,7 @@ public static class Example45_MultiStreamingChatCompletion
         await StreamingChatCompetionAsync(chatCompletionService, 3);
     }
 
-    private static async Task StreamingChatCompetionAsync(IChatCompletionService chatCompletionService, int numResultsPerPrompt)
+    private async Task StreamingChatCompetionAsync(IChatCompletionService chatCompletionService, int numResultsPerPrompt)
     {
         OpenAIPromptExecutionSettings executionSettings = new OpenAIPromptExecutionSettings()
         {
@@ -37,20 +30,14 @@ public static class Example45_MultiStreamingChatCompletion
 
         var consoleLinesPerResult = 10;
 
-        ClearDisplayByAddingEmptyLines();
-
         string prompt = "Hi, I'm looking for 5 random title names for sci-fi books";
 
         await ProcessStreamAsyncEnumerableAsync(chatCompletionService, prompt, executionSettings, consoleLinesPerResult);
 
-        Console.WriteLine();
-
-        Console.SetCursorPosition(0, executionSettings.ResultsPerPrompt * consoleLinesPerResult);
-
-        Console.WriteLine();
+        this.WriteLine();
     }
 
-    private static async Task ProcessStreamAsyncEnumerableAsync(IChatCompletionService chatCompletionService, string prompt, OpenAIPromptExecutionSettings executionSettings, int consoleLinesPerResult)
+    private async Task ProcessStreamAsyncEnumerableAsync(IChatCompletionService chatCompletionService, string prompt, OpenAIPromptExecutionSettings executionSettings, int consoleLinesPerResult)
     {
         Dictionary<int, string> messagesPerChoice = new();
 
@@ -58,8 +45,6 @@ public static class Example45_MultiStreamingChatCompletion
 
         await foreach (StreamingChatMessageContent chatUpdate in chatCompletionService.GetStreamingChatMessageContentsAsync(chatHistory, executionSettings))
         {
-            Console.SetCursorPosition(0, chatUpdate.ChoiceIndex * consoleLinesPerResult + 1);
-
             if (!messagesPerChoice.ContainsKey(chatUpdate.ChoiceIndex))
             {
                 messagesPerChoice[chatUpdate.ChoiceIndex] = $"Role: {chatUpdate.Role ?? new AuthorRole()}\n";
@@ -70,15 +55,11 @@ public static class Example45_MultiStreamingChatCompletion
                 messagesPerChoice[chatUpdate.ChoiceIndex] += chatUpdate.Content;
             }
 
-            Console.WriteLine(messagesPerChoice[chatUpdate.ChoiceIndex]);
+            this.WriteLine(messagesPerChoice[chatUpdate.ChoiceIndex]);
         }
     }
 
-    private static void ClearDisplayByAddingEmptyLines()
+    public Example45_MultiStreamingChatCompletion(ITestOutputHelper output) : base(output)
     {
-        for (int i = 0; i < Console.WindowHeight - 2; i++)
-        {
-            Console.WriteLine();
-        }
     }
 }
