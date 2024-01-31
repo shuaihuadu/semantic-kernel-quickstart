@@ -1,5 +1,4 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
 public class Example77_StronglyTypedFunctionResult : BaseTest
 {

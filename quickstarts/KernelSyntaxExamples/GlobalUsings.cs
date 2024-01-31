@@ -43,7 +43,6 @@ global using Microsoft.SemanticKernel.Services;
 global using Microsoft.SemanticKernel.Text;
 global using Microsoft.SemanticKernel.TextGeneration;
 global using Microsoft.SemanticKernel.TextToImage;
-global using NCalcPlugins;
 global using Npgsql;
 global using SharpToken;
 global using StackExchange.Redis;

@@ -94,10 +94,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\NCalcPlugins\NCalcPlugins.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Update="appsettings.Development.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

@@ -5,8 +5,6 @@ public class Example74_FlowOrchestrator : BaseTest
     [Fact]
     public Task RunAsync()
     {
-        this.WriteLine($"Loading {typeof(SimpleCalculatorPlugin).AssemblyQualifiedName}");
-
         return RunExampleAsync();
     }
 
