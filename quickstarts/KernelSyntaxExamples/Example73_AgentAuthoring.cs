@@ -1,6 +1,14 @@
 ﻿namespace KernelSyntaxExamples;
 
-internal class Example73_AgentAuthoring
+public class Example73_AgentAuthoring : BaseTest
 {
-    //TODO When Agent Support Azure OpenAI
+    [Fact(Skip = "When Agent Support Azure OpenAI")]
+    public Task RunAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public Example73_AgentAuthoring(ITestOutputHelper output) : base(output)
+    {
+    }
 }

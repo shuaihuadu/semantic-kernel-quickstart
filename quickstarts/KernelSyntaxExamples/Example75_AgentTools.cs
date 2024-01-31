@@ -1,6 +1,14 @@
 ﻿namespace KernelSyntaxExamples;
 
-internal class Example75_AgentTools
+public class Example75_AgentTools : BaseTest
 {
-    //TODO When Agent Support Azure OpenAI
+    [Fact(Skip = "When Agent Support Azure OpenAI")]
+    public Task RunAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public Example75_AgentTools(ITestOutputHelper output) : base(output)
+    {
+    }
 }

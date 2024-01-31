@@ -1,17 +1,16 @@
 ﻿namespace KernelSyntaxExamples;
 
-public static class Example74_FlowOrchestrator
+public class Example74_FlowOrchestrator : BaseTest
 {
-    public static Task RunAsync()
+    [Fact]
+    public Task RunAsync()
     {
-        Console.WriteLine("Loading {0}", typeof(SimpleCalculatorPlugin).AssemblyQualifiedName);
+        this.WriteLine($"Loading {typeof(SimpleCalculatorPlugin).AssemblyQualifiedName}");
 
-        //return RunExampleAsync();
-
-        return RunInteractiveAsync();
+        return RunExampleAsync();
     }
 
-    private static async Task RunInteractiveAsync()
+    private async Task RunExampleAsync()
     {
         BingConnector bingConnector = new(TestConfiguration.Bing.ApiKey);
 
@@ -33,108 +32,21 @@ public static class Example74_FlowOrchestrator
 
         string sessionId = Guid.NewGuid().ToString();
 
-        Console.WriteLine("*****************************************************");
-        Console.WriteLine("Executing {0}", nameof(RunExampleAsync));
+        this.WriteLine("*****************************************************");
+        this.WriteLine($"Executing {nameof(RunExampleAsync)}");
 
         Stopwatch sw = new();
         sw.Start();
 
-        Console.WriteLine("Flow: " + flow.Name);
-
-        Console.WriteLine("Please type the question you'd like to ask");
-
-        FunctionResult? result = null;
-
-        string? goal = null;
-
-        do
-        {
-            Console.WriteLine("User: ");
-
-            string input = Console.ReadLine() ?? string.Empty;
-
-            if (string.IsNullOrEmpty(input))
-            {
-                Console.WriteLine("No input, exiting");
-                break;
-            }
-
-            if (string.IsNullOrEmpty(goal))
-            {
-                goal = input;
-
-                flow.Steps.First().Goal = input;
-            }
-
-            try
-            {
-                result = await orchestrator.ExecuteFlowAsync(flow, sessionId, input);
-            }
-            catch (KernelException ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-                Console.WriteLine("Please try again.");
-                continue;
-            }
-
-            List<string> responses = result.GetValue<List<string>>()!;
-
-            foreach (string response in responses)
-            {
-                Console.WriteLine("Assistant: " + response);
-            }
-
-            if (result.IsComplete(flow))
-            {
-                Console.WriteLine("\tEmail Address: " + result.Metadata!["email_addresses"]);
-                Console.WriteLine("\tEmail Payload: " + result.Metadata!["email"]);
-
-                Console.WriteLine("Flow completed, exiting");
-                break;
-            }
-        } while (result == null || result.GetValue<IList<string>>()?.Count > 0);
-
-        Console.WriteLine("Time Taken: " + sw.Elapsed);
-        Console.WriteLine("*****************************************************");
-    }
-
-    private static async Task RunExampleAsync()
-    {
-        BingConnector bingConnector = new BingConnector(TestConfiguration.Bing.ApiKey);
-
-        WebSearchEnginePlugin webSearchEnginePlugin = new(bingConnector);
-
-        using ILoggerFactory loggerFactory = LoggerFactory.Create(loggerBuilder => loggerBuilder.AddConsole().AddFilter(null, LogLevel.Error));
-
-        Dictionary<object, string?> plugins = new()
-        {
-            {webSearchEnginePlugin,"WebSearch" },
-            {new TimePlugin(),"Time" }
-        };
-
-        FlowOrchestrator orchestrator = new(
-            GetKernelBuilder(loggerFactory),
-            await FlowStatusProvider.ConnectAsync(new VolatileMemoryStore()).ConfigureAwait(false),
-            plugins,
-            config: GetOrchestratorConfig());
-
-        string sessionId = Guid.NewGuid().ToString();
-
-        Console.WriteLine("*****************************************************");
-        Console.WriteLine("Executing {0}", nameof(RunExampleAsync));
-
-        Stopwatch sw = new();
-        sw.Start();
-
-        Console.WriteLine("Flow: " + flow.Name);
+        this.WriteLine("Flow: " + flow.Name);
 
         string question = flow.Steps.First().Goal;
 
         FunctionResult result = await orchestrator.ExecuteFlowAsync(flow, sessionId, question).ConfigureAwait(false);
 
-        Console.WriteLine("Question: " + question);
-        Console.WriteLine("Answer: " + result.Metadata!["answer"]);
-        Console.WriteLine("Assistant: " + result.GetValue<List<string>>()!.Single());
+        this.WriteLine("Question: " + question);
+        this.WriteLine("Answer: " + result.Metadata!["answer"]);
+        this.WriteLine("Assistant: " + result.GetValue<List<string>>()!.Single());
 
         string[] userInputs =  {
             "my email is bad*email&address",
@@ -146,7 +58,7 @@ public static class Example74_FlowOrchestrator
 
         foreach (string input in userInputs)
         {
-            Console.WriteLine($"User: {input}");
+            this.WriteLine($"User: {input}");
 
             result = await orchestrator.ExecuteFlowAsync(flow, sessionId, input).ConfigureAwait(false);
 
@@ -154,7 +66,7 @@ public static class Example74_FlowOrchestrator
 
             foreach (string response in responses)
             {
-                Console.WriteLine("Assistant: " + response);
+                this.WriteLine("Assistant: " + response);
             }
 
             if (result.IsComplete(flow))
@@ -163,11 +75,11 @@ public static class Example74_FlowOrchestrator
             }
         }
 
-        Console.WriteLine("\t Email Address: " + result.Metadata!["email_addresses"]);
-        Console.WriteLine("\t Email Payload: " + result.Metadata!["email"]);
+        this.WriteLine("\t Email Address: " + result.Metadata!["email_addresses"]);
+        this.WriteLine("\t Email Payload: " + result.Metadata!["email"]);
 
-        Console.WriteLine("Time Taken: " + sw.Elapsed);
-        Console.WriteLine("*****************************************************");
+        this.WriteLine("Time Taken: " + sw.Elapsed);
+        this.WriteLine("*****************************************************");
     }
 
     private static IKernelBuilder GetKernelBuilder(ILoggerFactory loggerFactory)
@@ -320,4 +232,8 @@ steps:
 provides:
     - email
 ");
+
+    public Example74_FlowOrchestrator(ITestOutputHelper output) : base(output)
+    {
+    }
 }
