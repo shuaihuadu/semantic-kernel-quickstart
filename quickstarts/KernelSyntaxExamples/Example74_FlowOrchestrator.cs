@@ -14,8 +14,6 @@ public class Example74_FlowOrchestrator : BaseTest
 
         WebSearchEnginePlugin webSearchEnginePlugin = new(bingConnector);
 
-        using ILoggerFactory loggerFactory = LoggerFactory.Create(loggerBuilder => loggerBuilder.AddConsole().AddFilter(null, LogLevel.Error));
-
         Dictionary<object, string?> plugins = new()
         {
             {webSearchEnginePlugin,"WebSearch" },
@@ -23,7 +21,7 @@ public class Example74_FlowOrchestrator : BaseTest
         };
 
         FlowOrchestrator orchestrator = new(
-            GetKernelBuilder(loggerFactory),
+            GetKernelBuilder(LoggerFactory),
             await FlowStatusProvider.ConnectAsync(new VolatileMemoryStore()).ConfigureAwait(false),
             plugins,
             config: GetOrchestratorConfig());

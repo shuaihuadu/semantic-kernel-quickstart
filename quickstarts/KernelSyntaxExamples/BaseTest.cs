@@ -4,9 +4,12 @@ public abstract class BaseTest
 {
     protected ITestOutputHelper Output { get; }
 
+    protected ILoggerFactory LoggerFactory { get; }
+
     protected BaseTest(ITestOutputHelper output)
     {
         this.Output = output;
+        this.LoggerFactory = new XunitLogger(output);
 
         LoadUserSecrets();
     }
