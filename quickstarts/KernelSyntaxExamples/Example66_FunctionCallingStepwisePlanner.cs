@@ -13,13 +13,13 @@ public class Example66_FunctionCallingStepwisePlanner : BaseTest
 
         Kernel kernel = InitializeKernel();
 
-        FunctionCallingStepwisePlannerConfig config = new()
+        FunctionCallingStepwisePlannerOptions options = new FunctionCallingStepwisePlannerOptions
         {
             MaxIterations = 15,
             MaxTokens = 4000
         };
 
-        FunctionCallingStepwisePlanner planner = new(config);
+        FunctionCallingStepwisePlanner planner = new(options);
 
         foreach (string question in questions)
         {
