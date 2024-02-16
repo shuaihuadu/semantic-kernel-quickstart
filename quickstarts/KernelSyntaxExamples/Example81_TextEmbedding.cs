@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example78_TextEmbedding : BaseTest
+public class Example81_TextEmbedding : BaseTest
 {
     [Fact]
     public async Task RunAsync()
@@ -51,7 +51,7 @@ public class Example78_TextEmbedding : BaseTest
         return tokens.Count;
     }
 
-    public Example78_TextEmbedding(ITestOutputHelper output) : base(output)
+    public Example81_TextEmbedding(ITestOutputHelper output) : base(output)
     {
     }
 
