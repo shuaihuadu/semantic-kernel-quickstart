@@ -3,12 +3,7 @@
 public class Example74_FlowOrchestrator : BaseTest
 {
     [Fact]
-    public Task RunAsync()
-    {
-        return RunExampleAsync();
-    }
-
-    private async Task RunExampleAsync()
+    public async Task RunAsync()
     {
         BingConnector bingConnector = new(TestConfiguration.Bing.ApiKey);
 
@@ -22,14 +17,14 @@ public class Example74_FlowOrchestrator : BaseTest
 
         FlowOrchestrator orchestrator = new(
             GetKernelBuilder(LoggerFactory),
-            await FlowStatusProvider.ConnectAsync(new VolatileMemoryStore()).ConfigureAwait(false),
+            await FlowStatusProvider.ConnectAsync(new VolatileMemoryStore()),
             plugins,
             config: GetOrchestratorConfig());
 
         string sessionId = Guid.NewGuid().ToString();
 
         this.WriteLine("*****************************************************");
-        this.WriteLine($"Executing {nameof(RunExampleAsync)}");
+        this.WriteLine($"Executing {nameof(RunAsync)}");
 
         Stopwatch sw = new();
         sw.Start();
@@ -38,7 +33,7 @@ public class Example74_FlowOrchestrator : BaseTest
 
         string question = flow.Steps.First().Goal;
 
-        FunctionResult result = await orchestrator.ExecuteFlowAsync(flow, sessionId, question).ConfigureAwait(false);
+        FunctionResult result = await orchestrator.ExecuteFlowAsync(flow, sessionId, question);
 
         this.WriteLine("Question: " + question);
         this.WriteLine("Answer: " + result.Metadata!["answer"]);
@@ -56,7 +51,7 @@ public class Example74_FlowOrchestrator : BaseTest
         {
             this.WriteLine($"User: {input}");
 
-            result = await orchestrator.ExecuteFlowAsync(flow, sessionId, input).ConfigureAwait(false);
+            result = await orchestrator.ExecuteFlowAsync(flow, sessionId, input);
 
             List<string> responses = result.GetValue<List<string>>()!;
 
@@ -138,7 +133,7 @@ Do not expose the regex in your response.
             [Description("The email address provided by the user, pass no matter what the value is")] string email_addresses,
             KernelArguments arguments)
         {
-            ChatHistory chat = new();
+            ChatHistory chat = new(SystemPrompt);
             chat.AddUserMessage(Goal);
 
             ChatHistory? chatHistory = arguments.GetChatHistory();

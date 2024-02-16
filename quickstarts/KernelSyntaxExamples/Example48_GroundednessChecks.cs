@@ -2,7 +2,7 @@
 
 public class Example48_GroundednessChecks : BaseTest
 {
-    [Fact]
+    [RetryFact(typeof(HttpOperationException))]
     public async Task GroundednessCheckingAsync()
     {
         this.WriteLine("\n======== Groundedness Checks ========");
@@ -56,7 +56,7 @@ her a beggar. My father came to her aid and two years later they married.
         this.WriteLine(groundingResult);
 
         arguments["input"] = summaryText;
-        arguments["reference_context"] = groundingResult;
+        arguments["ungrounded_entities"] = groundingResult;
 
         FunctionResult excisionResult = await kernel.InvokeAsync(entityExcision, arguments);
 

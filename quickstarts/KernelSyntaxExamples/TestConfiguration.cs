@@ -36,6 +36,7 @@ public sealed class TestConfiguration
     public static KustoConfig Kusto => LoadSection<KustoConfig>();
     public static MongoDBConfig Mongo => LoadSection<MongoDBConfig>();
     public static MilvusConfig Milvus => LoadSection<MilvusConfig>();
+    public static MsGraphConfiguration MsGraph => LoadSection<MsGraphConfiguration>();
 
     private static T LoadSection<T>([CallerMemberName] string? caller = null)
     {
@@ -75,6 +76,9 @@ public sealed class TestConfiguration
         public string ApiKey { get; set; }
         public string ImageApiKey { get; set; }
         public string VisionDeploymentName { get; set; }
+        public string TTSDeploymentName { get; set; }
+        public string TTSEndpoint { get; set; }
+        public string TTSApiKey { get; set; }
     }
 
     public class AzureOpenAIEmbeddingsConfig
