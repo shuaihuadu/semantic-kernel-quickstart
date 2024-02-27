@@ -26,4 +26,14 @@ internal static class EmbeddedResource
 
         return assembly.GetManifestResourceStream(resourceName);
     }
+
+    internal async static Task<ReadOnlyMemory<byte>> ReadAllAsync(string fileName)
+    {
+        await using Stream? resourceStream = ReadStream(fileName);
+        using MemoryStream memoryStream = new();
+
+        await resourceStream!.CopyToAsync(memoryStream);
+
+        return new ReadOnlyMemory<byte>(memoryStream.ToArray());
+    }
 }

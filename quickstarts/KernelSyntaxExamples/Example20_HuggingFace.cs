@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example20_HuggingFace : BaseTest
+public class Example20_HuggingFace(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact(Skip = "TODO Hugging Face ")]
     public async Task RunAsync()
@@ -33,12 +33,10 @@ public class Example20_HuggingFace : BaseTest
 
         const string Model = "meta-llama/Llama-2-7b-hf";
 
-        const string Endpoint = "https://api-inference.huggingface.co/models/meta-llama/Llama-2-7b-hf";
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddHuggingFaceTextGeneration(
                 model: Model,
-                endpoint: Endpoint,
                 apiKey: TestConfiguration.HuggingFace.ApiKey)
             .Build();
 
@@ -47,9 +45,5 @@ public class Example20_HuggingFace : BaseTest
         FunctionResult result = await kernel.InvokeAsync(questionAnswerFunction, new() { ["input"] = "What is New York?" });
 
         this.WriteLine(result.GetValue<string>());
-    }
-
-    public Example20_HuggingFace(ITestOutputHelper output) : base(output)
-    {
     }
 }
