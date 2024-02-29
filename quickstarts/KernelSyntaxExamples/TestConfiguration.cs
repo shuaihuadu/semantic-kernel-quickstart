@@ -79,6 +79,9 @@ public sealed class TestConfiguration
         public string TTSDeploymentName { get; set; }
         public string TTSEndpoint { get; set; }
         public string TTSApiKey { get; set; }
+        public string WhisperDeploymentName { get; set; }
+        public string WhisperEndpoint { get; set; }
+        public string WhisperApiKey { get; set; }
     }
 
     public class AzureOpenAIEmbeddingsConfig

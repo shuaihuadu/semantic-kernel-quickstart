@@ -36,14 +36,14 @@ public sealed class Example82_Audio : BaseTest
         await File.WriteAllBytesAsync(AudioFilePath, audioContent.Data!.ToArray());
     }
 
-    [Fact(Skip = "When Azure Open AI support speech to text")]
+    [Fact]
     public async Task AudioToTextAsync()
     {
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIAudioToText(
-                deploymentName: TestConfiguration.AzureOpenAI.TTSDeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.TTSEndpoint,
-                apiKey: TestConfiguration.AzureOpenAI.TTSApiKey)
+                deploymentName: TestConfiguration.AzureOpenAI.WhisperDeploymentName,
+                endpoint: TestConfiguration.AzureOpenAI.WhisperEndpoint,
+                apiKey: TestConfiguration.AzureOpenAI.WhisperApiKey)
             .Build();
 
 
@@ -51,8 +51,8 @@ public sealed class Example82_Audio : BaseTest
 
         OpenAIAudioToTextExecutionSettings settings = new(AudioFilePath)
         {
-            Language = "en",
-            Prompt = "sample prompt",
+            Language = "zh",
+            Prompt = "简体中文，正确使用标点符号",
             ResponseFormat = "json",
             Temperature = 0.3f
         };
