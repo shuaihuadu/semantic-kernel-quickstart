@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization.Metadata;
-
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
 public class Example86_ChatHistorySerialization(ITestOutputHelper output) : BaseTest(output)
 {

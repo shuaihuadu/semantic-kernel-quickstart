@@ -1,8 +1,6 @@
-﻿using Microsoft.SemanticKernel.AudioToText;
+﻿namespace KernelSyntaxExamples;
 
-namespace KernelSyntaxExamples;
-
-public sealed class Example82_Audio : BaseTest
+public sealed class Example82_Audio(ITestOutputHelper output) : BaseTest(output)
 {
     private const string AudioFilePath = "audio.wav";
 
@@ -63,9 +61,5 @@ public sealed class Example82_Audio : BaseTest
         TextContent textContent = await audioToTextService.GetTextContentAsync(audioContent, settings);
 
         WriteLine(textContent);
-    }
-
-    public Example82_Audio(ITestOutputHelper output) : base(output)
-    {
     }
 }
