@@ -1,10 +1,19 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example_Realword_001_VoiceTranslation(ITestOutputHelper output) : BaseTest(output)
+public class Realword_Example_001_VoiceTranslation(ITestOutputHelper output) : BaseTest(output)
 {
+    private const string AudioFileFolder = "chatcontent";
+
+    private const string AudioFilePathPattern = "{0}\\{1}-{2}-audio.wav";
+
     [Fact]
     public async Task RunAsync()
     {
+        if (!Directory.Exists(AudioFileFolder))
+        {
+            Directory.CreateDirectory(AudioFileFolder);
+        }
+
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAITextToAudio(
             deploymentName: TestConfiguration.AzureOpenAI.TTSDeploymentName,
@@ -14,6 +23,31 @@ public class Example_Realword_001_VoiceTranslation(ITestOutputHelper output) : B
 
         ITextToAudioService textToAudioService = kernel.GetRequiredService<ITextToAudioService>();
 
+        string voice = "nova";
+
+        OpenAITextToAudioExecutionSettings settings = new(voice)
+        {
+            Voice = voice,
+            ResponseFormat = "mp3",
+            Speed = 1.0f
+        };
+
+        int index = 1;
+
+        foreach (ChatContent chatContent in ChatContent.ChatContents)
+        {
+            AudioContent audioContent = await textToAudioService.GetAudioContentAsync(chatContent.Content, settings);
+
+            string audioFilePath = string.Format(AudioFilePathPattern, AudioFileFolder, chatContent.Name, index);
+
+            await File.WriteAllBytesAsync(audioFilePath, audioContent.Data!.ToArray());
+
+            index++;
+
+            await Task.Delay(60000);
+
+            Thread.Sleep(60000);
+        }
     }
 }
 
