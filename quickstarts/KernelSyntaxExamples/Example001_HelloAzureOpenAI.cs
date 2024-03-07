@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example00_HelloAzureOpenAI(ITestOutputHelper output) : BaseTest(output)
+public class Example001_HelloAzureOpenAI(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
