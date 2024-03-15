@@ -4,7 +4,7 @@ public class Example71_AgentDelegation(ITestOutputHelper output) : BaseTest(outp
 {
     private static readonly List<IAgent> agents = [];
 
-    [Fact]
+    [Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : Response status code does not indicate success: 400 (Bad Request).")]
     public async Task RunAsync()
     {
         WriteLine("======== Example71_AgentDelegation ========");
