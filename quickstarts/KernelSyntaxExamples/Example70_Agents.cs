@@ -3,18 +3,34 @@
 public class Example70_Agents(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
-    public Task RunAsync()
+    public Task RunSimpleChatAsync()
     {
-        return Task.CompletedTask;
+        WriteLine("======== Run:SimpleChat ========");
+
+        return ChatAsync("Agents.ParrotAgent.yaml",
+            plugin: null,
+            arguments: new KernelArguments() { { "count", 3 } },
+            "Fortune favors the bold.",
+            "I came, I saw, I conquered.",
+            "Practice makes perfect.");
     }
 
-    //[Fact]
-    //public Task RunWithMethodFunctionsAsync()
-    //{
-    //    WriteLine("======== Run:WithMethodFunctions ========");
+    [Fact]
+    public Task RunWithMethodFunctionsAsync()
+    {
+        WriteLine("======== Run:WithMethodFunctions ========");
 
-    //    KernelPlugin plugin = KernelPluginFactory.CreateFromType<MenuPlugin>();
-    //}
+        KernelPlugin plugin = KernelPluginFactory.CreateFromType<MenuPlugin>();
+
+        return ChatAsync(
+            "Agents.ParrotAgent.yaml",
+            plugin,
+            arguments: null,
+            "Hello",
+            "What is the special soup?",
+            "What is the special drink?",
+            "Thank you!");
+    }
 
     [Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : Incorrect API key provided: You can find your API key at https://platform.openai.com/account/api-keys.")]
     public Task RunWithPromptFunctionsAsync()
@@ -36,6 +52,28 @@ public class Example70_Agents(ITestOutputHelper output) : BaseTest(output)
             "Is this spelled correctly: exercize",
             "What is the special soup?",
             "Thank you!");
+    }
+
+    [Fact]
+    public async Task RunAsFunctionAsync()
+    {
+        WriteLine("======== Run:AsFunction ========");
+
+        IAgent agent = await new AgentBuilder()
+            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatDeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            .FromTemplate(EmbeddedResource.Read("Agents.ParrotAgent.yaml"))
+            .BuildAsync();
+
+        try
+        {
+            string response = await agent.AsPlugin().InvokeAsync("Practice makes perfect.", new KernelArguments { { "count", 2 } });
+
+            WriteLine(response ?? $"No response from agent: {agent.Id}");
+        }
+        finally
+        {
+            await agent.DeleteAsync();
+        }
     }
 
     private async Task ChatAsync(string resourcePath, KernelPlugin? plugin = null, KernelArguments? arguments = null, params string[] messages)
