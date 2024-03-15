@@ -40,7 +40,7 @@ public class Realword_Example_001_VoiceTranslation(ITestOutputHelper output) : B
 
             string audioFilePath = string.Format(AudioFilePathPattern, AudioFileFolder, chatContent.Name, index);
 
-            await File.WriteAllBytesAsync(audioFilePath, audioContent.Data!.ToArray());
+            await File.WriteAllBytesAsync(audioFilePath, audioContent.Data!.Value.ToArray());
 
             index++;
 

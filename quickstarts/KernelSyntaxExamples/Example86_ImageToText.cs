@@ -24,7 +24,7 @@ public class Example86_ImageToText(ITestOutputHelper output) : BaseTest(output)
 
         ReadOnlyMemory<byte> imageData = await EmbeddedResource.ReadAllAsync(ImageFilePath);
 
-        ImageContent imageContent = new(new BinaryData(imageData, "image/jpeg"));
+        ImageContent imageContent = new(new BinaryData(imageData), "image/jpeg");
 
         TextContent textContent = await imageToText.GetTextContentAsync(imageContent, executionSettings);
 

@@ -31,7 +31,7 @@ public sealed class Example82_Audio(ITestOutputHelper output) : BaseTest(output)
 
         AudioContent audioContent = await textToAudioService.GetAudioContentAsync(sampleText, settings);
 
-        await File.WriteAllBytesAsync(AudioFilePath, audioContent.Data!.ToArray());
+        await File.WriteAllBytesAsync(AudioFilePath, audioContent.Data!.Value.ToArray());
     }
 
     [Fact]
