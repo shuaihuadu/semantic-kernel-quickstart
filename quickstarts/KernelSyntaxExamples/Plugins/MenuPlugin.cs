@@ -3,24 +3,18 @@
 internal sealed class MenuPlugin
 {
     [KernelFunction, Description("Providers a list of specials from the menu.")]
-    public string SendEmail(
-        [Description("The body of the email message to send.")] string input,
-        [Description("The email address to send email to.")] string email_address)
-        => $"Send email to: {email_address}. Body: {input}";
-
-    [KernelFunction, Description("Given a name, find email address")]
-    public string GetEmailAddress(
-        [Description("The name of the person whose email address needs to be found.")] string input,
-        ILogger? logger = null)
+    public string GetSpecials()
     {
-        logger?.LogTrace("Returning hard coded email for {0}", input);
+        return @"
+Special Soup: Clam Chowder
+Special Salad: Cobb Salad
+Special Drink: Chai Tea
+";
+    }
 
-        return input switch
-        {
-            "Zhangsan" => "zhangsan@email.com",
-            "Lisi" => "lisi@email.com",
-            "Wangwu" => "wangwu@email.com",
-            _ => "test@email.com"
-        };
+    [KernelFunction, Description("Provider the price of the requested menu item.")]
+    public string GetItemPrice([Description("The name of the menu item.")] string menuItem)
+    {
+        return "$9.99";
     }
 }

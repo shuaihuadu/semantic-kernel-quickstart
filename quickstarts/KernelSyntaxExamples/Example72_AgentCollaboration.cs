@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example72_AgentCollaboration : BaseTest
+public class Example72_AgentCollaboration(ITestOutputHelper output) : BaseTest(output)
 {
     private static readonly List<IAgent> agents = [];
 
@@ -131,9 +131,5 @@ public class Example72_AgentCollaboration : BaseTest
         agents.Add(agent);
 
         return agent;
-    }
-
-    public Example72_AgentCollaboration(ITestOutputHelper output) : base(output)
-    {
     }
 }

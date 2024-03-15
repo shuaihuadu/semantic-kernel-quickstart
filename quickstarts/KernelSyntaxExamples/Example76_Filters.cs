@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example76_Filters : BaseTest
+public class Example76_Filters(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task FunctionAndPromptFiltersAsync()
@@ -26,10 +26,6 @@ public class Example76_Filters : BaseTest
         FunctionResult result = await kernel.InvokeAsync(function);
 
         WriteLine(result.ToString());
-    }
-
-    public Example76_Filters(ITestOutputHelper output) : base(output)
-    {
     }
 
     private sealed class FirstFunctionFilter : IFunctionFilter

@@ -2,7 +2,7 @@
 
 public class Example85_AgentCharts(ITestOutputHelper output) : BaseTest(output)
 {
-    [Fact(Skip = "Azure OpenAI Function Call")]
+    [Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : Response status code does not indicate success: 404 (Not Found).")]
     public async Task CreateChartAsync()
     {
         this.WriteLine("======== Using CodeInterpreter tool ========");
