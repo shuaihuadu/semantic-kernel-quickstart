@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example85_ImageToText(ITestOutputHelper output) : BaseTest(output)
+public class Example86_ImageToText(ITestOutputHelper output) : BaseTest(output)
 {
     private const string ImageToTextModel = "Salesforce/blip-image-captioning-base";
     private const string ImageFilePath = "test_image.jpg";

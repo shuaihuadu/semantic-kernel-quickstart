@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example86_ChatHistorySerialization(ITestOutputHelper output) : BaseTest(output)
+public class Example87_ChatHistorySerialization(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public void SerializeChatHistoryWithSKContentType()
