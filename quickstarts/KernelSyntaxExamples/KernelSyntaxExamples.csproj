@@ -19,6 +19,8 @@
 		<None Remove="Resources\30-system-prompt.txt" />
 		<None Remove="Resources\30-user-context.txt" />
 		<None Remove="Resources\30-user-prompt.txt" />
+		<None Remove="Resources\Agents\ParrotAgent.yaml" />
+		<None Remove="Resources\Agents\ToolAgent.yaml" />
 		<None Remove="Resources\EnglishRoberta\dict.txt" />
 		<None Remove="Resources\EnglishRoberta\encoder.json" />
 		<None Remove="Resources\EnglishRoberta\vocab.bpe" />
@@ -36,6 +38,8 @@
 		<EmbeddedResource Include="Resources\30-system-prompt.txt" />
 		<EmbeddedResource Include="Resources\30-user-context.txt" />
 		<EmbeddedResource Include="Resources\30-user-prompt.txt" />
+		<EmbeddedResource Include="Resources\Agents\ParrotAgent.yaml" />
+		<EmbeddedResource Include="Resources\Agents\ToolAgent.yaml" />
 		<EmbeddedResource Include="Resources\EnglishRoberta\dict.txt" />
 		<EmbeddedResource Include="Resources\EnglishRoberta\encoder.json" />
 		<EmbeddedResource Include="Resources\EnglishRoberta\vocab.bpe" />
