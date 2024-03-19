@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace KernelSyntaxExamples.Plugins;
+﻿namespace KernelSyntaxExamples.Plugins;
 
 public sealed class StaticTextPlugin
 {

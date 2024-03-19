@@ -1,7 +1,7 @@
 ﻿
 namespace KernelSyntaxExamples;
 
-public class Example16_CustomLLM : BaseTest
+public class Example16_CustomLLM(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -101,7 +101,51 @@ providing personalized recommendations, entertainment, and assistance. AI is awe
         }
     }
 
-    public Example16_CustomLLM(ITestOutputHelper output) : base(output)
+
+
+    [Fact]
+    public async Task RunPromptRenderWithKernelAsync()
     {
+        IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
+
+        kernelBuilder.Services.AddKeyedSingleton<ITextGenerationService>("myService1", new PromptRenderGenerationService());
+
+        Kernel kernel = kernelBuilder.Build();
+
+        KernelFunction function = kernel.CreateFunctionFromPrompt("{{$input}}");
+
+        KernelArguments arguments = new()
+        {
+            ["input"] = "Hello World!"
+        };
+
+        FunctionResult result = await kernel.InvokeAsync(function, arguments);
+
+        WriteLine(result.ToString());
+    }
+
+    private sealed class PromptRenderGenerationService : ITextGenerationService
+    {
+        public IReadOnlyDictionary<string, object?> Attributes => throw new NotImplementedException();
+
+        public async IAsyncEnumerable<StreamingTextContent> GetStreamingTextContentsAsync(string prompt, PromptExecutionSettings? executionSettings = null, Kernel? kernel = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            foreach (string word in prompt.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+            {
+                await Task.Delay(100, cancellationToken);
+
+                cancellationToken.ThrowIfCancellationRequested();
+
+                yield return new StreamingTextContent($"{word} ");
+            }
+        }
+
+        public Task<IReadOnlyList<TextContent>> GetTextContentsAsync(string prompt, PromptExecutionSettings? executionSettings = null, Kernel? kernel = null, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult<IReadOnlyList<TextContent>>(new List<TextContent>
+            {
+                new(prompt)
+            });
+        }
     }
 }
