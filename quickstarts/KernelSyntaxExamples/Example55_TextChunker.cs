@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example55_TextChunker : BaseTest
+public class Example55_TextChunker(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public void RunExample()
@@ -22,7 +22,7 @@ public class Example55_TextChunker : BaseTest
     {
         this.WriteLine($"=== Text chunking with a custom({counterType}) token counter ===");
 
-        Stopwatch sw = new Stopwatch();
+        Stopwatch sw = new();
         sw.Start();
 
         TokenCounter tokenCounter = tokenCounterFactory(counterType);
@@ -68,62 +68,94 @@ public class Example55_TextChunker : BaseTest
         MicrosoftMLRoberta
     }
 
-    private static TokenCounter SharpTokenTokenCounter => (string input) =>
+    public class SharpTokenTokenCounter
     {
-        GptEncoding encoding = GptEncoding.GetEncoding("cl100k_base");
+        private readonly GptEncoding _encoding;
 
-        List<int> tokens = encoding.Encode(input);
-
-        return tokens.Count;
-    };
-
-    public static TokenCounter MicrosoftMLTokenCounter => (string input) =>
-    {
-        Tokenizer tokenizer = new(new Bpe());
-
-        IReadOnlyList<string> tokens = tokenizer.Encode(input).Tokens;
-
-        return tokens.Count;
-    };
-
-    private static TokenCounter MicrosoftMLRobertaTokenCounter => (string input) =>
-    {
-        Stream? encoder = EmbeddedResource.ReadStream("EnglishRoberta.encoder.json");
-        Stream? vocab = EmbeddedResource.ReadStream("EnglishRoberta.vocab.bpe");
-        Stream? dict = EmbeddedResource.ReadStream("EnglishRoberta.dict.txt");
-
-        if (encoder is null || vocab is null || dict is null)
+        public SharpTokenTokenCounter()
         {
-            throw new FileNotFoundException("Missing required resources");
+            this._encoding = GptEncoding.GetEncoding("cl100k_base");
         }
 
-        EnglishRoberta model = new(encoder, vocab, dict);
+        public int Count(string input)
+        {
+            List<int> tokens = this._encoding.Encode(input);
 
-        model.AddMaskSymbol();
+            return tokens.Count;
+        }
+    }
 
-        Tokenizer tokenizer = new(model, new RobertaPreTokenizer());
-
-        IReadOnlyList<string> tokens = tokenizer.Encode(input).Tokens;
-
-        return tokens.Count;
-    };
-
-    private static TokenCounter DeepDevTokenCounter => (string input) =>
+    public class MicrosoftMLTokenCounter
     {
-        ITokenizer tokenizer = TokenizerBuilder.CreateByEncoderNameAsync("cl100k_base").GetAwaiter().GetResult();
+        private readonly Tokenizer _tokenizer;
 
-        List<int> tokens = tokenizer.Encode(input);
+        public MicrosoftMLTokenCounter()
+        {
+            this._tokenizer = new(new Bpe());
+        }
 
-        return tokens.Count;
-    };
+        public int Count(string input)
+        {
+            IReadOnlyList<string> tokens = this._tokenizer.Encode(input).Tokens;
+
+            return tokens.Count;
+        }
+    }
+
+    public class MicrosoftMLRobertaTokenCounter
+    {
+        private readonly Tokenizer _tokenizer;
+
+        public MicrosoftMLRobertaTokenCounter()
+        {
+            Stream? encoder = EmbeddedResource.ReadStream("EnglishRoberta.encoder.json");
+            Stream? vocab = EmbeddedResource.ReadStream("EnglishRoberta.vocab.bpe");
+            Stream? dict = EmbeddedResource.ReadStream("EnglishRoberta.dict.txt");
+
+            if (encoder is null || vocab is null || dict is null)
+            {
+                throw new FileNotFoundException("Missing required resources");
+            }
+
+            EnglishRoberta model = new(encoder, vocab, dict);
+
+            model.AddMaskSymbol();
+
+            this._tokenizer = new(model, new RobertaPreTokenizer());
+        }
+
+        public int Count(string input)
+        {
+            IReadOnlyList<string> tokens = _tokenizer.Encode(input).Tokens;
+
+            return tokens.Count;
+        }
+    }
+
+    public class DeepDevTokenCounter
+    {
+        private readonly ITokenizer _tokenizer;
+
+        public DeepDevTokenCounter()
+        {
+            this._tokenizer = TokenizerBuilder.CreateByEncoderNameAsync("cl100k_base").GetAwaiter().GetResult();
+        }
+
+        public int Count(string input)
+        {
+            List<int> tokens = this._tokenizer.Encode(input, []);
+
+            return tokens.Count;
+        }
+    }
 
     private static readonly Func<TokenCounterType, TokenCounter> tokenCounterFactory = (TokenCounterType counterType) =>
         counterType switch
         {
-            TokenCounterType.SharpToken => (string input) => SharpTokenTokenCounter(input),
-            TokenCounterType.MicrosoftML => (string input) => MicrosoftMLTokenCounter(input),
-            TokenCounterType.DeepDev => (string input) => DeepDevTokenCounter(input),
-            TokenCounterType.MicrosoftMLRoberta => (string input) => MicrosoftMLRobertaTokenCounter(input),
+            TokenCounterType.SharpToken => new SharpTokenTokenCounter().Count,
+            TokenCounterType.MicrosoftML => new MicrosoftMLTokenCounter().Count,
+            TokenCounterType.DeepDev => new DeepDevTokenCounter().Count,
+            TokenCounterType.MicrosoftMLRoberta => new MicrosoftMLRobertaTokenCounter().Count,
             _ => throw new ArgumentOutOfRangeException(nameof(counterType), counterType, null)
         };
 
@@ -144,8 +176,4 @@ stretching for over 2,300 kilometers over an area of approximately 344,400 squar
 Coral Sea, off the coast of Queensland, Australia. The Great Barrier Reef can be seen from outer space and is the world's
 biggest single structure made by living organisms. This reef structure is composed of and built by billions of tiny organisms,
 known as coral polyps.";
-
-    public Example55_TextChunker(ITestOutputHelper output) : base(output)
-    {
-    }
 }
