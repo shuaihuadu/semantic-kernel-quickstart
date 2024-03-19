@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example05_InlineFunctionDefinition : BaseTest
+public class Example05_InlineFunctionDefinition(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -65,8 +65,5 @@ Event: {{$input}}
 
         result = await kernel.InvokeAsync(fixedFunction);
         this.WriteLine(result.GetValue<string>());
-    }
-    public Example05_InlineFunctionDefinition(ITestOutputHelper output) : base(output)
-    {
     }
 }

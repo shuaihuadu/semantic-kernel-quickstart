@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example06_TemplateLanguage : BaseTest
+public class Example06_TemplateLanguage(ITestOutputHelper output) : BaseTest(output)
 {
 
     [Fact]
@@ -56,9 +56,5 @@ Is it weekend time (weekend/not weekend)?
         FunctionResult result = await kernel.InvokeAsync(kindOfDay);
 
         this.WriteLine(result.GetValue<string>());
-    }
-
-    public Example06_TemplateLanguage(ITestOutputHelper output) : base(output)
-    {
     }
 }

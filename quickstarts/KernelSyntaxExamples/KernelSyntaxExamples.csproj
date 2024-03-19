@@ -107,6 +107,78 @@
 		<None Update="appsettings.Development.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_en_us_zh_cn\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_en_us_zh_cn\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_zh_cn_en_us\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_zh_cn_en_us\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Blocks_Translate_en_us_zh_cn\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Blocks_Translate_en_us_zh_cn\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Blocks_Translate_zh_cn_en_us\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Blocks_Translate_zh_cn_en_us\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Content_Translate\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Content_Translate\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\FAQ\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\FAQ\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Keywords\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Keywords\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\QnA\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\QnA\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\QuestionInScope\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\QuestionInScope\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Question\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Question\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\SummarizeWithLimit\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\SummarizeWithLimit\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Summarize\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="OwnerExamples\Skills\Default\Summarize\skprompt.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>

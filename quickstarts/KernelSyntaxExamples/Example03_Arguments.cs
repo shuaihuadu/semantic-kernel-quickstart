@@ -1,5 +1,4 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
 public class Example03_Arguments(ITestOutputHelper output) : BaseTest(output)
 {

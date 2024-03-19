@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples.OwnerExamples;
 
 public class Realword_Example_001_VoiceTranslation(ITestOutputHelper output) : BaseTest(output)
 {
@@ -59,8 +59,8 @@ public class ChatContent
 
     public ChatContent(string name, string content)
     {
-        this.Name = name;
-        this.Content = content;
+        Name = name;
+        Content = content;
     }
 
     public string Name { get; set; } = string.Empty;

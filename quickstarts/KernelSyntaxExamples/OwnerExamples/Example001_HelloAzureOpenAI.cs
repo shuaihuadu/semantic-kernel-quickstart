@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples.OwnerExamples;
 
 public class Example001_HelloAzureOpenAI(ITestOutputHelper output) : BaseTest(output)
 {

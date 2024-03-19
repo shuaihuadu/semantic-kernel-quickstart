@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples.OwnerExamples;
 
 public class Example002_ActualTokenCalculate(ITestOutputHelper output) : BaseTest(output)
 {
@@ -13,7 +13,7 @@ public class Example002_ActualTokenCalculate(ITestOutputHelper output) : BaseTes
         }
         ];
 
-        int count = this.CalculateTokensCountForMessage(exampleMessages);
+        int count = CalculateTokensCountForMessage(exampleMessages);
 
         WriteLine(count);
     }

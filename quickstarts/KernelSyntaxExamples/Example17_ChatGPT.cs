@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example17_ChatGPT : BaseTest
+public class Example17_ChatGPT(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -49,9 +49,5 @@ public class Example17_ChatGPT : BaseTest
         this.WriteLine("------------------------");
 
         return Task.CompletedTask;
-    }
-
-    public Example17_ChatGPT(ITestOutputHelper output) : base(output)
-    {
     }
 }
