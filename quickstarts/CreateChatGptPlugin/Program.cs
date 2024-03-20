@@ -11,42 +11,49 @@ Kernel kernel = builder.Build();
 
 await kernel.ImportPluginFromOpenApiAsync("MathPlugin", new Uri("https://localhost:7161/swagger/v1/swagger.json")).ConfigureAwait(false);
 
-ChatHistory history = [];
-
-IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-
-while (true)
+FunctionResult sqResult = await kernel.InvokeAsync("MathPlugin", "Sqrt", new()
 {
-    Console.Write("User > ");
+    ["number"] = 20
+});
 
-    history.AddUserMessage(Console.ReadLine()!);
+Console.WriteLine(sqResult);
 
-    OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
-    {
-        ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
-    };
+//ChatHistory history = [];
 
-    IAsyncEnumerable<StreamingChatMessageContent> result = chatCompletionService.GetStreamingChatMessageContentsAsync(history, executionSettings: openAIPromptExecutionSettings, kernel: kernel);
+//IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-    string fullMessage = "";
+//while (true)
+//{
+//    Console.Write("User > ");
 
-    bool first = true;
+//    history.AddUserMessage(Console.ReadLine()!);
 
-    await foreach (StreamingChatMessageContent content in result)
-    {
-        if (content.Role.HasValue && first)
-        {
-            Console.Write("Assistant > ");
+//    OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
+//    {
+//        ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
+//    };
 
-            first = false;
-        }
+//    IAsyncEnumerable<StreamingChatMessageContent> result = chatCompletionService.GetStreamingChatMessageContentsAsync(history, executionSettings: openAIPromptExecutionSettings, kernel: kernel);
 
-        Console.Write(content.Content);
+//    string fullMessage = "";
 
-        fullMessage += content.Content;
-    }
+//    bool first = true;
 
-    Console.WriteLine();
+//    await foreach (StreamingChatMessageContent content in result)
+//    {
+//        if (content.Role.HasValue && first)
+//        {
+//            Console.Write("Assistant > ");
 
-    history.AddAssistantMessage(fullMessage);
-}
+//            first = false;
+//        }
+
+//        Console.Write(content.Content);
+
+//        fullMessage += content.Content;
+//    }
+
+//    Console.WriteLine();
+
+//    history.AddAssistantMessage(fullMessage);
+//}

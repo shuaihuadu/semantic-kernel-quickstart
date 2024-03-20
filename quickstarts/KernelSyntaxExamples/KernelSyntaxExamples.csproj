@@ -10,8 +10,9 @@
 		<NoWarn>CA1050,CA1707,CA2007,VSTHRD111,CS1591,RCS1110,CA5394,SKEXP0001,SKEXP0002,SKEXP0003,SKEXP0004,SKEXP0005,SKEXP0010,SKEXP0011,SKEXP0012,SKEXP0013,SKEXP0015,SKEXP0020,SKEXP0021,SKEXP0022,SKEXP0023,SKEXP0024,SKEXP0025,SKEXP0026,SKEXP0027,SKEXP0028,SKEXP0029,SKEXP0030,SKEXP0031,SKEXP0032,SKEXP0040,SKEXP0041,SKEXP0042,SKEXP0050,SKEXP0051,SKEXP0052,SKEXP0053,SKEXP0054,SKEXP0055,SKEXP0060,SKEXP0061,SKEXP0101,SKEXP0102</NoWarn>
 	</PropertyGroup>
 
+	<Import Project="$(SolutionDir)/Solution Items/appsettings.props" />
 	<ItemGroup>
-	  <Compile Remove="Program.cs" />
+		<Compile Remove="Program.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Resources\22-ai-plugin.json" />
@@ -29,7 +30,7 @@
 		<None Remove="Resources\test_image.jpg" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Content Include="Program.cs" />
+		<Content Include="Program.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -46,7 +47,7 @@
 		<EmbeddedResource Include="Resources\GenerateStory.yaml" />
 		<EmbeddedResource Include="Resources\GenerateStoryHandlebars.yaml" />
 		<EmbeddedResource Include="Resources\test_image.jpg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
 
@@ -98,86 +99,83 @@
 		<PackageReference Include="xunit.analyzers" Version="1.11.0" />
 		<PackageReference Include="xunit.extensibility.core" Version="2.7.0" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.7">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="appsettings.Development.json">
+		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_en_us_zh_cn\config.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_en_us_zh_cn\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_en_us_zh_cn\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_zh_cn_en_us\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_zh_cn_en_us\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Blocks_Translate_en_us_zh_cn\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Blocks_Translate_en_us_zh_cn\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Blocks_Translate_zh_cn_en_us\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Blocks_Translate_zh_cn_en_us\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Translate\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Translate\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\FAQ\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\FAQ\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Keywords\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Keywords\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\QnA\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\QnA\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\QuestionInScope\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\QuestionInScope\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Question\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Question\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\SummarizeWithLimit\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\SummarizeWithLimit\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Summarize\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\Summarize\skprompt.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 

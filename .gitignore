@@ -14,3 +14,5 @@ appsettings.Production.json
 /quickstarts/KernelSyntaxExamples/appsettings.Development.json
 /quickstarts/CreateChatGptPlugin/appsettings.Development.json
 /quickstarts/WebPlugins/appsettings.Development.json
+/quickstarts/DocumentationExamples/appsettings.Development.json
+/Solution Items/appsettings.Development.json
