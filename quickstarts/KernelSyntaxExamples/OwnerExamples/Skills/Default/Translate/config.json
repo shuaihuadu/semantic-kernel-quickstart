@@ -1,0 +1,29 @@
+{
+  "description": "Generate Faq from given text",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 2048,
+      "temperature": 0.7,
+      "top_p": 0.1,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0
+    }
+  },
+  "input_variables": [
+    {
+      "name": "terms",
+      "description": "Text to get keywords",
+      "default": ""
+    },
+    {
+      "name": "history",
+      "description": "Text to get keywords",
+      "default": ""
+    },
+    {
+      "name": "user_input",
+      "description": "Text to get keywords",
+      "default": ""
+    }
+  ]
+}

@@ -5,7 +5,7 @@ public class Example004_PromptTemplateConfig(ITestOutputHelper output) : BaseTes
     [Fact]
     public async Task RunAsync()
     {
-        string skill = "QnA";
+        string skill = "Translate";
 
         string configFileContent = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OwnerExamples", "Skills", "Default", skill, "config.json"));
 

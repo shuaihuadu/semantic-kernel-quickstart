@@ -131,10 +131,10 @@
 		<None Update="OwnerExamples\Skills\Default\Blocks_Translate_zh_cn_en_us\skprompt.txt">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="OwnerExamples\Skills\Default\Content_Translate\config.json">
+		<None Update="OwnerExamples\Skills\Default\Translate\config.json">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="OwnerExamples\Skills\Default\Content_Translate\skprompt.txt">
+		<None Update="OwnerExamples\Skills\Default\Translate\skprompt.txt">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="OwnerExamples\Skills\Default\FAQ\config.json">
