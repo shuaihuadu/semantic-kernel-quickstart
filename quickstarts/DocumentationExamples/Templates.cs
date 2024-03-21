@@ -60,13 +60,13 @@ Choices: {{choices}}.</message>
 
         ChatHistory chatHistory = [];
 
-        while (true)
-        {
-            Write("User > ");
+        //while (true)
+        //{
+        Write("User > ");
 
-            string? request = ReadLine();
+        string? request = "Thank you, Can I away now?";// ReadLine();
 
-            FunctionResult intent = await kernel.InvokeAsync(getIntent, new()
+        FunctionResult intent = await kernel.InvokeAsync(getIntent, new()
             {
                 {"request",request },
                 {"choices",choices},
@@ -74,34 +74,35 @@ Choices: {{choices}}.</message>
                 {"fewShotExamples",fewShotExamples}
             });
 
-            if (intent.ToString() == "EndConversation")
-            {
-                break;
-            }
+        WriteLine(intent);
+        //if (intent.ToString() == "EndConversation")
+        //{
+        //    break;
+        //}
 
-            IAsyncEnumerable<StreamingChatMessageContent> chatResult = kernel.InvokeStreamingAsync<StreamingChatMessageContent>(chatFunction, new()
+        IAsyncEnumerable<StreamingChatMessageContent> chatResult = kernel.InvokeStreamingAsync<StreamingChatMessageContent>(chatFunction, new()
             {
                 {"request",request },
                 { "history",string.Join("\n",chatHistory.Select(x=>x.Role + ":" + x.Content))}
             });
 
-            string message = "";
+        string message = "";
 
-            await foreach (StreamingChatMessageContent chunk in chatResult)
+        await foreach (StreamingChatMessageContent chunk in chatResult)
+        {
+            if (chunk.Role.HasValue)
             {
-                if (chunk.Role.HasValue)
-                {
-                    Write(chunk.Role + " > ");
-                }
-
-                message += chunk;
-                Write(chunk);
+                Write(chunk.Role + " > ");
             }
 
-            WriteLine();
-
-            chatHistory.AddUserMessage(request!);
-            chatHistory.AddAssistantMessage(message);
+            message += chunk;
+            Write(chunk);
         }
+
+        WriteLine();
+
+        chatHistory.AddUserMessage(request!);
+        chatHistory.AddAssistantMessage(message);
     }
+    //}
 }
