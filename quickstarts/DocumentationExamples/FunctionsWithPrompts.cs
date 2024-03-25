@@ -77,8 +77,8 @@ Assistant: ");
             {
                 ["request"] = request,
                 ["choices"] = choices,
-                //["history"] = history,
-                ["history"] = string.Join("\n", history.Select(x => x.Role + ":" + x.Content)),
+                ["history"] = history,
+                //["history"] = string.Join("\n", history.Select(x => x.Role + ":" + x.Content)),
                 ["fewShotExamples"] = fewShotExamples
             });
 
