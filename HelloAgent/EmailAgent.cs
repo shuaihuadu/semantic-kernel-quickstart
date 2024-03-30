@@ -1,6 +1,6 @@
 ﻿namespace HelloAgent;
 
-public class Agent
+public class EmailAgent
 {
     public async Task RunAsync()
     {

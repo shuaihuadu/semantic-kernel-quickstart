@@ -4,6 +4,6 @@
 
 TestConfiguration.Initialize(configuration);
 
-Agent agent = new();
+EmailAgent agent = new();
 
 await agent.RunAsync();
