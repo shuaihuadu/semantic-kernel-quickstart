@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloAgent", "quickstarts\H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIPluginFunction", "aiplugin\AIPluginFunction\AIPluginFunction.csproj", "{1ECEA482-880C-467C-BE0C-730029195160}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiPlugin", "aiplugin\AiPlugin\AiPlugin.csproj", "{275C5675-B0AC-43F1-BE3D-57EAF6F2D001}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{1ECEA482-880C-467C-BE0C-730029195160}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ECEA482-880C-467C-BE0C-730029195160}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ECEA482-880C-467C-BE0C-730029195160}.Release|Any CPU.Build.0 = Release|Any CPU
+		{275C5675-B0AC-43F1-BE3D-57EAF6F2D001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{275C5675-B0AC-43F1-BE3D-57EAF6F2D001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{275C5675-B0AC-43F1-BE3D-57EAF6F2D001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{275C5675-B0AC-43F1-BE3D-57EAF6F2D001}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{07F54BC7-59D5-426A-8258-4423A4E5FADE} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{1ECEA482-880C-467C-BE0C-730029195160} = {93748E51-E369-4C9D-B35A-BA12302625E9}
+		{275C5675-B0AC-43F1-BE3D-57EAF6F2D001} = {93748E51-E369-4C9D-B35A-BA12302625E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FBE33D1-316E-435B-9770-90C3C2DC2E1C}

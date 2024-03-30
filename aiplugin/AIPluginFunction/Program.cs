@@ -16,7 +16,7 @@ class Program
             ?? DefaultSemanticFunctionsFolder;
 
         IHost host = new HostBuilder()
-            .ConfigureFunctionsWorkerDefaults()
+            .ConfigureFunctionsWebApplication()
             .ConfigureServices(services =>
             {
                 services.AddScoped(providers =>

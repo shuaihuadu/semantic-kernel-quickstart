@@ -20,3 +20,4 @@ appsettings.Production.json
 /HelloAgent/appsettings.Development.json
 /aiplugin/AIPluginFunction/appsettings.Development.json
 /quickstarts/HelloAgent/appsettings.Development.json
+/aiplugin/AiPlugin/appsettings.Development.json
