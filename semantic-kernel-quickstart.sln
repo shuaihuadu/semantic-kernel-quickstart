@@ -13,15 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "quickstarts", "quickstarts"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KernelSyntaxExamples", "quickstarts\KernelSyntaxExamples\KernelSyntaxExamples.csproj", "{D2A1AAE2-D94A-4D87-A557-5C0429747E09}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{2D48F074-9B6E-4F16-82F5-8ADCFD18766F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateChatGptPlugin", "quickstarts\CreateChatGptPlugin\CreateChatGptPlugin.csproj", "{27064CD8-1C4D-459E-B876-E1E7E0C1A923}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebPlugins", "quickstarts\WebPlugins\WebPlugins.csproj", "{31916DD6-1446-4FC6-8003-CE00629332A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationExamples", "quickstarts\DocumentationExamples\DocumentationExamples.csproj", "{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloAgent", "HelloAgent\HelloAgent.csproj", "{895B8A50-EF10-4850-99C8-CA06931E4D9D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aiplugin", "aiplugin", "{93748E51-E369-4C9D-B35A-BA12302625E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloAgent", "quickstarts\HelloAgent\HelloAgent.csproj", "{07F54BC7-59D5-426A-8258-4423A4E5FADE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIPluginFunction", "aiplugin\AIPluginFunction\AIPluginFunction.csproj", "{1ECEA482-880C-467C-BE0C-730029195160}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +47,14 @@ Global
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{895B8A50-EF10-4850-99C8-CA06931E4D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{895B8A50-EF10-4850-99C8-CA06931E4D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{895B8A50-EF10-4850-99C8-CA06931E4D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{895B8A50-EF10-4850-99C8-CA06931E4D9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07F54BC7-59D5-426A-8258-4423A4E5FADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07F54BC7-59D5-426A-8258-4423A4E5FADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07F54BC7-59D5-426A-8258-4423A4E5FADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07F54BC7-59D5-426A-8258-4423A4E5FADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ECEA482-880C-467C-BE0C-730029195160}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ECEA482-880C-467C-BE0C-730029195160}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ECEA482-880C-467C-BE0C-730029195160}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ECEA482-880C-467C-BE0C-730029195160}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,7 +64,8 @@ Global
 		{27064CD8-1C4D-459E-B876-E1E7E0C1A923} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{31916DD6-1446-4FC6-8003-CE00629332A2} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
-		{895B8A50-EF10-4850-99C8-CA06931E4D9D} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
+		{07F54BC7-59D5-426A-8258-4423A4E5FADE} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
+		{1ECEA482-880C-467C-BE0C-730029195160} = {93748E51-E369-4C9D-B35A-BA12302625E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FBE33D1-316E-435B-9770-90C3C2DC2E1C}
