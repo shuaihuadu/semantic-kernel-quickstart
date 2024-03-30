@@ -18,3 +18,5 @@ appsettings.Production.json
 /Solution Items/appsettings.Development.json
 /quickstarts/KernelSyntaxExamples/OwnerExamples/result.txt
 /HelloAgent/appsettings.Development.json
+/aiplugin/AIPluginFunction/appsettings.Development.json
+/quickstarts/HelloAgent/appsettings.Development.json
