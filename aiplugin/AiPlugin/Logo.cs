@@ -3,14 +3,14 @@
 public class Logo
 {
     [Function("GetLogo")]
-    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "logo.png")] HttpRequestData request)
+    public async Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "logo.png")] HttpRequestData request)
     {
         HttpResponseData response = request.CreateResponse(HttpStatusCode.OK);
         response.Headers.Add("Content-Type", "image/png");
 
         byte[] logo = File.ReadAllBytes("logo.png");
 
-        response.Body.Write(logo);
+        await response.Body.WriteAsync(logo);
 
         return response;
     }
