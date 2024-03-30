@@ -10,10 +10,10 @@ public class Example002_ActualTokenCalculate(ITestOutputHelper output) : BaseTes
 
         List<Dictionary<string, string>> exampleMessages =
         [
-            //new() {
-            //    {"role", "system"},
-            //    {"content", "You are a helpful assistant."}
-            //},
+            new() {
+                {"role", "system"},
+                {"content", "Assistant is a large language model."}
+            },
             new() {
                 {"role", "user"},
                 {"content", content}
@@ -39,18 +39,42 @@ public class Example002_ActualTokenCalculate(ITestOutputHelper output) : BaseTes
 
         FunctionResult functionResult = await kernel.InvokePromptAsync(content);
 
-        WriteLine(functionResult.Metadata["Usage"].AsJson());
+        //exampleMessages =
+        //[
+        //    new() {
+        //        //{"role", "assistant"},
+        //        {"content", functionResult.ToString()}
+        //    }
+        //];
+
+        WriteLine(functionResult.Metadata?["Usage"]?.AsJson());
+
+        //count = CalculateTokensCountForMessage(exampleMessages);
+
+        //WriteLine(count);
 
 
-        ChatHistory history = [];
+        //ChatHistory history = [];
 
-        history.AddUserMessage(content);
+        //history.AddUserMessage(content);
 
-        IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+        //IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-        ChatMessageContent reply = await chatCompletionService.GetChatMessageContentAsync(history);
+        //ChatMessageContent reply = await chatCompletionService.GetChatMessageContentAsync(history);
 
-        WriteLine(reply.Metadata["Usage"].AsJson());
+        //exampleMessages =
+        //[
+        //    new() {
+        //        //{"role", "assistant"},
+        //        {"content", reply.ToString()}
+        //    }
+        //];
+
+        //WriteLine(reply.Metadata["Usage"].AsJson());
+
+        //count = CalculateTokensCountForMessage(exampleMessages);
+
+        //WriteLine(count);
     }
 
 

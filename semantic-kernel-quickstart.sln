@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateChatGptPlugin", "quic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebPlugins", "quickstarts\WebPlugins\WebPlugins.csproj", "{31916DD6-1446-4FC6-8003-CE00629332A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentationExamples", "quickstarts\DocumentationExamples\DocumentationExamples.csproj", "{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationExamples", "quickstarts\DocumentationExamples\DocumentationExamples.csproj", "{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloAgent", "HelloAgent\HelloAgent.csproj", "{895B8A50-EF10-4850-99C8-CA06931E4D9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{895B8A50-EF10-4850-99C8-CA06931E4D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{895B8A50-EF10-4850-99C8-CA06931E4D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{895B8A50-EF10-4850-99C8-CA06931E4D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{895B8A50-EF10-4850-99C8-CA06931E4D9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +58,7 @@ Global
 		{27064CD8-1C4D-459E-B876-E1E7E0C1A923} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{31916DD6-1446-4FC6-8003-CE00629332A2} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
+		{895B8A50-EF10-4850-99C8-CA06931E4D9D} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FBE33D1-316E-435B-9770-90C3C2DC2E1C}
