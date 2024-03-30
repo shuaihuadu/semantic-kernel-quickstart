@@ -1,9 +1,9 @@
 ﻿namespace AIPluginFunction;
 
-public class Logo
+public static class Logo
 {
     [Function("GetLogo")]
-    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "logo.png")] HttpRequestData request)
+    public static HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "logo.png")] HttpRequestData request)
     {
         HttpResponseData response = request.CreateResponse(HttpStatusCode.OK);
         response.Headers.Add("Content-Type", "image/png");

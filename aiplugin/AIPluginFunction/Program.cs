@@ -1,25 +1,41 @@
-﻿const string DefaultSemanticFunctionsFolder = "Prompts";
+﻿namespace AIPluginFunction;
 
-string semanticFunctionsFolder = Environment.GetEnvironmentVariable("SEMANTIC_SKILLS_FOLDER")
-    ?? DefaultSemanticFunctionsFolder;
-
-IHost host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
-    .ConfigureServices(services =>
+class Program
+{
+    static async Task Main(string[] args)
     {
-        services.AddScoped(providers =>
-        {
-            Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-               deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-               endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-               apiKey: TestConfiguration.AzureOpenAI.ApiKey)
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.Development.json", true)
             .Build();
 
-            kernel.ImportPluginFromPromptDirectory(semanticFunctionsFolder);
+        TestConfiguration.Initialize(configuration);
 
-            return kernel;
-        })
-        .AddScoped<IAIPluginRunner, AIPluginRunner>();
-    })
-    .Build();
+        const string DefaultSemanticFunctionsFolder = "Prompts";
+
+        string semanticFunctionsFolder = Environment.GetEnvironmentVariable("SEMANTIC_SKILLS_FOLDER")
+            ?? DefaultSemanticFunctionsFolder;
+
+        IHost host = new HostBuilder()
+            .ConfigureFunctionsWorkerDefaults()
+            .ConfigureServices(services =>
+            {
+                services.AddScoped(providers =>
+                {
+                    Kernel kernel = Kernel.CreateBuilder()
+                    .AddAzureOpenAIChatCompletion(
+                       deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
+                       endpoint: TestConfiguration.AzureOpenAI.Endpoint,
+                       apiKey: TestConfiguration.AzureOpenAI.ApiKey)
+                    .Build();
+
+                    kernel.ImportPluginFromPromptDirectory(semanticFunctionsFolder);
+
+                    return kernel;
+                })
+                .AddScoped<IAIPluginRunner, AIPluginRunner>();
+            })
+            .Build();
+
+        await host.RunAsync();
+    }
+}
