@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aiplugin", "aiplugin", "{93
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloAgent", "quickstarts\HelloAgent\HelloAgent.csproj", "{07F54BC7-59D5-426A-8258-4423A4E5FADE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiPlugin", "aiplugin\AiPlugin\AiPlugin.csproj", "{275C5675-B0AC-43F1-BE3D-57EAF6F2D001}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPlugin", "aiplugin\AiPlugin\AiPlugin.csproj", "{275C5675-B0AC-43F1-BE3D-57EAF6F2D001}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

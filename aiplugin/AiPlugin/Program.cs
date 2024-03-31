@@ -1,4 +1,5 @@
 IConfigurationRoot configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", true)
     .AddJsonFile("appsettings.Development.json", true)
     .Build();
 

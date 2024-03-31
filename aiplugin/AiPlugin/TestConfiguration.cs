@@ -18,6 +18,8 @@ public sealed class TestConfiguration
 
     public static AzureOpenAIConfig AzureOpenAI => LoadSection<AzureOpenAIConfig>();
 
+    public static AiPluginSettings AiPluginSettings => LoadSection<AiPluginSettings>();
+
     private static T LoadSection<T>([CallerMemberName] string? caller = null)
     {
         if (_instance == null)

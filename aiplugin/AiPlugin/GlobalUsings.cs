@@ -9,3 +9,5 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.SemanticKernel;
 global using System.Net;
 global using System.Runtime.CompilerServices;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
