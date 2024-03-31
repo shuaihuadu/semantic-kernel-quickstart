@@ -1,19 +1,31 @@
 ﻿namespace AiPlugin.Runner;
 
-public class AiPluginRunner : IAiPluginRunner
+public class AiPluginRunner(Kernel kernel, ILoggerFactory loggerFactory) : IAiPluginRunner
 {
-    private readonly ILogger<AiPluginRunner> _logger;
-    private readonly Kernel _kernel;
+    private readonly ILogger<AiPluginRunner> _logger = loggerFactory.CreateLogger<AiPluginRunner>();
+    private readonly Kernel _kernel = kernel;
 
-    public AiPluginRunner(Kernel kernel, ILoggerFactory loggerFactory)
+    public async Task<HttpResponseData> RunAIPluginOperationAsync(HttpRequestData request, string operationId)
     {
-        this._kernel = kernel;
-        this._logger = loggerFactory.CreateLogger<AiPluginRunner>();
-    }
+        KernelArguments arguments = LoadKernelArgumentsFromRequest(request);
 
-    public Task<HttpResponseData> RunAIPluginOperationAsync(HttpRequestData request, string operationId)
-    {
-        throw new NotImplementedException();
+        if (!this._kernel.Plugins.TryGetFunction(operationId, TestConfiguration.AiPluginSettings.NameForModel, out KernelFunction? kernelFunction))
+        {
+            HttpResponseData errorResponse = request.CreateResponse(HttpStatusCode.NotFound);
+
+            await errorResponse.WriteStringAsync($"Function {operationId} not found");
+
+            return errorResponse;
+        }
+
+        FunctionResult result = await this._kernel.InvokeAsync(kernelFunction, arguments);
+
+        HttpResponseData response = request.CreateResponse(HttpStatusCode.OK);
+        response.Headers.Add("Content-Type", "text/plain;charset=utf-8");
+
+        await response.WriteStringAsync(result.ToString());
+
+        return response;
     }
 
     protected static KernelArguments LoadKernelArgumentsFromRequest(HttpRequestData request)

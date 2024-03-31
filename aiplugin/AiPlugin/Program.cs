@@ -14,16 +14,24 @@ var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
     .ConfigureServices(services =>
     {
-        //services.AddApplicationInsightsTelemetryWorkerService();
-        //services.ConfigureFunctionsApplicationInsights();
-        services.AddScoped(providers =>
+        services.AddTransient(providers =>
         {
-            Kernel kernel = Kernel.CreateBuilder()
+            IKernelBuilder builder = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-               apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+               apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+
+            builder.Services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddFilter(level => true);
+                loggingBuilder.AddConsole();
+            });
+
+            builder.Plugins.AddFromType<MathPlugin>();
+
+            Kernel kernel = builder.Build();
+
 
             kernel.ImportPluginFromPromptDirectory(semanticFunctionsFolder);
 
