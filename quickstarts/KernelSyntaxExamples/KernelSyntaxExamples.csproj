@@ -105,9 +105,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="OwnerExamples\result.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="OwnerExamples\Skills\Default\Blocks_Polishing_en_us_zh_cn\config.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
