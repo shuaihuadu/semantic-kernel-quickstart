@@ -9,64 +9,65 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 
-namespace AiPluginSourceGenerator
+namespace AiPluginSourceGenerator;
+
+[Generator]
+public class AiPluginFunctionGenerator : ISourceGenerator
 {
+    private const string DefaultFunctionNamespace = "AiPlugin";
+    private const string FunctionConfigFileName = "config.json";
+    private const string FunctionPromptFileName = "skprompt.txt";
 
-    [Generator]
-    public class AiPluginFunctionGenerator : ISourceGenerator
+    public void Execute(GeneratorExecutionContext context)
     {
-        private const string DefaultFunctionNamespace = "AiPlugin";
-        private const string FunctionConfigFileName = "config.json";
-        private const string FunctionPromptFileName = "skprompt.txt";
+        string? rootNamespace = context.GetRootNameSpace();
 
-        public void Execute(GeneratorExecutionContext context)
+        if (string.IsNullOrEmpty(rootNamespace))
         {
-            string? rootNamespace = context.GetRootNameSpace();
-
-            if (string.IsNullOrEmpty(rootNamespace))
-            {
-                rootNamespace = DefaultFunctionNamespace;
-            }
-
-            IEnumerable<AdditionalText> functionFiles = context.AdditionalFiles.Where(f =>
-            f.Path.Contains(FunctionConfigFileName) ||
-            f.Path.Contains(FunctionPromptFileName));
-
-            IEnumerable<IGrouping<string?, AdditionalText>> fnFileGroup = functionFiles.GroupBy(f => Path.GetDirectoryName(f.Path));
-            IEnumerable<IGrouping<string?, IGrouping<string?, AdditionalText>>> folderGroups = fnFileGroup.GroupBy(f => Path.GetFileName(Path.GetDirectoryName(f.Key)));
-
-            foreach (var folderGroup in folderGroups)
-            {
-                string? folderName = folderGroup.Key;
-
-                if (string.IsNullOrWhiteSpace(folderName))
-                {
-                    continue;
-                }
-
-                string classSource = GenerateClassSource(rootNamespace!, folderName, folderGroup);
-
-                context.AddSource(folderName, SourceText.From(classSource, Encoding.UTF8));
-            }
+            rootNamespace = DefaultFunctionNamespace;
         }
 
-        private string GenerateClassSource(string rootNamespace, string folderName, IGrouping<string?, IGrouping<string?, AdditionalText>> folderGroup)
+        IEnumerable<AdditionalText> functionFiles = context.AdditionalFiles.Where(f =>
+        f.Path.Contains(FunctionConfigFileName) ||
+        f.Path.Contains(FunctionPromptFileName));
+
+        //获取所有Build Action属性设置为C# analyzer additional file的文件，并按照其所在的目录进行分组
+        IEnumerable<IGrouping<string?, AdditionalText>> functionFileGroups = functionFiles.GroupBy(f => Path.GetDirectoryName(f.Path));
+
+        //再按照具体的插件进行分组，获取Function所属的Plugin的目录，譬如：Plugins目录下面有APlugin、BPlugin，此处获取的是以APlugin和BPlugin为Key的分组结果
+        IEnumerable<IGrouping<string?, IGrouping<string?, AdditionalText>>> pluginFolderGroups = functionFileGroups.GroupBy(f => Path.GetFileName(Path.GetDirectoryName(f.Key)));
+
+        foreach (var pluginFolder in pluginFolderGroups)
         {
-            StringBuilder functionsCode = new StringBuilder();
+            string? pluginName = pluginFolder.Key;
 
-            foreach (var functionGroup in folderGroup)
+            string pluginNamespace = $"{rootNamespace}.{pluginName}";
+
+            foreach (var functionGroups in pluginFolder.ToList())
             {
-                AdditionalText? promptFile = functionGroup.FirstOrDefault(f => Path.GetFileName(f.Path).Equals(FunctionPromptFileName, StringComparison.InvariantCultureIgnoreCase));
-                AdditionalText? configFile = functionGroup.FirstOrDefault(f => Path.GetFileName(f.Path).Equals(FunctionConfigFileName, StringComparison.InvariantCultureIgnoreCase));
+                string classSource = GenerateClassSource(pluginNamespace, functionGroups!);
 
-                if (promptFile != default && configFile != default)
-                {
-                    string code = GenerateFunctionSource(promptFile, configFile) ?? string.Empty;
-                    functionsCode.AppendLine();
-                }
+                context.AddSource(pluginName!, SourceText.From(classSource, Encoding.UTF8));
             }
+        }
+    }
 
-            return $@"/* ### GENERATED CODE - Do not modify. Edits will be lost on build. ### */
+    private string GenerateClassSource(string pluginNamespace, IGrouping<string, IGrouping<string, AdditionalText>> functionGroups)
+    {
+        StringBuilder functionsCode = new();
+
+        string functionName = Path.GetFileName(functionGroups.Key);
+
+        AdditionalText? promptFile = functionGroups.FirstOrDefault(f => Path.GetFileName(f.Path).Equals(FunctionPromptFileName, StringComparison.InvariantCultureIgnoreCase));
+        AdditionalText? configFile = functionGroups.FirstOrDefault(f => Path.GetFileName(f.Path).Equals(FunctionConfigFileName, StringComparison.InvariantCultureIgnoreCase));
+
+        if (promptFile != default && configFile != default)
+        {
+            string code = GenerateFunctionSource(promptFile, configFile) ?? string.Empty;
+            functionsCode.AppendLine(code);
+        }
+
+        return $@"/* ### GENERATED CODE - Do not modify. Edits will be lost on build. ### */
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -74,48 +75,48 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
 
-namespace {rootNamespace};
+namespace {pluginNamespace};
 
-public class {folderName}
+public class {functionName}
 {{
     private readonly ILogger _logger;
     private readonly IAiPluginRunner _pluginRunner;
 
-    public {folderName}(ILoggerFactory loggerFactory, IAiPluginRunner pluginRunner)
+    public {functionName}(ILoggerFactory loggerFactory, IAiPluginRunner pluginRunner)
     {{
-        this._logger = loggerFactory.CreateLogger<{folderName}>();
+        this._logger = loggerFactory.CreateLogger<{functionName}>();
         this._pluginRunner = pluginRunner;
     }}
 
     {functionsCode}
 }}";
+    }
+
+    private static string? GenerateFunctionSource(AdditionalText promptFile, AdditionalText configFile)
+    {
+        string? functionName = Path.GetFileName(Path.GetDirectoryName(promptFile.Path));
+
+        if (string.IsNullOrWhiteSpace(functionName))
+        {
+            return null;
         }
 
-        private static string? GenerateFunctionSource(AdditionalText promptFile, AdditionalText configFile)
+        string? metadataJson = configFile.GetText()?.ToString();
+
+        if (string.IsNullOrEmpty(metadataJson))
         {
-            string? functionName = Path.GetFileName(Path.GetDirectoryName(promptFile.Path));
+            return null;
+        }
 
-            if (string.IsNullOrWhiteSpace(functionName))
-            {
-                return null;
-            }
+        PromptTemplateConfig? promptTemplateConfig = JsonSerializer.Deserialize<PromptTemplateConfig>(metadataJson!);
 
-            string? metadataJson = configFile.GetText()?.ToString();
+        if (promptTemplateConfig is null) { return null; }
 
-            if (string.IsNullOrEmpty(metadataJson))
-            {
-                return null;
-            }
+        string descriptionProperty = string.IsNullOrWhiteSpace(promptTemplateConfig.Description) ? string.Empty : $@", Description = ""{promptTemplateConfig.Description}""";
 
-            PromptTemplateConfig? promptTemplateConfig = JsonSerializer.Deserialize<PromptTemplateConfig>(metadataJson);
+        string parameterAttributes = GenerateParameterAttributesSource(promptTemplateConfig.InputVariables);
 
-            if (promptTemplateConfig is null) { return null; }
-
-            string descriptionProperty = string.IsNullOrWhiteSpace(promptTemplateConfig.Description) ? string.Empty : $@", Description = ""{promptTemplateConfig.Description}""";
-
-            string parameterAttributes = GenerateParameterAttributesSource(promptTemplateConfig.InputVariables);
-
-            return $@"
+        return $@"
     [OpenApiOperation(operationId: ""{functionName}"", tags: new []{{ ""{functionName}"" }}{descriptionProperty})]{parameterAttributes}
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: ""text/plain"", bodyType: typeof(string), Description = ""The OK response"")]
     [Function(""{functionName}"")]
@@ -125,34 +126,33 @@ public class {folderName}
 
         return this._pluginRunner.RunAIPluginOperationAsync(request,""{functionName}"");
     }}";
-        }
-
-        private static string GenerateParameterAttributesSource(List<InputVariable> inputVariables)
-        {
-            string inputDescription = string.Empty;
-
-            StringBuilder parameterStringBuilder = new StringBuilder();
-
-            if (inputVariables != null)
-            {
-                foreach (InputVariable inputVariable in inputVariables)
-                {
-                    parameterStringBuilder.AppendLine();
-                    parameterStringBuilder.Append($@"   [OpenApiParameter(name: ""{inputVariable.Name}""]");
-
-                    if (!string.IsNullOrWhiteSpace(inputVariable.Description))
-                    {
-                        parameterStringBuilder.Append($@", Description = ""{inputVariable.Description}""");
-                    }
-
-                    parameterStringBuilder.Append(", In = ParameterLocation.Query");
-                    parameterStringBuilder.Append(", Type = typeof(string))");
-                }
-            }
-
-            return parameterStringBuilder.ToString();
-        }
-
-        public void Initialize(GeneratorInitializationContext context) { }
     }
+
+    private static string GenerateParameterAttributesSource(List<InputVariable> inputVariables)
+    {
+        string inputDescription = string.Empty;
+
+        StringBuilder parameterStringBuilder = new StringBuilder();
+
+        if (inputVariables != null)
+        {
+            foreach (InputVariable inputVariable in inputVariables)
+            {
+                parameterStringBuilder.AppendLine();
+                parameterStringBuilder.Append($@"   [OpenApiParameter(name: ""{inputVariable.Name}""]");
+
+                if (!string.IsNullOrWhiteSpace(inputVariable.Description))
+                {
+                    parameterStringBuilder.Append($@", Description = ""{inputVariable.Description}""");
+                }
+
+                parameterStringBuilder.Append(", In = ParameterLocation.Query");
+                parameterStringBuilder.Append(", Type = typeof(string))");
+            }
+        }
+
+        return parameterStringBuilder.ToString();
+    }
+
+    public void Initialize(GeneratorInitializationContext context) { }
 }

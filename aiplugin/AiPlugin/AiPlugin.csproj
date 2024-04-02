@@ -7,6 +7,50 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Plugins\FunPlugin\Excuses\config.json" />
+	  <None Remove="Plugins\FunPlugin\Excuses\skprompt.txt" />
+	  <None Remove="Plugins\FunPlugin\Joke\config.json" />
+	  <None Remove="Plugins\FunPlugin\Joke\skprompt.txt" />
+	  <None Remove="Plugins\FunPlugin\Limerick\config.json" />
+	  <None Remove="Plugins\FunPlugin\Limerick\skprompt.txt" />
+	  <None Remove="Plugins\MiscPlugin\Continue\config.json" />
+	  <None Remove="Plugins\MiscPlugin\Continue\skprompt.txt" />
+	  <None Remove="Plugins\MiscPlugin\ElementAtIndex\config.json" />
+	  <None Remove="Plugins\MiscPlugin\ElementAtIndex\skprompt.txt" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AdditionalFiles Include="Plugins\FunPlugin\Excuses\config.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	  <AdditionalFiles Include="Plugins\FunPlugin\Excuses\skprompt.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	  <AdditionalFiles Include="Plugins\FunPlugin\Joke\config.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	  <AdditionalFiles Include="Plugins\FunPlugin\Joke\skprompt.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	  <AdditionalFiles Include="Plugins\FunPlugin\Limerick\config.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	  <AdditionalFiles Include="Plugins\FunPlugin\Limerick\skprompt.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	  <AdditionalFiles Include="Plugins\MiscPlugin\Continue\config.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	  <AdditionalFiles Include="Plugins\MiscPlugin\Continue\skprompt.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	  <AdditionalFiles Include="Plugins\MiscPlugin\ElementAtIndex\config.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	  <AdditionalFiles Include="Plugins\MiscPlugin\ElementAtIndex\skprompt.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	</ItemGroup>
+	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.21.0" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.1.0" />
@@ -38,19 +82,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="Plugins\TestPlugin\Joke\config.json" />
-		<None Remove="Plugins\TestPlugin\Joke\skprompt.txt" />
-	</ItemGroup>
-	<ItemGroup>
-		<AdditionalFiles Include="Plugins\TestPlugin\Joke\config.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</AdditionalFiles>
-		<AdditionalFiles Include="Plugins\TestPlugin\Joke\skprompt.txt">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</AdditionalFiles>
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\AiPluginSourceGenerator\AiPluginSourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
