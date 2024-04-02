@@ -27,8 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPlugin", "aiplugin\AiPlug
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPluginSourceGenerator", "aiplugin\AiPluginSourceGenerator\AiPluginSourceGenerator.csproj", "{C4EF300F-9F69-4018-8E8A-099D28EBB2A3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "semantic-kernel-starters", "semantic-kernel-starters", "{7ADFD397-0487-463F-BDE4-302CA0201CDD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
