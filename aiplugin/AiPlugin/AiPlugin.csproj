@@ -7,18 +7,6 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Plugins\FunPlugin\Excuses\config.json" />
-	  <None Remove="Plugins\FunPlugin\Excuses\skprompt.txt" />
-	  <None Remove="Plugins\FunPlugin\Joke\config.json" />
-	  <None Remove="Plugins\FunPlugin\Joke\skprompt.txt" />
-	  <None Remove="Plugins\FunPlugin\Limerick\config.json" />
-	  <None Remove="Plugins\FunPlugin\Limerick\skprompt.txt" />
-	  <None Remove="Plugins\MiscPlugin\Continue\config.json" />
-	  <None Remove="Plugins\MiscPlugin\Continue\skprompt.txt" />
-	  <None Remove="Plugins\MiscPlugin\ElementAtIndex\config.json" />
-	  <None Remove="Plugins\MiscPlugin\ElementAtIndex\skprompt.txt" />
-	</ItemGroup>
-	<ItemGroup>
 	  <AdditionalFiles Include="Plugins\FunPlugin\Excuses\config.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </AdditionalFiles>
@@ -86,4 +74,9 @@
 	<ItemGroup>
 		<ProjectReference Include="..\AiPluginSourceGenerator\AiPluginSourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
+	<!--<ItemGroup>
+		<None Include="$(IntDir).generated\AiPluginSourceGenerator\AiPluginSourceGenerator.AiPluginFunctionGenerator\**">
+			<Link>.generated\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</None>
+	</ItemGroup>-->
 </Project>
