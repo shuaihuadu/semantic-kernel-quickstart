@@ -3,11 +3,11 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
-		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
 		<IsRoslynComponent>true</IsRoslynComponent>
 		<LangVersion>latest</LangVersion>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<!--<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>-->
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -15,9 +15,9 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2"/>
-		<PackageReference Include="Microsoft.SemanticKernel.Abstractions" Version="1.6.3" />
-		<PackageReference Include="System.Text.Json" Version="8.0.3" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" GeneratePathProperty="true" PrivateAssets="all"/>
+		<PackageReference Include="Microsoft.SemanticKernel.Abstractions" Version="1.6.3" GeneratePathProperty="true" PrivateAssets="all" />
+		<PackageReference Include="System.Text.Json" Version="8.0.3" GeneratePathProperty="true" PrivateAssets="all" />
 	</ItemGroup>
 	<!--下面设置以保证依赖的dll会copy到输出目录-->
 	<PropertyGroup>
