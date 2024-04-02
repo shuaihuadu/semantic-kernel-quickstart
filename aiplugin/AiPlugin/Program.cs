@@ -5,13 +5,11 @@ IConfigurationRoot configuration = new ConfigurationBuilder()
 
 TestConfiguration.Initialize(configuration);
 
-const string DefaultSemanticFunctionsFolder = "Prompts";
-
-string semanticFunctionsFolder = Environment.GetEnvironmentVariable("SEMANTIC_SKILLS_FOLDER")
-    ?? DefaultSemanticFunctionsFolder;
+const string DefaultSemanticFunctionsFolder = "Plugins";
 
 var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
+    //.ConfigureFunctionsWorkerDefaults()
     .ConfigureServices(services =>
     {
         services.AddTransient(providers =>
@@ -33,7 +31,7 @@ var host = new HostBuilder()
             Kernel kernel = builder.Build();
 
 
-            kernel.ImportPluginFromPromptDirectory(semanticFunctionsFolder);
+            kernel.ImportPluginFromPromptDirectory(DefaultSemanticFunctionsFolder);
 
             return kernel;
         })

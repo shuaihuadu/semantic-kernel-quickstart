@@ -1,4 +1,4 @@
-﻿namespace AiPlugin;
+﻿namespace AiPlugin.Functions;
 
 public class Logo
 {
