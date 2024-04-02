@@ -21,3 +21,4 @@ appsettings.Production.json
 /aiplugin/AIPluginFunction/appsettings.Development.json
 /quickstarts/HelloAgent/appsettings.Development.json
 /aiplugin/AiPlugin/appsettings.Development.json
+/semantic-kernel-starters/sk-chatgpt-azure-function/appsettings.Development.json
