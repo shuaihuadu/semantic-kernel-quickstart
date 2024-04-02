@@ -1,12 +1,12 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.SemanticKernel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 
 namespace AiPluginSourceGenerator;
 
@@ -103,7 +103,7 @@ public class {pluginName}
             return null;
         }
 
-        PromptTemplateConfig? promptTemplateConfig = JsonSerializer.Deserialize<PromptTemplateConfig>(metadataJson!);
+        PromptTemplateConfig? promptTemplateConfig = JsonConvert.DeserializeObject<PromptTemplateConfig>(metadataJson!);
 
         if (promptTemplateConfig is null) { return null; }
 

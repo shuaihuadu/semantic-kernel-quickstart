@@ -1,11 +1,19 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-using AIPlugins.AzureFunctions.Extensions;
+using AiPlugin;
+using AiPlugin.Runner;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
-using Models;
+
+IConfigurationRoot configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", true)
+    .AddJsonFile("appsettings.Development.json", true)
+    .Build();
+
+TestConfiguration.Initialize(configuration);
 
 const string DefaultSemanticFunctionsFolder = "Prompts";
 string semanticFunctionsFolder = Environment.GetEnvironmentVariable("SEMANTIC_SKILLS_FOLDER") ?? DefaultSemanticFunctionsFolder;
@@ -14,29 +22,28 @@ var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices(services =>
     {
-        services
-            .AddScoped<IKernel>((providers) =>
+        services.AddTransient(providers =>
+        {
+            IKernelBuilder builder = Kernel.CreateBuilder()
+            .AddAzureOpenAIChatCompletion(
+               deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
+               endpoint: TestConfiguration.AzureOpenAI.Endpoint,
+               apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+
+            builder.Services.AddLogging(loggingBuilder =>
             {
-                // This will be called each time a new Kernel is needed
+                loggingBuilder.AddFilter(level => true);
+                loggingBuilder.AddConsole();
+            });
 
-                // Get a logger instance
-                ILogger<IKernel> logger = providers
-                    .GetRequiredService<ILoggerFactory>()
-                    .CreateLogger<IKernel>();
 
-                // Register your AI Providers...
-                var appSettings = AppSettings.LoadSettings();
-                IKernel kernel = new KernelBuilder()
-                    .WithChatCompletionService(appSettings.Kernel)
-                    .WithLogger(logger)
-                    .Build();
+            Kernel kernel = builder.Build();
 
-                // Load your semantic functions...
-                kernel.ImportPromptsFromDirectory(appSettings.AIPlugin.NameForModel, semanticFunctionsFolder);
+            kernel.ImportPluginFromPromptDirectory(DefaultSemanticFunctionsFolder);
 
-                return kernel;
-            })
-            .AddScoped<IAIPluginRunner, AIPluginRunner>();
+            return kernel;
+        })
+        .AddScoped<IAiPluginRunner, AiPluginRunner>();
     })
     .Build();
 

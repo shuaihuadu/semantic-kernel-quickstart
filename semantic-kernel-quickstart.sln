@@ -27,12 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPlugin", "aiplugin\AiPlug
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPluginSourceGenerator", "aiplugin\AiPluginSourceGenerator\AiPluginSourceGenerator.csproj", "{C4EF300F-9F69-4018-8E8A-099D28EBB2A3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vs-code-sk-tool", "vs-code-sk-tool", "{E0C0180C-40B6-46E2-9527-D43F4875E064}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sk-chatgpt-azure-function", "vs-code-sk-tool\azure-function\sk-chatgpt-azure-function.csproj", "{A0CD7EC2-970B-478B-B31B-3F51561E4BF3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "semantic-functions-generator", "vs-code-sk-tool\semantic-functions-generator\semantic-functions-generator.csproj", "{BFAEF53C-27A4-429D-8E5B-CC881A12A1EC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,14 +61,6 @@ Global
 		{C4EF300F-9F69-4018-8E8A-099D28EBB2A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4EF300F-9F69-4018-8E8A-099D28EBB2A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4EF300F-9F69-4018-8E8A-099D28EBB2A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0CD7EC2-970B-478B-B31B-3F51561E4BF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0CD7EC2-970B-478B-B31B-3F51561E4BF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0CD7EC2-970B-478B-B31B-3F51561E4BF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0CD7EC2-970B-478B-B31B-3F51561E4BF3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFAEF53C-27A4-429D-8E5B-CC881A12A1EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFAEF53C-27A4-429D-8E5B-CC881A12A1EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFAEF53C-27A4-429D-8E5B-CC881A12A1EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFAEF53C-27A4-429D-8E5B-CC881A12A1EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,8 +73,6 @@ Global
 		{07F54BC7-59D5-426A-8258-4423A4E5FADE} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{275C5675-B0AC-43F1-BE3D-57EAF6F2D001} = {93748E51-E369-4C9D-B35A-BA12302625E9}
 		{C4EF300F-9F69-4018-8E8A-099D28EBB2A3} = {93748E51-E369-4C9D-B35A-BA12302625E9}
-		{A0CD7EC2-970B-478B-B31B-3F51561E4BF3} = {E0C0180C-40B6-46E2-9527-D43F4875E064}
-		{BFAEF53C-27A4-429D-8E5B-CC881A12A1EC} = {E0C0180C-40B6-46E2-9527-D43F4875E064}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FBE33D1-316E-435B-9770-90C3C2DC2E1C}
