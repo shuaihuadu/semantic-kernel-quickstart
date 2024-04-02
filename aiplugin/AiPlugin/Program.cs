@@ -8,8 +8,7 @@ TestConfiguration.Initialize(configuration);
 const string DefaultSemanticFunctionsFolder = "Plugins";
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWebApplication()
-    //.ConfigureFunctionsWorkerDefaults()
+    .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices(services =>
     {
         services.AddTransient(providers =>
@@ -29,7 +28,6 @@ var host = new HostBuilder()
             builder.Plugins.AddFromType<MathPlugin>();
 
             Kernel kernel = builder.Build();
-
 
             kernel.ImportPluginFromPromptDirectory(DefaultSemanticFunctionsFolder);
 
