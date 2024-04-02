@@ -2,5 +2,5 @@
 
 public interface IAiPluginRunner
 {
-    Task<HttpResponseData> RunAIPluginOperationAsync(HttpRequestData request, string operationId);
+    Task<HttpResponseData> RunAiPluginOperationAsync(HttpRequestData request, string pluginName, string functionName);
 }

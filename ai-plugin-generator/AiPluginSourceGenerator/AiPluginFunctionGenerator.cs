@@ -13,7 +13,7 @@ namespace AiPluginSourceGenerator;
 [Generator]
 public class AiPluginFunctionGenerator : ISourceGenerator
 {
-    private const string DefaultFunctionNamespace = "AiPlugin.Plugins";
+    private const string DefaultFunctionNamespace = "AiPlugin.Functions";
     private const string FunctionConfigFileName = "config.json";
     private const string FunctionPromptFileName = "skprompt.txt";
 
@@ -61,7 +61,7 @@ public class AiPluginFunctionGenerator : ISourceGenerator
 
             if (promptFile != default && configFile != default)
             {
-                string code = GenerateFunctionSource(promptFile, configFile) ?? string.Empty;
+                string code = GenerateFunctionSource(pluginName, promptFile, configFile) ?? string.Empty;
                 functionsCode.AppendLine(code);
             }
         }
@@ -87,7 +87,7 @@ public class {pluginName}
 }}";
     }
 
-    private static string? GenerateFunctionSource(AdditionalText promptFile, AdditionalText configFile)
+    private static string? GenerateFunctionSource(string pluginName, AdditionalText promptFile, AdditionalText configFile)
     {
         string? functionName = Path.GetFileName(Path.GetDirectoryName(promptFile.Path));
 
@@ -112,14 +112,14 @@ public class {pluginName}
         string parameterAttributes = GenerateParameterAttributesSource(promptTemplateConfig.InputVariables);
 
         return $@"
-    [OpenApiOperation(operationId: ""{functionName}"", tags: new []{{ ""{functionName}"" }}{descriptionProperty})]{parameterAttributes}
+    [OpenApiOperation(operationId: ""{functionName}"", tags: [""{functionName}""] {descriptionProperty})]{parameterAttributes}
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: ""text/plain"", bodyType: typeof(string), Description = ""The OK response"")]
     [Function(""{functionName}"")]
     public Task<HttpResponseData> {functionName}([HttpTrigger(AuthorizationLevel.Anonymous, ""post"")] HttpRequestData request)
     {{
-        this._logger.LogInformation(""HTTP trigger processed a request for function {functionName}."");
+        this._logger.LogInformation(""HTTP trigger processed a request for plugin {pluginName} - function {functionName}."");
 
-        return this._pluginRunner.RunAIPluginOperationAsync(request,""{functionName}"");
+        return this._pluginRunner.RunAiPluginOperationAsync(request,""{pluginName}"",""{functionName}"");
     }}";
     }
 

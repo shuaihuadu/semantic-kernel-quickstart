@@ -25,11 +25,11 @@ var host = new HostBuilder()
                 loggingBuilder.AddConsole();
             });
 
-            builder.Plugins.AddFromType<MathPlugin>();
-
             Kernel kernel = builder.Build();
 
-            kernel.ImportPluginFromPromptDirectory(DefaultSemanticFunctionsFolder);
+            kernel.Plugins.AddFromType<MathPlugin>();
+            kernel.ImportPluginFromPromptDirectory(Path.Combine(DefaultSemanticFunctionsFolder, "FunPlugin"));
+            kernel.ImportPluginFromPromptDirectory(Path.Combine(DefaultSemanticFunctionsFolder, "MiscPlugin"));
 
             return kernel;
         })

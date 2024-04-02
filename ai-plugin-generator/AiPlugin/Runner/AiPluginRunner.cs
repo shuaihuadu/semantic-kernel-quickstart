@@ -5,15 +5,15 @@ public class AiPluginRunner(Kernel kernel, ILoggerFactory loggerFactory) : IAiPl
     private readonly ILogger<AiPluginRunner> _logger = loggerFactory.CreateLogger<AiPluginRunner>();
     private readonly Kernel _kernel = kernel;
 
-    public async Task<HttpResponseData> RunAIPluginOperationAsync(HttpRequestData request, string operationId)
+    public async Task<HttpResponseData> RunAiPluginOperationAsync(HttpRequestData request, string pluginName, string functionName)
     {
         KernelArguments arguments = LoadKernelArgumentsFromRequest(request);
 
-        if (!this._kernel.Plugins.TryGetFunction(operationId, TestConfiguration.AiPluginSettings.NameForModel, out KernelFunction? kernelFunction))
+        if (!this._kernel.Plugins.TryGetFunction(pluginName, functionName, out KernelFunction? kernelFunction))
         {
             HttpResponseData errorResponse = request.CreateResponse(HttpStatusCode.NotFound);
 
-            await errorResponse.WriteStringAsync($"Function {operationId} not found");
+            await errorResponse.WriteStringAsync($"Function {functionName} not found");
 
             return errorResponse;
         }
