@@ -23,3 +23,4 @@ appsettings.Production.json
 /aiplugin/AiPlugin/appsettings.Development.json
 /semantic-kernel-starters/sk-chatgpt-azure-function/appsettings.Development.json
 /vs-code-sk-tool/azure-function/appsettings.Development.json
+/ai-plugin-generator/AiPlugin/appsettings.Development.json
