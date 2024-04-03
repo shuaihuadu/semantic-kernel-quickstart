@@ -28,3 +28,4 @@ appsettings.Production.json
 /ai-plugin-generator/WebApp/AiPlugin.Web/appsettings.Development.json
 /quickstarts/CreateChatGptPlugin/Solution/appsettings.Development.json
 /quickstarts/CreateChatGptPlugin/MathPlugin.Functions/appsettings.Development.json
+/quickstarts/CreateChatGptPlugin/AiPlugin.Functions/appsettings.Development.json
