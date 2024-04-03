@@ -31,16 +31,6 @@ public class AiPluginRunner(Kernel kernel, ILoggerFactory loggerFactory) : IAiPl
             }
         }
 
-        //KernelArguments kernelArguments = [];
-
-        //foreach (KeyValuePair<string, StringValues> query in request.Query)
-        //{
-        //    if (!string.IsNullOrWhiteSpace(query.Key))
-        //    {
-        //        kernelArguments.Add(query.Key, query.Value);
-        //    }
-        //}
-
         return kernelArguments;
     }
 }
