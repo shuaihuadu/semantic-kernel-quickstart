@@ -1,4 +1,6 @@
-﻿namespace AiPlugin.Plugins;
+﻿using System.ComponentModel;
+
+namespace AiPlugin;
 
 public sealed class MathPlugin
 {

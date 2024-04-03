@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPlugin.Functions", "ai-pl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPlugin.Web", "ai-plugin-generator\WebApp\AiPlugin.Web\AiPlugin.Web.csproj", "{3596FEA2-5F2B-41AA-A321-0B217F3B77E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiPlugin.WebApi.SourceGenerator", "ai-plugin-generator\WebApp\AiPlugin.WebApi.SourceGenerator\AiPlugin.WebApi.SourceGenerator.csproj", "{5B82AB8C-75BE-456C-B7D3-78D93554656D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{3596FEA2-5F2B-41AA-A321-0B217F3B77E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3596FEA2-5F2B-41AA-A321-0B217F3B77E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3596FEA2-5F2B-41AA-A321-0B217F3B77E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B82AB8C-75BE-456C-B7D3-78D93554656D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B82AB8C-75BE-456C-B7D3-78D93554656D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B82AB8C-75BE-456C-B7D3-78D93554656D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B82AB8C-75BE-456C-B7D3-78D93554656D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{C3B172CC-FD38-4AAA-B4E4-1B31D7C3B3EC} = {CB1EECC0-B70D-414B-A8C2-4282F2008B11}
 		{BE6D20C4-0098-4D4B-A40D-5C3F626B0766} = {CB1EECC0-B70D-414B-A8C2-4282F2008B11}
 		{3596FEA2-5F2B-41AA-A321-0B217F3B77E7} = {99A627BD-01CF-4987-89FB-6E1E5299F7AC}
+		{5B82AB8C-75BE-456C-B7D3-78D93554656D} = {99A627BD-01CF-4987-89FB-6E1E5299F7AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FBE33D1-316E-435B-9770-90C3C2DC2E1C}

@@ -1,4 +1,6 @@
-﻿namespace AiPlugin;
+﻿using System.Text.Json.Serialization;
+
+namespace AiPlugin;
 
 public class AiPluginSettings
 {

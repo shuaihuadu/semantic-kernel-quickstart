@@ -1,4 +1,6 @@
-﻿namespace AiPlugin;
+﻿using System.Runtime.CompilerServices;
+
+namespace AiPlugin;
 
 public sealed class TestConfiguration
 {

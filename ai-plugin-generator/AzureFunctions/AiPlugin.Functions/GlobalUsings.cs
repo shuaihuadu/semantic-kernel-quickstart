@@ -1,5 +1,4 @@
 ﻿global using AiPlugin;
-global using AiPlugin.Plugins;
 global using AiPlugin.Runner;
 global using Microsoft.Azure.Functions.Worker;
 global using Microsoft.Azure.Functions.Worker.Http;
