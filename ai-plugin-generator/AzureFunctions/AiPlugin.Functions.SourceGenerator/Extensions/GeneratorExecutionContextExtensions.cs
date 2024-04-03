@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace AiPluginFunctionGenerator.Extensions
+namespace AiPlugin.Functions.SourceGenerator.Extensions
 {
     internal static class GeneratorExecutionContextExtensions
     {

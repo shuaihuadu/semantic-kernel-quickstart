@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace AiPluginSourceGenerator;
+namespace AiPlugin.Functions.SourceGenerator;
 
 [Generator]
 public class AiPluginFunctionGenerator : ISourceGenerator
@@ -115,6 +115,7 @@ public class {pluginName}
     [OpenApiOperation(operationId: ""{functionName}"", tags: [""{functionName}""] {descriptionProperty})]{parameterAttributes}
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: ""text/plain"", bodyType: typeof(string), Description = ""The OK response"")]
     [Function(""{functionName}"")]
+    //[Microsoft.Azure.WebJobs.FunctionName(""{functionName}"")]
     public Task<HttpResponseData> {functionName}([HttpTrigger(AuthorizationLevel.Anonymous, ""post"")] HttpRequestData request)
     {{
         this._logger.LogInformation(""HTTP trigger processed a request for plugin {pluginName} - function {functionName}."");

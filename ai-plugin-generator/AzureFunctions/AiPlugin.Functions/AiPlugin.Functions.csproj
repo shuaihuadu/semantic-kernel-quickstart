@@ -8,36 +8,36 @@
 		<_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
 	</PropertyGroup>
 	<ItemGroup>
-	  <AdditionalFiles Include="Plugins\FunPlugin\Excuses\config.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="Plugins\FunPlugin\Excuses\skprompt.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="Plugins\FunPlugin\Joke\config.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="Plugins\FunPlugin\Joke\skprompt.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="Plugins\FunPlugin\Limerick\config.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="Plugins\FunPlugin\Limerick\skprompt.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="Plugins\MiscPlugin\Continue\config.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="Plugins\MiscPlugin\Continue\skprompt.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="Plugins\MiscPlugin\ElementAtIndex\config.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="Plugins\MiscPlugin\ElementAtIndex\skprompt.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
+		<AdditionalFiles Include="Plugins\FunPlugin\Excuses\config.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\FunPlugin\Excuses\skprompt.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\FunPlugin\Joke\config.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\FunPlugin\Joke\skprompt.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\FunPlugin\Limerick\config.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\FunPlugin\Limerick\skprompt.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\MiscPlugin\Continue\config.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\MiscPlugin\Continue\skprompt.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\MiscPlugin\ElementAtIndex\config.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\MiscPlugin\ElementAtIndex\skprompt.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
 	</ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -55,7 +55,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="appsettings.Development.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -75,11 +75,6 @@
 		<Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\AiPluginSourceGenerator\AiPluginSourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\AiPlugin.Functions.SourceGenerator\AiPlugin.Functions.SourceGenerator.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
 	</ItemGroup>
-	<!--<ItemGroup>
-		<None Include="$(IntDir).generated\AiPluginSourceGenerator\AiPluginSourceGenerator.AiPluginFunctionGenerator\**">
-			<Link>.generated\%(RecursiveDir)%(Filename)%(Extension)</Link>
-		</None>
-	</ItemGroup>-->
 </Project>

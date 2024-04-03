@@ -25,3 +25,4 @@ appsettings.Production.json
 /vs-code-sk-tool/azure-function/appsettings.Development.json
 /ai-plugin-generator/AiPlugin/appsettings.Development.json
 /ai-plugin-generator/AzureFunctions/AiPlugin.Functions/appsettings.Development.json
+/ai-plugin-generator/WebApp/AiPlugin.Web/appsettings.Development.json

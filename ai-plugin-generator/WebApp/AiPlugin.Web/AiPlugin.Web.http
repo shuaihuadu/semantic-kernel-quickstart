@@ -1,0 +1,6 @@
+@AiPlugin.Web_HostAddress = http://localhost:5017
+
+GET {{AiPlugin.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
