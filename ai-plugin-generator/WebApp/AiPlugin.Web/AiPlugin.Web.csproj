@@ -8,40 +8,35 @@
 		<NoWarn>$(NoWarn);1591</NoWarn>
 	</PropertyGroup>
 
+	<Import Project="$(SolutionDir)/Solution Items/appsettings.props" />
 	<ItemGroup>
-	  <AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Excuses\config.json" Link="Plugins\FunPlugin\Excuses\config.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Excuses\skprompt.txt" Link="Plugins\FunPlugin\Excuses\skprompt.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
+		<AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Excuses\config.json" Link="Plugins\FunPlugin\Excuses\config.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Excuses\skprompt.txt" Link="Plugins\FunPlugin\Excuses\skprompt.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Joke\config.json" Link="Plugins\FunPlugin\Joke\config.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Joke\skprompt.txt" Link="Plugins\FunPlugin\Joke\skprompt.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Limerick\config.json" Link="Plugins\FunPlugin\Limerick\config.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Limerick\skprompt.txt" Link="Plugins\FunPlugin\Limerick\skprompt.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </AdditionalFiles>
+		<AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Joke\config.json" Link="Plugins\FunPlugin\Joke\config.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Joke\skprompt.txt" Link="Plugins\FunPlugin\Joke\skprompt.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Limerick\config.json" Link="Plugins\FunPlugin\Limerick\config.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Limerick\skprompt.txt" Link="Plugins\FunPlugin\Limerick\skprompt.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="..\..\AzureFunctions\AiPlugin.Functions\AiPluginSettings.cs" Link="AiPluginSettings.cs" />
-	  <Compile Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\MathPlugin.cs" Link="Plugins\MathPlugin.cs" />
-	  <Compile Include="..\..\AzureFunctions\AiPlugin.Functions\TestConfiguration.cs" Link="TestConfiguration.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="..\..\AzureFunctions\AiPlugin.Functions\appsettings.Development.json" Link="appsettings.Development.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<Compile Include="..\..\AzureFunctions\AiPlugin.Functions\AiPluginSettings.cs" Link="AiPluginSettings.cs" />
+		<Compile Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\MathPlugin.cs" Link="Plugins\MathPlugin.cs" />
+		<Compile Include="..\..\AzureFunctions\AiPlugin.Functions\TestConfiguration.cs" Link="TestConfiguration.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -59,9 +54,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Plugins\FunPlugin\Excuses\" />
-	  <Folder Include="Plugins\FunPlugin\Joke\" />
-	  <Folder Include="Plugins\FunPlugin\Limerick\" />
+		<Folder Include="Plugins\FunPlugin\Excuses\" />
+		<Folder Include="Plugins\FunPlugin\Joke\" />
+		<Folder Include="Plugins\FunPlugin\Limerick\" />
 	</ItemGroup>
 
 </Project>
