@@ -1,6 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System.Text.Json;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Abstractions;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Configurations;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 
 IConfigurationRoot configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", true)
@@ -18,6 +18,26 @@ var host = new HostBuilder()
             options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         });
 
+
+        services.AddSingleton<IOpenApiConfigurationOptions>(_ =>
+        {
+            var options = new OpenApiConfigurationOptions()
+            {
+                Info = new OpenApiInfo()
+                {
+                    Version = "1.0.0",
+                    Title = "Math Plugins",
+                    Description = "This plugin does..."
+                },
+                Servers = DefaultOpenApiConfigurationOptions.GetHostNames(),
+                OpenApiVersion = OpenApiVersionType.V3,
+                ForceHttps = false,
+                ForceHttp = false,
+            };
+
+            return options;
+        });
+
         services.AddTransient(providers =>
         {
             IKernelBuilder builder = Kernel.CreateBuilder()
@@ -32,7 +52,8 @@ var host = new HostBuilder()
             kernel.Plugins.AddFromType<MathPlugin.Functions.MathPlugin>();
 
             return kernel;
-        });
+        })
+        .AddScoped<AiPluginRunner>(); ;
     })
     .Build();
 

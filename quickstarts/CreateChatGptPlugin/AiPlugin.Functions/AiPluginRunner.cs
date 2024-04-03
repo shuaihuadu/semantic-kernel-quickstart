@@ -1,9 +1,36 @@
-﻿namespace AiPlugin.Runner;
+﻿namespace AiPlugin.Functions;
 
-public class AiPluginRunner(Kernel kernel, ILoggerFactory loggerFactory) : IAiPluginRunner
+public class AiPluginRunner(Kernel kernel, ILoggerFactory loggerFactory)
 {
     private readonly ILogger<AiPluginRunner> _logger = loggerFactory.CreateLogger<AiPluginRunner>();
     private readonly Kernel _kernel = kernel;
+
+    public async Task<HttpResponseData> RunAiPluginOperationAsync<T>(HttpRequestData request, string pluginName, string functionName)
+    {
+        KernelArguments arguments = ConvertToKernelArguments((await JsonSerializer.DeserializeAsync<T>(request.Body).ConfigureAwait(true))!);
+
+        var response = request.CreateResponse(HttpStatusCode.OK);
+        response.Headers.Add("Content-Type", "text/plain;charset=utf-8");
+        await response.WriteStringAsync(
+            (await this._kernel.InvokeAsync(pluginName, functionName, arguments).ConfigureAwait(false)).ToString()
+        ).ConfigureAwait(false);
+        return response;
+    }
+
+    private static KernelArguments ConvertToKernelArguments<T>(T model)
+    {
+        {
+            var arguments = new KernelArguments();
+            foreach (PropertyInfo property in typeof(T).GetProperties())
+            {
+                if (property.GetValue(model) != null)
+                {
+                    arguments.Add(property.Name, property.GetValue(model));
+                }
+            }
+            return arguments;
+        }
+    }
 
     public async Task<HttpResponseData> RunAiPluginOperationAsync(HttpRequestData request, string pluginName, string functionName)
     {

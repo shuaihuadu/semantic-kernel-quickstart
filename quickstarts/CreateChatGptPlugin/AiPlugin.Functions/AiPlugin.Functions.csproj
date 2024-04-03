@@ -10,16 +10,37 @@
 	<Import Project="$(SolutionDir)/Solution Items/appsettings.props" />
 
 	<ItemGroup>
+		<Compile Remove="MathPluginFunctions.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Remove="D:\Github\semantic-kernel-quickstart\/Solution Items/appsettings.Development.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Plugins\FunPlugin\Joke\config.json" />
+		<None Remove="Plugins\FunPlugin\Joke\skprompt.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="Plugins\FunPlugin\Joke\config.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
+		<AdditionalFiles Include="Plugins\FunPlugin\Joke\skprompt.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</AdditionalFiles>
 	</ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.21.0" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.1.0" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.17.2" />
+		<PackageReference Include="Microsoft.Azure.WebJobs.Extensions.OpenApi.Core" Version="2.0.0-preview2" />
+		<PackageReference Include="Microsoft.OpenApi" Version="1.6.14" />
 		<PackageReference Include="Microsoft.SemanticKernel" Version="1.6.3" />
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\ai-plugin-generator\AzureFunctions\AiPlugin.Functions.SourceGenerator\AiPlugin.Functions.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<ProjectReference Include="..\KernelFunction.WebApi.SourceGenerator\KernelFunction.WebApi.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 	<ItemGroup>

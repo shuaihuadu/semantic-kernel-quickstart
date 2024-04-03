@@ -75,9 +75,10 @@ namespace {rootNamespace};
 public class {pluginName}
 {{
     private readonly ILogger _logger;
-    private readonly IAiPluginRunner _pluginRunner;
+    //private readonly IAiPluginRunner _pluginRunner;
+    private readonly AiPluginRunner _pluginRunner;
 
-    public {pluginName}(ILoggerFactory loggerFactory, IAiPluginRunner pluginRunner)
+    public {pluginName}(ILoggerFactory loggerFactory, AiPluginRunner pluginRunner)
     {{
         this._logger = loggerFactory.CreateLogger<{pluginName}>();
         this._pluginRunner = pluginRunner;

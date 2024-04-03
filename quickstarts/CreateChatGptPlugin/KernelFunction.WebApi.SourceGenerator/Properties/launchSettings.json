@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KernelFunction.SourceGenerator.Debug": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AiPlugin.Functions\\AiPlugin.Functions.csproj"
+    }
+  }
+}
