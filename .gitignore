@@ -26,3 +26,4 @@ appsettings.Production.json
 /ai-plugin-generator/AiPlugin/appsettings.Development.json
 /ai-plugin-generator/AzureFunctions/AiPlugin.Functions/appsettings.Development.json
 /ai-plugin-generator/WebApp/AiPlugin.Web/appsettings.Development.json
+/quickstarts/CreateChatGptPlugin/Solution/appsettings.Development.json

@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "quickstarts", "quickstarts"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KernelSyntaxExamples", "quickstarts\KernelSyntaxExamples\KernelSyntaxExamples.csproj", "{D2A1AAE2-D94A-4D87-A557-5C0429747E09}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateChatGptPlugin", "quickstarts\CreateChatGptPlugin\CreateChatGptPlugin.csproj", "{27064CD8-1C4D-459E-B876-E1E7E0C1A923}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebPlugins", "quickstarts\WebPlugins\WebPlugins.csproj", "{31916DD6-1446-4FC6-8003-CE00629332A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationExamples", "quickstarts\DocumentationExamples\DocumentationExamples.csproj", "{B1E988EC-6066-489C-B1FA-ED05BDA64CA3}"
@@ -33,7 +31,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPlugin.Functions", "ai-pl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPlugin.Web", "ai-plugin-generator\WebApp\AiPlugin.Web\AiPlugin.Web.csproj", "{3596FEA2-5F2B-41AA-A321-0B217F3B77E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiPlugin.WebApi.SourceGenerator", "ai-plugin-generator\WebApp\AiPlugin.WebApi.SourceGenerator\AiPlugin.WebApi.SourceGenerator.csproj", "{5B82AB8C-75BE-456C-B7D3-78D93554656D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPlugin.WebApi.SourceGenerator", "ai-plugin-generator\WebApp\AiPlugin.WebApi.SourceGenerator\AiPlugin.WebApi.SourceGenerator.csproj", "{5B82AB8C-75BE-456C-B7D3-78D93554656D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CreateChatGptPlugin", "CreateChatGptPlugin", "{DEEE2049-25B2-4755-967A-24EE8ABCE566}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateChatGptPlugin", "quickstarts\CreateChatGptPlugin\Solution\CreateChatGptPlugin.csproj", "{947C8B1A-9938-448F-8794-D1BE2A43E4FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KernelFunction.WebApi.SourceGenerator", "quickstarts\CreateChatGptPlugin\KernelFunction.WebApi.SourceGenerator\KernelFunction.WebApi.SourceGenerator.csproj", "{77CA92FB-25A9-4577-994C-286EAECDA0A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +49,6 @@ Global
 		{D2A1AAE2-D94A-4D87-A557-5C0429747E09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2A1AAE2-D94A-4D87-A557-5C0429747E09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2A1AAE2-D94A-4D87-A557-5C0429747E09}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27064CD8-1C4D-459E-B876-E1E7E0C1A923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27064CD8-1C4D-459E-B876-E1E7E0C1A923}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27064CD8-1C4D-459E-B876-E1E7E0C1A923}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27064CD8-1C4D-459E-B876-E1E7E0C1A923}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31916DD6-1446-4FC6-8003-CE00629332A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{31916DD6-1446-4FC6-8003-CE00629332A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31916DD6-1446-4FC6-8003-CE00629332A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -77,13 +77,20 @@ Global
 		{5B82AB8C-75BE-456C-B7D3-78D93554656D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B82AB8C-75BE-456C-B7D3-78D93554656D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B82AB8C-75BE-456C-B7D3-78D93554656D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{947C8B1A-9938-448F-8794-D1BE2A43E4FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{947C8B1A-9938-448F-8794-D1BE2A43E4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{947C8B1A-9938-448F-8794-D1BE2A43E4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{947C8B1A-9938-448F-8794-D1BE2A43E4FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77CA92FB-25A9-4577-994C-286EAECDA0A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77CA92FB-25A9-4577-994C-286EAECDA0A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77CA92FB-25A9-4577-994C-286EAECDA0A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77CA92FB-25A9-4577-994C-286EAECDA0A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D2A1AAE2-D94A-4D87-A557-5C0429747E09} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
-		{27064CD8-1C4D-459E-B876-E1E7E0C1A923} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{31916DD6-1446-4FC6-8003-CE00629332A2} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{B1E988EC-6066-489C-B1FA-ED05BDA64CA3} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{07F54BC7-59D5-426A-8258-4423A4E5FADE} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
@@ -93,6 +100,9 @@ Global
 		{BE6D20C4-0098-4D4B-A40D-5C3F626B0766} = {CB1EECC0-B70D-414B-A8C2-4282F2008B11}
 		{3596FEA2-5F2B-41AA-A321-0B217F3B77E7} = {99A627BD-01CF-4987-89FB-6E1E5299F7AC}
 		{5B82AB8C-75BE-456C-B7D3-78D93554656D} = {99A627BD-01CF-4987-89FB-6E1E5299F7AC}
+		{DEEE2049-25B2-4755-967A-24EE8ABCE566} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
+		{947C8B1A-9938-448F-8794-D1BE2A43E4FB} = {DEEE2049-25B2-4755-967A-24EE8ABCE566}
+		{77CA92FB-25A9-4577-994C-286EAECDA0A5} = {DEEE2049-25B2-4755-967A-24EE8ABCE566}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FBE33D1-316E-435B-9770-90C3C2DC2E1C}
