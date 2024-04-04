@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateChatGptPlugin", "quic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KernelFunction.WebApi.SourceGenerator", "quickstarts\CreateChatGptPlugin\KernelFunction.WebApi.SourceGenerator\KernelFunction.WebApi.SourceGenerator.csproj", "{77CA92FB-25A9-4577-994C-286EAECDA0A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AiPlugin.Functions", "quickstarts\CreateChatGptPlugin\AiPlugin.Functions\AiPlugin.Functions.csproj", "{29FAE8A0-5DED-4185-955A-A9CC1628A648}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathPlugin.Functions", "quickstarts\CreateChatGptPlugin\MathPlugin.Functions\MathPlugin.Functions.csproj", "{BE57DDEA-BB3A-4769-B1B6-B088C82C5D70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,10 +87,10 @@ Global
 		{77CA92FB-25A9-4577-994C-286EAECDA0A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77CA92FB-25A9-4577-994C-286EAECDA0A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77CA92FB-25A9-4577-994C-286EAECDA0A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29FAE8A0-5DED-4185-955A-A9CC1628A648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29FAE8A0-5DED-4185-955A-A9CC1628A648}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29FAE8A0-5DED-4185-955A-A9CC1628A648}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29FAE8A0-5DED-4185-955A-A9CC1628A648}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE57DDEA-BB3A-4769-B1B6-B088C82C5D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE57DDEA-BB3A-4769-B1B6-B088C82C5D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE57DDEA-BB3A-4769-B1B6-B088C82C5D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE57DDEA-BB3A-4769-B1B6-B088C82C5D70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,7 +109,7 @@ Global
 		{DEEE2049-25B2-4755-967A-24EE8ABCE566} = {763CCA52-FC86-412F-8BCF-CE89115D6CE3}
 		{947C8B1A-9938-448F-8794-D1BE2A43E4FB} = {DEEE2049-25B2-4755-967A-24EE8ABCE566}
 		{77CA92FB-25A9-4577-994C-286EAECDA0A5} = {DEEE2049-25B2-4755-967A-24EE8ABCE566}
-		{29FAE8A0-5DED-4185-955A-A9CC1628A648} = {DEEE2049-25B2-4755-967A-24EE8ABCE566}
+		{BE57DDEA-BB3A-4769-B1B6-B088C82C5D70} = {DEEE2049-25B2-4755-967A-24EE8ABCE566}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FBE33D1-316E-435B-9770-90C3C2DC2E1C}

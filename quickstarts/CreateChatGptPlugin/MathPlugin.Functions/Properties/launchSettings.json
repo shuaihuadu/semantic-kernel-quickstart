@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "AiPlugin.Functions": {
+    "MathPlugin.Functions": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7022",
+      "commandLineArgs": "--port 7181",
       "launchBrowser": false
     }
   }
