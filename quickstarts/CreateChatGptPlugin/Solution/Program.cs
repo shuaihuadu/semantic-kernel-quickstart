@@ -11,49 +11,17 @@ Kernel kernel = builder.Build();
 
 await kernel.ImportPluginFromOpenApiAsync("MathPlugin", new Uri("http://localhost:7181/api/swagger.json")).ConfigureAwait(false);
 
-FunctionResult sqResult = await kernel.InvokeAsync("MathPlugin", "Sqrt", new()
+
+Console.WriteLine("Please input a number:");
+
+while (true)
 {
-    ["number"] = @"{""number1"": 20}"
-});
+    double number1 = Convert.ToDouble(Console.ReadLine());
 
-Console.WriteLine(sqResult);
+    FunctionResult sqResult = await kernel.InvokeAsync("MathPlugin", "Sqrt", new()
+    {
+        ["number1"] = number1
+    });
 
-//ChatHistory history = [];
-
-//IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-
-//while (true)
-//{
-//    Console.Write("User > ");
-
-//    history.AddUserMessage(Console.ReadLine()!);
-
-//    OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
-//    {
-//        ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
-//    };
-
-//    IAsyncEnumerable<StreamingChatMessageContent> result = chatCompletionService.GetStreamingChatMessageContentsAsync(history, executionSettings: openAIPromptExecutionSettings, kernel: kernel);
-
-//    string fullMessage = "";
-
-//    bool first = true;
-
-//    await foreach (StreamingChatMessageContent content in result)
-//    {
-//        if (content.Role.HasValue && first)
-//        {
-//            Console.Write("Assistant > ");
-
-//            first = false;
-//        }
-
-//        Console.Write(content.Content);
-
-//        fullMessage += content.Content;
-//    }
-
-//    Console.WriteLine();
-
-//    history.AddAssistantMessage(fullMessage);
-//}
+    Console.WriteLine(sqResult);
+}
