@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
@@ -27,10 +28,10 @@ public class MathPlugin
     [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(SqrtModel), Required = true, Description = "JSON request body")]
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Description = "The OK response")]
     [FunctionName("Sqrt")]
-    public async Task<double> Sqrt([HttpTrigger(AuthorizationLevel.Anonymous, "post")] SqrtModel data)
+    public Task<double> Sqrt([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest data)
     {
         _logger.LogInformation("HTTP trigger processed a request for function MathPlugin-Sqrt.");
 
-        return Math.Sqrt(data.number1);
+        return Task.FromResult(Math.Sqrt(20));
     }
 }

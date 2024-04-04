@@ -9,11 +9,11 @@ builder.Services.AddAzureOpenAIChatCompletion(
 
 Kernel kernel = builder.Build();
 
-await kernel.ImportPluginFromOpenApiAsync("MathPlugin", new Uri("https://localhost:7161/swagger/v1/swagger.json")).ConfigureAwait(false);
+await kernel.ImportPluginFromOpenApiAsync("MathPlugin", new Uri("http://localhost:7181/api/swagger.json")).ConfigureAwait(false);
 
 FunctionResult sqResult = await kernel.InvokeAsync("MathPlugin", "Sqrt", new()
 {
-    ["number"] = 20
+    ["number"] = @"{""number1"": 20}"
 });
 
 Console.WriteLine(sqResult);
