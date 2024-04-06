@@ -35,10 +35,10 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-		<PackageReference Include="Microsoft.SemanticKernel" Version="1.6.3" />
-		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.6.3-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.6.3" />
-		<PackageReference Include="Microsoft.SemanticKernel.Yaml" Version="1.6.3" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.7.1" />
+		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.7.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.7.1" />
+		<PackageReference Include="Microsoft.SemanticKernel.Yaml" Version="1.7.1" />
 		<PackageReference Include="xRetry" Version="1.9.0" />
 		<PackageReference Include="xunit" Version="2.7.0" />
 		<PackageReference Include="xunit.analyzers" Version="1.11.0" />
