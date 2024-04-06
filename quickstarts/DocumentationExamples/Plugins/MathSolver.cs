@@ -1,17 +1,13 @@
 ﻿namespace DocumentationExamples.Plugins;
 
-public class MathSolver
+public class MathSolver(ITestOutputHelper output)
 {
-    private readonly ILogger _logger;
+    private readonly ITestOutputHelper _output = output;
 
-    public MathSolver(ILoggerFactory loggerFactory)
-    {
-        this._logger = loggerFactory.CreateLogger<MathSolver>();
-    }
-
-
-    public async Task<string> SolveAsync(Kernel kernel,
-        [Description("The math problem to solve; describe it in 2-3 sentences to ensure full context is provided")] string problem)
+    [KernelFunction]
+    [Description("Solves a math problem.")]
+    [return: Description("The solution to the math problem.")]
+    public async Task<string> SolveAsync(Kernel kernel, [Description("The math problem to solve; describe it in 2-3 sentences to ensure full context is provided")] string problem)
     {
         Kernel kernelWithMath = kernel.Clone();
 
@@ -19,6 +15,19 @@ public class MathSolver
 
         kernelWithMath.Plugins.AddFromType<MathPlugin>();
 
-        return string.Empty;
+        HandlebarsPlanner planner = new(new HandlebarsPlannerOptions
+        {
+            AllowLoops = true
+        });
+
+        HandlebarsPlan plan = await planner.CreatePlanAsync(kernelWithMath, problem);
+
+        this._output.WriteLine("Plan: {Plan}", plan);
+
+        string result = (await plan.InvokeAsync(kernelWithMath)).Trim();
+
+        this._output.WriteLine("Results: {Result}", result);
+
+        return result;
     }
 }
