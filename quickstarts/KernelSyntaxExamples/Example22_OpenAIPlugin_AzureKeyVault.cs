@@ -50,7 +50,7 @@ public class Example22_OpenAIPlugin_AzureKeyVault : BaseTest
         await GetSecretFromAzureKeyVaultWithRetryAsync(kernel, plugin);
     }
 
-    public async Task AddSecretToAzureKeyVaultAsync(Kernel kernel, KernelPlugin plugin)
+    private async Task AddSecretToAzureKeyVaultAsync(Kernel kernel, KernelPlugin plugin)
     {
         KernelArguments arguments = new()
         {
@@ -67,7 +67,7 @@ public class Example22_OpenAIPlugin_AzureKeyVault : BaseTest
         this.WriteLine($"SetSecret function result: {response?.Content?.ToString()}");
     }
 
-    public async Task GetSecretFromAzureKeyVaultWithRetryAsync(Kernel kernel, KernelPlugin plugin)
+    private async Task GetSecretFromAzureKeyVaultWithRetryAsync(Kernel kernel, KernelPlugin plugin)
     {
         KernelArguments arguments = new();
 

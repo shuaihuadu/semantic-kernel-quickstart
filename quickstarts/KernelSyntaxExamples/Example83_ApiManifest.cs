@@ -39,7 +39,7 @@ public sealed class Example83_ApiManifest : BaseTest
         //    throw new InvalidOperationException("Missing Scopes configuration for Microsoft Graph API.");
         //}
 
-        //LocalUserMSALCredentialManager credentialManager = await LocalUserMSALCredentialManager.CreateAsync().ConfigureAwait(false);
+        LocalUserMSALCredentialManager credentialManager = await LocalUserMSALCredentialManager.CreateAsync().ConfigureAwait(false);
 
         //string token = await credentialManager.GetTokenAsync(
         //    TestConfiguration.MsGraph.ClientId,

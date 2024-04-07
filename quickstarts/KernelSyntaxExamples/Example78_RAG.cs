@@ -40,7 +40,7 @@ public class Example78_RAG : BaseTest
     private sealed class CustomPlugin
     {
         [KernelFunction]
-        public async Task<string> SearchAsync(string query)
+        public string SearchAsync(string query)
         {
             return "Year Budget 2020 100,000 2021 120,000 2022 150,000 2023 200,000 2024 364,000";
         }

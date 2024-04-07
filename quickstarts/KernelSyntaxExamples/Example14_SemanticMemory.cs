@@ -31,7 +31,7 @@ public class Example14_SemanticMemory : BaseTest
         await RunExampleAsync(memoryWithVolatile);
     }
 
-    public async Task RunExampleAsync(ISemanticTextMemory memory)
+    private async Task RunExampleAsync(ISemanticTextMemory memory)
     {
         await StoreMemoryAsync(memory);
 
