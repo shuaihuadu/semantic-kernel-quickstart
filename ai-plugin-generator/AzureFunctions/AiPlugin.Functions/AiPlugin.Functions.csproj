@@ -7,7 +7,6 @@
 		<Nullable>enable</Nullable>
 		<_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
 	</PropertyGroup>
-	<Import Project="$(SolutionDir)/Solution Items/appsettings.props" />
 	<ItemGroup>
 		<AdditionalFiles Include="Plugins\FunPlugin\Excuses\config.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -55,9 +54,6 @@
 		<PackageReference Include="Microsoft.SemanticKernel" Version="1.7.1" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Update="appsettings.Development.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -76,6 +72,7 @@
 		<Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\quickstarts\SharedLibrary\SharedLibrary.csproj" />
 		<ProjectReference Include="..\AiPlugin.Functions.SourceGenerator\AiPlugin.Functions.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 </Project>

@@ -6,5 +6,5 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.SemanticKernel;
 global using Microsoft.SemanticKernel.ChatCompletion;
 global using Microsoft.SemanticKernel.Connectors.OpenAI;
+global using SharedLibrary;
 global using System.ComponentModel;
-global using System.Runtime.CompilerServices;

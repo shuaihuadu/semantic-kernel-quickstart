@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace SharedLibrary;
 
 public sealed class TestConfiguration
 {
@@ -6,12 +6,21 @@ public sealed class TestConfiguration
 
     private static TestConfiguration? _instance;
 
+    public static void Initialize()
+    {
+        IConfigurationRoot configurationRoot = new ConfigurationBuilder()
+            .AddJsonFile(@"D:\appsettings\appsettings.local.json", true)
+            .Build();
+
+        Initialize(configurationRoot);
+    }
+
     private TestConfiguration(IConfigurationRoot configurationRoot)
     {
         this._configurationRoot = configurationRoot;
     }
 
-    public static void Initialize(IConfigurationRoot configurationRoot)
+    private static void Initialize(IConfigurationRoot configurationRoot)
     {
         _instance = new TestConfiguration(configurationRoot);
     }
@@ -36,7 +45,6 @@ public sealed class TestConfiguration
     public static KustoConfig Kusto => LoadSection<KustoConfig>();
     public static MongoDBConfig Mongo => LoadSection<MongoDBConfig>();
     public static MilvusConfig Milvus => LoadSection<MilvusConfig>();
-    public static MsGraphConfiguration MsGraph => LoadSection<MsGraphConfiguration>();
 
     private static T LoadSection<T>([CallerMemberName] string? caller = null)
     {

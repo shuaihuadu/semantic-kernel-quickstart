@@ -7,8 +7,6 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>
 	</PropertyGroup>
-
-	<Import Project="$(SolutionDir)/Solution Items/appsettings.props" />
 	<ItemGroup>
 		<AdditionalFiles Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\FunPlugin\Excuses\config.json" Link="Plugins\FunPlugin\Excuses\config.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -36,7 +34,6 @@
 	<ItemGroup>
 		<Compile Include="..\..\AzureFunctions\AiPlugin.Functions\AiPluginSettings.cs" Link="AiPluginSettings.cs" />
 		<Compile Include="..\..\AzureFunctions\AiPlugin.Functions\Plugins\MathPlugin.cs" Link="Plugins\MathPlugin.cs" />
-		<Compile Include="..\..\AzureFunctions\AiPlugin.Functions\TestConfiguration.cs" Link="TestConfiguration.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -50,6 +47,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\quickstarts\SharedLibrary\SharedLibrary.csproj" />
 		<ProjectReference Include="..\AiPlugin.WebApi.SourceGenerator\AiPlugin.WebApi.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 

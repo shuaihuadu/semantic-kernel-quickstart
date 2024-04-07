@@ -1,8 +1,8 @@
 <Project>
 	<ItemGroup>
-		<Content Include="$(SolutionDir)/Solution Items/appsettings.Development.json" CopyToOutputDirectory="Always" Link="%(Filename)%(Extension)" />
+		<Content Include="$(SolutionDir)/Solution Items/appsettings.json" CopyToOutputDirectory="Always" Link="%(Filename)%(Extension)" />
 	</ItemGroup>
 	<Target Name="CopyAppSettings" BeforeTargets="BeforeBuild">
-		<Copy SourceFiles="$(SolutionDir)/Solution Items/appsettings.Development.json" DestinationFolder="./" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(SolutionDir)/Solution Items/appsettings.json" DestinationFolder="./" SkipUnchangedFiles="true" />
 	</Target>
 </Project>

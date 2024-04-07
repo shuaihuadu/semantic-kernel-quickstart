@@ -11,18 +11,7 @@ public abstract class BaseTest
         this.Output = output;
         this.LoggerFactory = new XunitLogger(output);
 
-        LoadUserSecrets();
-    }
-
-    private static void LoadUserSecrets()
-    {
-        IConfigurationRoot configurationRoot = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.Development.json", true)
-            .AddEnvironmentVariables()
-            .AddUserSecrets<Env>()
-            .Build();
-
-        TestConfiguration.Initialize(configurationRoot);
+        TestConfiguration.Initialize();
     }
 
     protected void WriteLine(object? target = null)

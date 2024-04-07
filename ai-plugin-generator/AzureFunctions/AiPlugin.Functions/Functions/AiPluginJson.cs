@@ -17,7 +17,7 @@ public class AiPluginJson
         HttpResponseData response = request.CreateResponse(HttpStatusCode.OK);
         response.Headers.Add("Content-Type", "application/json");
 
-        string json = JsonSerializer.Serialize(TestConfiguration.AiPluginSettings);
+        string json = JsonSerializer.Serialize(new AiPluginSettings());
 
         json = json.Replace("{url}", currentDomain, StringComparison.OrdinalIgnoreCase);
 

@@ -1,8 +1,4 @@
-﻿IConfigurationRoot configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.Development.json", true)
-    .Build();
-
-TestConfiguration.Initialize(configuration);
+﻿TestConfiguration.Initialize();
 
 EmailAgent agent = new();
 

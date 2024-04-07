@@ -1,5 +1,4 @@
 ﻿global using DocumentationExamples.Plugins;
-global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.SemanticKernel;
@@ -8,6 +7,6 @@ global using Microsoft.SemanticKernel.Connectors.OpenAI;
 global using Microsoft.SemanticKernel.Planning.Handlebars;
 global using Microsoft.SemanticKernel.Plugins.Core;
 global using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
+global using SharedLibrary;
 global using System.ComponentModel;
-global using System.Runtime.CompilerServices;
 global using Xunit.Abstractions;

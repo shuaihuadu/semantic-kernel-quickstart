@@ -1,4 +1,4 @@
-﻿Env.LoadUserSecrets();
+﻿TestConfiguration.Initialize();
 
 IKernelBuilder builder = Kernel.CreateBuilder();
 

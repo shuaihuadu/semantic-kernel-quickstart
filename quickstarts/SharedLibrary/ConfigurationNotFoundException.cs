@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples.Reliability;
+﻿namespace SharedLibrary;
 
 public sealed class ConfigurationNotFoundException : Exception
 {
