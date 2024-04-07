@@ -11,21 +11,4 @@
 *.user
 /.idea
 appsettings.Production.json
-/quickstarts/KernelSyntaxExamples/appsettings.Development.json
-/quickstarts/CreateChatGptPlugin/appsettings.Development.json
-/quickstarts/WebPlugins/appsettings.Development.json
-/quickstarts/DocumentationExamples/appsettings.Development.json
-/Solution Items/appsettings.Development.json
 /quickstarts/KernelSyntaxExamples/OwnerExamples/result.txt
-/HelloAgent/appsettings.Development.json
-/aiplugin/AIPluginFunction/appsettings.Development.json
-/quickstarts/HelloAgent/appsettings.Development.json
-/aiplugin/AiPlugin/appsettings.Development.json
-/semantic-kernel-starters/sk-chatgpt-azure-function/appsettings.Development.json
-/vs-code-sk-tool/azure-function/appsettings.Development.json
-/ai-plugin-generator/AiPlugin/appsettings.Development.json
-/ai-plugin-generator/AzureFunctions/AiPlugin.Functions/appsettings.Development.json
-/ai-plugin-generator/WebApp/AiPlugin.Web/appsettings.Development.json
-/quickstarts/CreateChatGptPlugin/Solution/appsettings.Development.json
-/quickstarts/CreateChatGptPlugin/MathPlugin.Functions/appsettings.Development.json
-/quickstarts/CreateChatGptPlugin/AiPlugin.Functions/appsettings.Development.json
