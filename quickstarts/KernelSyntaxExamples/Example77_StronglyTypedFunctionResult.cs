@@ -7,12 +7,7 @@ public class Example77_StronglyTypedFunctionResult : BaseTest
     {
         this.WriteLine("======== Extended function result ========");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         string promptTestDataGeneration = "Return a JSON with an array of 3 JSON objects with the following fields: "
             + "First, an id field with a random GUID, next a name field with a random company name and last a description field with a random short company description. "

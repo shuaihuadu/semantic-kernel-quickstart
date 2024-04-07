@@ -8,11 +8,7 @@ var host = new HostBuilder()
     {
         services.AddTransient<Kernel>((Func<IServiceProvider, Kernel>)(providers =>
         {
-            IKernelBuilder builder = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-               deploymentName: (string)TestConfiguration.AzureOpenAI.DeploymentName,
-               endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-               apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+            IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
             builder.Services.AddLogging(loggingBuilder =>
             {

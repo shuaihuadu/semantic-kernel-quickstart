@@ -10,12 +10,7 @@ public class Example63_ChatCompletionPrompts : BaseTest
             <message role=""system"">Respond with JSON.</message>
         ";
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         KernelFunction chatSemanticFunction = kernel.CreateFunctionFromPrompt(ChatPrompt);
 

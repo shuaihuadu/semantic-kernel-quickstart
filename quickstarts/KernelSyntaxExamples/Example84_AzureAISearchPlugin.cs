@@ -9,7 +9,7 @@ public class Example84_AzureAISearchPlugin : BaseTest
         Uri endpoint = new(TestConfiguration.AzureAISearch.Endpoint);
         AzureKeyCredential keyCredential = new(TestConfiguration.AzureAISearch.ApiKey);
 
-        IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
+        IKernelBuilder kernelBuilder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         kernelBuilder.Services.AddSingleton((_) => new SearchIndexClient(endpoint, keyCredential));
 
@@ -19,11 +19,6 @@ public class Example84_AzureAISearchPlugin : BaseTest
             deploymentName: TestConfiguration.AzureOpenAIEmbeddings.DeploymentName,
             endpoint: TestConfiguration.AzureOpenAIEmbeddings.Endpoint,
             apiKey: TestConfiguration.AzureOpenAIEmbeddings.ApiKey);
-
-        kernelBuilder.AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey);
 
         kernelBuilder.Plugins.AddFromType<AzureAISearchPlugin>();
 

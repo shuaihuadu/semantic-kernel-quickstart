@@ -27,13 +27,7 @@ public sealed class Example79_ChatCompletionAgent : BaseTest
     [Fact]
     public async Task TurnBasedAgentsChatAsync()
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-                modelId: TestConfiguration.AzureOpenAIConfig.ModelId)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         OpenAIPromptExecutionSettings settings = new OpenAIPromptExecutionSettings
         {

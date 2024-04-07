@@ -9,12 +9,7 @@ public class Example57_KernelHooks : BaseTest
     {
         this.WriteLine("\n======== Get Usage Data ========\n");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         const string FunctionPrompt = "Write a random paragraph about: {{$input}}.";
 
@@ -63,12 +58,7 @@ public class Example57_KernelHooks : BaseTest
     {
         this.WriteLine("\n======== Get Rendered Prompt ========\n");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         const string FunctionPrompt = "Write a random paragraph about: {{$input}} in the style of {{$style}}";
 
@@ -109,13 +99,7 @@ public class Example57_KernelHooks : BaseTest
     {
         this.WriteLine("\n======== Changing/Filtering Function Result ========\n");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
-
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         const string FunctionPrompt = "Write a paragraph about Handlers.";
 
@@ -146,12 +130,7 @@ public class Example57_KernelHooks : BaseTest
     {
         this.WriteLine("\n======== Cancelling Pipeline Execution - Invoking event ========\n");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         const string FunctionPrompt = "Write a paragraph about: Cancellation.";
 
@@ -184,12 +163,7 @@ public class Example57_KernelHooks : BaseTest
     {
         this.WriteLine("\n======== Cancelling Pipeline Execution - Invoked event ========\n");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         int functionInvokingCount = 0;
         int functionInvokeCount = 0;

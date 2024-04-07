@@ -5,12 +5,7 @@ public class Step1_Create_Kernel : BaseTest
     [Fact]
     public async Task RunAsync()
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         WriteLine(await kernel.InvokePromptAsync("What color is the sky?"));
         WriteLine();

@@ -5,13 +5,7 @@ public class Example005_FinishReason(ITestOutputHelper output) : BaseTest(output
     [Fact]
     public async Task RunAsync()
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
-
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         try
         {

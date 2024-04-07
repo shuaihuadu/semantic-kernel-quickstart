@@ -167,13 +167,7 @@ public class Example65_HandlebarsPlanner : BaseTest
 
     private async Task<Kernel?> SetupKernelAsync(params string[] pluginDirectoryNames)
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                serviceId: "AzureOpenAIChat",
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         if (pluginDirectoryNames.Length > 0)
         {

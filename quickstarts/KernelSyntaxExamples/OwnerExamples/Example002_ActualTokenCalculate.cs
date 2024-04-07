@@ -28,11 +28,7 @@ public class Example002_ActualTokenCalculate(ITestOutputHelper output) : BaseTes
 
         WriteLine(count);
 
-        Kernel kernel = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         kernel.PromptFilters.Add(new PromptFilter());
         kernel.FunctionFilters.Add(new FunctionFilter());

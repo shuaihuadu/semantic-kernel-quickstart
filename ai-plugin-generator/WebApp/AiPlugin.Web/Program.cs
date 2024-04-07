@@ -43,11 +43,7 @@ static Kernel CreateSemanticKernel()
 {
     string defaultSemanticFunctionsFolder = "Plugins";
 
-    IKernelBuilder builder = Kernel.CreateBuilder()
-        .AddAzureOpenAIChatCompletion(
-        deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-        endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-        apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+    IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
     builder.Services.AddLogging(loggingBuilder =>
     {

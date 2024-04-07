@@ -7,12 +7,7 @@ public class Example43_GetModelResult : BaseTest
     {
         this.WriteLine("======== Inline Function Definition + Invocation ========");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-             endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-             apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         const string FunctionDefinition = "Hi, give me 5 book suggestions about: {{$input}}, please response in Chinese.";
 

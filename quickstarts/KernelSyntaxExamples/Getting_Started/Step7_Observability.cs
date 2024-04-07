@@ -6,12 +6,7 @@ public class Step7_Observability : BaseTest
     [Fact]
     public async Task ObservabilityWithFiltersAsync()
     {
-        IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
-
-        kernelBuilder.AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder kernelBuilder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         kernelBuilder.Plugins.AddFromType<TimeInformation>();
 
@@ -33,12 +28,7 @@ public class Step7_Observability : BaseTest
     [Obsolete("Events are deprecated in favor of filters.")]
     public async Task ObservabilityWithHooksAsync()
     {
-        IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
-
-        kernelBuilder.AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder kernelBuilder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         kernelBuilder.Plugins.AddFromType<TimeInformation>();
 

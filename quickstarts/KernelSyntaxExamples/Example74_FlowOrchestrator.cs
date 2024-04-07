@@ -75,12 +75,7 @@ public class Example74_FlowOrchestrator : BaseTest
 
     private static IKernelBuilder GetKernelBuilder(ILoggerFactory loggerFactory)
     {
-        IKernelBuilder builder = Kernel.CreateBuilder();
-
-        return builder.AddAzureOpenAIChatCompletion(
-            TestConfiguration.AzureOpenAI.DeploymentName,
-            TestConfiguration.AzureOpenAI.Endpoint,
-            TestConfiguration.AzureOpenAI.ApiKey);
+        return KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
     }
 
     private static FlowOrchestratorConfig GetOrchestratorConfig()

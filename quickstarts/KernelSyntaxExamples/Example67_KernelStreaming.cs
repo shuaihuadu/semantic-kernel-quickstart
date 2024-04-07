@@ -6,24 +6,7 @@ public class Example67_KernelStreaming : BaseTest
     [Fact]
     public async Task RunAsync()
     {
-        string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
-        string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
-
-        if (deploymentName == null
-            || endpoint == null
-            || apiKey == null)
-        {
-            this.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
-            return;
-        }
-
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: deploymentName,
-                endpoint: endpoint,
-                apiKey: apiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         KernelFunction funnyParagraphFunction = kernel.CreateFunctionFromPrompt("Wtite a funny paragraph about streaming",
             new OpenAIPromptExecutionSettings

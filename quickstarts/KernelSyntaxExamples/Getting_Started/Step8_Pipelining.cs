@@ -6,12 +6,7 @@ public class Step8_Pipelining : BaseTest
     [Fact]
     public async Task RunAsync()
     {
-        IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
-
-        kernelBuilder.AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder kernelBuilder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         kernelBuilder.Services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Trace));
 

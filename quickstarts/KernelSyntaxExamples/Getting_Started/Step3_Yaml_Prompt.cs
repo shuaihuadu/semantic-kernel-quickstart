@@ -5,12 +5,7 @@ public class Step3_Yaml_Prompt : BaseTest
     [Fact]
     public async Task RunAsync()
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         string generateStoryYaml = EmbeddedResource.Read("GenerateStory.yaml");
 

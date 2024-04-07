@@ -8,24 +8,7 @@ public class Example58_ConfigureExecutionSettings : BaseTest
     {
         this.WriteLine("======== Example58_ConfigureExecutionSettings ========");
 
-        string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
-        string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
-
-        if (deploymentName == null
-            || endpoint == null
-            || apiKey == null)
-        {
-            this.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
-            return;
-        }
-
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: deploymentName,
-                endpoint: endpoint,
-                apiKey: apiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         string prompt = "Hello AI, What can you do for me?";
 

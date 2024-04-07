@@ -5,12 +5,7 @@ public class Step2_Add_Plugins : BaseTest
     [Fact]
     public async Task RunAsync()
     {
-        IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
-
-        kernelBuilder.AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder kernelBuilder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         kernelBuilder.Plugins.AddFromType<TimeInformation>();
 

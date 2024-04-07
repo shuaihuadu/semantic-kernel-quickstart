@@ -5,12 +5,7 @@ public class Example76_Filters(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public async Task FunctionAndPromptFiltersAsync()
     {
-        IKernelBuilder builder = Kernel.CreateBuilder();
-
-        builder.AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Services.AddSingleton(this.Output);
 

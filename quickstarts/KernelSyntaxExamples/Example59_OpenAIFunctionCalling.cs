@@ -5,12 +5,7 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
     [Fact]
     public async Task RunAsync()
     {
-        IKernelBuilder builder = Kernel.CreateBuilder();
-
-        builder.AddAzureOpenAIChatCompletion(
-            TestConfiguration.AzureOpenAI.DeploymentName,
-            TestConfiguration.AzureOpenAI.Endpoint,
-            TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Services.AddLogging(configure => configure.AddConsole().SetMinimumLevel(LogLevel.Trace));
 

@@ -10,24 +10,7 @@ public class Example64_MultiplePromptTemplates : BaseTest
     {
         this.WriteLine("======== Example64_MultiplePromptTemplates ========");
 
-        string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
-        string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
-
-        if (deploymentName == null
-            || endpoint == null
-            || apiKey == null)
-        {
-            this.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
-            return;
-        }
-
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: deploymentName,
-                endpoint: endpoint,
-                apiKey: apiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         AggregatorPromptTemplateFactory promptTemplateFactory = new(
             new KernelPromptTemplateFactory(),
