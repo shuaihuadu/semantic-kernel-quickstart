@@ -64,148 +64,145 @@ public sealed class TestConfiguration
         return _instance._configurationRoot.GetSection(caller).Get<T>() ?? throw new ConfigurationNotFoundException(section: caller);
     }
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor.
     public class OpenAIConfig
     {
-        public string ModelId { get; set; }
-        public string ChatModelId { get; set; }
-        public string EmbeddingModelId { get; set; }
-        public string ApiKey { get; set; }
+        public string ModelId { get; set; } = string.Empty;
+        public string ChatModelId { get; set; } = string.Empty;
+        public string EmbeddingModelId { get; set; } = string.Empty;
+        public string ApiKey { get; set; } = string.Empty;
     }
 
     public class AzureOpenAIConfig
     {
         public const string ModelId = "gpt-4-32K";
 
-        public string DeploymentName { get; set; }
-        public string Endpoint { get; set; }
-        public string ApiKey { get; set; }
-        public string VisionDeploymentName { get; set; }
+        public string DeploymentName { get; set; } = string.Empty;
+        public string Endpoint { get; set; } = string.Empty;
+        public string ApiKey { get; set; } = string.Empty;
+        public string VisionDeploymentName { get; set; } = string.Empty;
     }
 
     public class AzureOpenAIDalle3Config
     {
         public const string ModelId = "dalle-3";
 
-        public string DeploymentName { get; set; }
-        public string Endpoint { get; set; }
-        public string ApiKey { get; set; }
+        public string DeploymentName { get; set; } = string.Empty;
+        public string Endpoint { get; set; } = string.Empty;
+        public string ApiKey { get; set; } = string.Empty;
     }
     public class AzureOpenAITTSConfig
     {
-        public string DeploymentName { get; set; }
-        public string Endpoint { get; set; }
-        public string ApiKey { get; set; }
+        public string DeploymentName { get; set; } = string.Empty;
+        public string Endpoint { get; set; } = string.Empty;
+        public string ApiKey { get; set; } = string.Empty;
     }
     public class AzureOpenAIWhisperConfig
     {
-        public string DeploymentName { get; set; }
-        public string Endpoint { get; set; }
-        public string ApiKey { get; set; }
+        public string DeploymentName { get; set; } = string.Empty;
+        public string Endpoint { get; set; } = string.Empty;
+        public string ApiKey { get; set; } = string.Empty;
     }
 
     public class AzureOpenAIEmbeddingsConfig
     {
-        public string DeploymentName { get; set; }
-        public string Endpoint { get; set; }
-        public string ApiKey { get; set; }
+        public string DeploymentName { get; set; } = string.Empty;
+        public string Endpoint { get; set; } = string.Empty;
+        public string ApiKey { get; set; } = string.Empty;
     }
 
     public class AzureAISearchConfig
     {
-        public string Endpoint { get; set; }
-        public string ApiKey { get; set; }
-        public string IndexName { get; set; }
+        public string Endpoint { get; set; } = string.Empty;
+        public string ApiKey { get; set; } = string.Empty;
+        public string IndexName { get; set; } = string.Empty;
     }
 
     public class QdrantConfig
     {
-        public string Endpoint { get; set; }
-        public string Port { get; set; }
+        public string Endpoint { get; set; } = string.Empty;
+        public string Port { get; set; } = string.Empty;
     }
 
     public class WeaviateConfig
     {
-        public string Scheme { get; set; }
-        public string Endpoint { get; set; }
-        public string Port { get; set; }
-        public string ApiKey { get; set; }
+        public string Scheme { get; set; } = string.Empty;
+        public string Endpoint { get; set; } = string.Empty;
+        public string Port { get; set; } = string.Empty;
+        public string ApiKey { get; set; } = string.Empty;
     }
 
     public class KeyVaultConfig
     {
-        public string Endpoint { get; set; }
-        public string TenantId { get; set; }
-        public string ClientId { get; set; }
-        public string ClientSecret { get; set; }
+        public string Endpoint { get; set; } = string.Empty;
+        public string TenantId { get; set; } = string.Empty;
+        public string ClientId { get; set; } = string.Empty;
+        public string ClientSecret { get; set; } = string.Empty;
     }
 
     public class HuggingFaceConfig
     {
-        public string ApiKey { get; set; }
-        public string ModelId { get; set; }
+        public string ApiKey { get; set; } = string.Empty;
+        public string ModelId { get; set; } = string.Empty;
     }
 
     public class PineconeConfig
     {
-        public string ApiKey { get; set; }
-        public string Environment { get; set; }
+        public string ApiKey { get; set; } = string.Empty;
+        public string Environment { get; set; } = string.Empty;
     }
 
     public class BingConfig
     {
-        public string ApiKey { get; set; }
+        public string ApiKey { get; set; } = string.Empty;
     }
 
     public class GoogleConfig
     {
-        public string ApiKey { get; set; }
-        public string SearchEngineId { get; set; }
+        public string ApiKey { get; set; } = string.Empty;
+        public string SearchEngineId { get; set; } = string.Empty;
     }
 
     public class GithubConfig
     {
-        public string PAT { get; set; }
+        public string PAT { get; set; } = string.Empty;
     }
 
     public class PostgresConfig
     {
-        public string ConnectionString { get; set; }
+        public string ConnectionString { get; set; } = string.Empty;
     }
 
     public class RedisConfig
     {
-        public string Configuration { get; set; }
+        public string Configuration { get; set; } = string.Empty;
     }
 
     public class JiraConfig
     {
-        public string ApiKey { get; set; }
-        public string Email { get; set; }
-        public string Domain { get; set; }
+        public string ApiKey { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Domain { get; set; } = string.Empty;
     }
 
     public class ChromaConfig
     {
-        public string Endpoint { get; set; }
+        public string Endpoint { get; set; } = string.Empty;
     }
 
     public class KustoConfig
     {
-        public string ConnectionString { get; set; }
+        public string ConnectionString { get; set; } = string.Empty;
     }
 
     public class MongoDBConfig
     {
-        public string ConnectionString { get; set; }
+        public string ConnectionString { get; set; } = string.Empty;
     }
 
     public class MilvusConfig
     {
-        public string Host { get; set; }
+        public string Host { get; set; } = string.Empty;
 
         public int Port { get; set; }
     }
-
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor.
 }
