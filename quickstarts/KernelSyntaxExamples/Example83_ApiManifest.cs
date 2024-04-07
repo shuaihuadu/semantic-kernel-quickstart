@@ -34,20 +34,20 @@ public sealed class Example83_ApiManifest : BaseTest
 
     private async Task AddApiManifestPluginsAsync(Kernel kernel, params string[] pluginNames)
     {
-        if (TestConfiguration.MsGraph.Scopes == null)
-        {
-            throw new InvalidOperationException("Missing Scopes configuration for Microsoft Graph API.");
-        }
+        //if (TestConfiguration.MsGraph.Scopes == null)
+        //{
+        //    throw new InvalidOperationException("Missing Scopes configuration for Microsoft Graph API.");
+        //}
 
-        LocalUserMSALCredentialManager credentialManager = await LocalUserMSALCredentialManager.CreateAsync().ConfigureAwait(false);
+        //LocalUserMSALCredentialManager credentialManager = await LocalUserMSALCredentialManager.CreateAsync().ConfigureAwait(false);
 
-        string token = await credentialManager.GetTokenAsync(
-            TestConfiguration.MsGraph.ClientId,
-            TestConfiguration.MsGraph.TenantId,
-            TestConfiguration.MsGraph.Scopes.ToArray(),
-            TestConfiguration.MsGraph.RedirectUri).ConfigureAwait(false);
+        //string token = await credentialManager.GetTokenAsync(
+        //    TestConfiguration.MsGraph.ClientId,
+        //    TestConfiguration.MsGraph.TenantId,
+        //    TestConfiguration.MsGraph.Scopes.ToArray(),
+        //    TestConfiguration.MsGraph.RedirectUri).ConfigureAwait(false);
 
-        BearerAuthenticationProviderWithCancellationToken authenticationProvider = new(() => Task.FromResult(token));
+        //BearerAuthenticationProviderWithCancellationToken authenticationProvider = new(() => Task.FromResult(token));
 
         //foreach (var pluginName in pluginNames)
         //{
