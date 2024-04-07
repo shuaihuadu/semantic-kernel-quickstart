@@ -13,12 +13,7 @@ public class Example30_ChatWithPrompts : BaseTest
         string selectedText = EmbeddedResource.Read("30-user-context.txt");
         string userPromptTemplate = EmbeddedResource.Read("30-user-prompt.txt");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         kernel.ImportPluginFromType<TimePlugin>("time");
 

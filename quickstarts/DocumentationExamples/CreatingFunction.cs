@@ -1,6 +1,4 @@
-﻿using Microsoft.SemanticKernel.Connectors.OpenAI;
-
-namespace DocumentationExamples;
+﻿namespace DocumentationExamples;
 
 public class CreatingFunction : BaseTest
 {
@@ -9,11 +7,7 @@ public class CreatingFunction : BaseTest
     {
         WriteLine("======== Creating native function ========");
 
-        IKernelBuilder builder = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Plugins.AddFromType<MathPlugin>();
 

@@ -43,11 +43,8 @@ public class Example15_TextMemoryPlugin : BaseTest
 
     private async Task RunWithStoreAsync(IMemoryStore memoryStore)
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                TestConfiguration.AzureOpenAI.DeploymentName,
-                TestConfiguration.AzureOpenAI.Endpoint,
-                TestConfiguration.AzureOpenAI.ApiKey)
+        Kernel kernel =
+            KernelHelper.AzureOpenAIChatCompletionKernelBuilder()
             .AddAzureOpenAITextEmbeddingGeneration(
                 TestConfiguration.AzureOpenAIEmbeddings.DeploymentName,
                 TestConfiguration.AzureOpenAIEmbeddings.Endpoint,

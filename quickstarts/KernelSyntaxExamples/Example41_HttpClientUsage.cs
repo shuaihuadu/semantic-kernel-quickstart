@@ -6,12 +6,7 @@ public class Example41_HttpClientUsage : BaseTest
     [Fact]
     public void UseDefaultHttpClient()
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                TestConfiguration.AzureOpenAI.DeploymentName,
-                TestConfiguration.AzureOpenAI.Endpoint,
-                TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
     }
 
     [Fact]

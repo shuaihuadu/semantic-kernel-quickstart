@@ -7,12 +7,7 @@ public class Prompts(ITestOutputHelper output) : BaseTest(output)
     {
         WriteLine("======== Prompts ========");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
 
         string request = "I want to send an email to the marketing team celebrating their recent milestone.";

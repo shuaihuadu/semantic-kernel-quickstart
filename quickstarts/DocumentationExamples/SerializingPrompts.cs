@@ -9,11 +9,7 @@ public class SerializingPrompts : BaseTest
     {
         WriteLine("======== Serializing Prompts ========");
 
-        IKernelBuilder builder = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Plugins.AddFromType<ConversationSummaryPlugin>();
 

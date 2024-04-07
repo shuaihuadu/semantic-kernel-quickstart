@@ -6,20 +6,7 @@ public class Example07_BingAndGooglePlugins : BaseTest
     [Fact]
     public async Task RunAsync()
     {
-        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
-        string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
-        string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-
-        if (string.IsNullOrEmpty(deploymentName) || string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(apiKey))
-        {
-            this.WriteLine("Azure OpenAI credentials not found. Skipping example.");
-
-            return;
-        }
-
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(deploymentName, endpoint, apiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         string bingApiKey = TestConfiguration.Bing.ApiKey;
 

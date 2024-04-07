@@ -7,11 +7,7 @@ public class Planner(ITestOutputHelper output) : BaseTest(output)
     {
         WriteLine("======== Planner ========");
 
-        IKernelBuilder builder = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Services.AddSingleton(Output);
 

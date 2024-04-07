@@ -7,12 +7,7 @@ public class Templates(ITestOutputHelper output) : BaseTest(output)
     {
         WriteLine("======== Templates ========");
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         KernelFunction chatFunction = kernel.CreateFunctionFromPrompt(
             @"{{$history}}

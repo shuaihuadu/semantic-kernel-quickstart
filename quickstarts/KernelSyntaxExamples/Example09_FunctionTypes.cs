@@ -8,11 +8,7 @@ public class Example09_FunctionTypes : BaseTest
     {
         this.WriteLine("======== Method Function types ========");
 
-        IKernelBuilder builder = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                TestConfiguration.AzureOpenAI.DeploymentName,
-                TestConfiguration.AzureOpenAI.Endpoint,
-                TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Services.AddLogging(
             configure => configure.AddConsole()

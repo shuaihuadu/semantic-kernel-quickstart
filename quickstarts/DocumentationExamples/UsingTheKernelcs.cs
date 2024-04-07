@@ -7,11 +7,7 @@ public class UsingTheKernelcs(ITestOutputHelper output) : BaseTest(output)
     {
         WriteLine("======== Kernel ========");
 
-        IKernelBuilder builder = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Services.AddLogging(c => c.AddDebug().SetMinimumLevel(LogLevel.Trace));
 

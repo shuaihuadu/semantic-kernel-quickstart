@@ -8,20 +8,7 @@ public class Example06_TemplateLanguage(ITestOutputHelper output) : BaseTest(out
     {
         this.WriteLine("======== TemplateLanguage ========");
 
-        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
-        string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
-        string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-
-        if (string.IsNullOrEmpty(deploymentName) || string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(apiKey))
-        {
-            this.WriteLine("Azure OpenAI credentials not found. Skipping example.");
-
-            return;
-        }
-
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(deploymentName, endpoint, apiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         kernel.ImportPluginFromType<TimePlugin>("time");
 

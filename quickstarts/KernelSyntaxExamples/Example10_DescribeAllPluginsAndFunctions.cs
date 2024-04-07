@@ -6,12 +6,7 @@ public class Example10_DescribeAllPluginsAndFunctions : BaseTest
     [Fact]
     public Task RunAsync()
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                TestConfiguration.AzureOpenAI.DeploymentName,
-                TestConfiguration.AzureOpenAI.Endpoint,
-                TestConfiguration.AzureOpenAI.ApiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         kernel.ImportPluginFromType<StaticTextPlugin>();
 

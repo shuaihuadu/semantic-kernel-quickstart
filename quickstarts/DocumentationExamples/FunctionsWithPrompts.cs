@@ -6,11 +6,7 @@ public class FunctionsWithPrompts : BaseTest
     [Fact]
     public async Task RunAsync()
     {
-        IKernelBuilder builder = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Plugins.AddFromType<ConversationSummaryPlugin>();
 
