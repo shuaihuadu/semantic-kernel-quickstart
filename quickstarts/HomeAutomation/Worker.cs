@@ -1,7 +1,4 @@
-﻿using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
-
-namespace HomeAutomation;
+﻿namespace HomeAutomation;
 
 internal sealed class Worker(IHostApplicationLifetime hostApplicationLifetime, [FromKeyedServices("HomeAutomationKernel")] Kernel kernel) : BackgroundService
 {
