@@ -8,7 +8,7 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
         IKernelBuilder builder = Kernel.CreateBuilder();
 
         builder.AddAzureOpenAIChatCompletion(
-            TestConfiguration.AzureOpenAI.ChatDeploymentName,
+            TestConfiguration.AzureOpenAI.DeploymentName,
             TestConfiguration.AzureOpenAI.Endpoint,
             TestConfiguration.AzureOpenAI.ApiKey);
 

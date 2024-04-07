@@ -13,17 +13,14 @@ public class Example18_DallE : BaseTest
     {
         this.WriteLine("========Azure OpenAI Dall-E 3 Text To Image ========");
 
-        IKernelBuilder kernelBuilder = Kernel.CreateBuilder()
-            .AddAzureOpenAITextToImage(
-                deploymentName: TestConfiguration.AzureOpenAI.ImageDeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.ImageEndpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ImageApiKey,
-                modelId: TestConfiguration.AzureOpenAI.ImageModelId,
-                apiVersion: "2023-12-01-preview")
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey);
+        IKernelBuilder kernelBuilder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
+
+        kernelBuilder.AddAzureOpenAITextToImage(
+            deploymentName: TestConfiguration.AzureOpenAIDalle3.DeploymentName,
+            endpoint: TestConfiguration.AzureOpenAIDalle3.Endpoint,
+            apiKey: TestConfiguration.AzureOpenAIDalle3.ApiKey,
+            modelId: TestConfiguration.AzureOpenAIDalle3Config.ModelId,
+            apiVersion: "2023-12-01-preview");
 
         //kernelBuilder.Services.ConfigureHttpClientDefaults(configure1 =>
         //{

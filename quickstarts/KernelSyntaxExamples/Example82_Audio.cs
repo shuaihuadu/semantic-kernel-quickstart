@@ -9,9 +9,9 @@ public sealed class Example82_Audio(ITestOutputHelper output) : BaseTest(output)
     {
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAITextToAudio(
-            deploymentName: TestConfiguration.AzureOpenAI.TTSDeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.TTSEndpoint,
-            apiKey: TestConfiguration.AzureOpenAI.TTSApiKey
+            deploymentName: TestConfiguration.AzureOpenAITTS.DeploymentName,
+            endpoint: TestConfiguration.AzureOpenAITTS.Endpoint,
+            apiKey: TestConfiguration.AzureOpenAITTS.ApiKey
             ).Build();
 
         ITextToAudioService textToAudioService = kernel.GetRequiredService<ITextToAudioService>();
@@ -39,9 +39,9 @@ public sealed class Example82_Audio(ITestOutputHelper output) : BaseTest(output)
     {
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIAudioToText(
-                deploymentName: TestConfiguration.AzureOpenAI.WhisperDeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.WhisperEndpoint,
-                apiKey: TestConfiguration.AzureOpenAI.WhisperApiKey)
+                deploymentName: TestConfiguration.AzureOpenAIWhisper.DeploymentName,
+                endpoint: TestConfiguration.AzureOpenAIWhisper.Endpoint,
+                apiKey: TestConfiguration.AzureOpenAIWhisper.ApiKey)
             .Build();
 
 

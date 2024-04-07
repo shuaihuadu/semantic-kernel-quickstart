@@ -6,7 +6,7 @@ public class Example07_BingAndGooglePlugins : BaseTest
     [Fact]
     public async Task RunAsync()
     {
-        string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
+        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
 

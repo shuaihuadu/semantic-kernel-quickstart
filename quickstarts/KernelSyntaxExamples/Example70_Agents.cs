@@ -60,7 +60,7 @@ public class Example70_Agents(ITestOutputHelper output) : BaseTest(output)
         WriteLine("======== Run:AsFunction ========");
 
         IAgent agent = await new AgentBuilder()
-            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatDeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
             .FromTemplate(EmbeddedResource.Read("Agents.ParrotAgent.yaml"))
             .BuildAsync();
 
@@ -81,7 +81,7 @@ public class Example70_Agents(ITestOutputHelper output) : BaseTest(output)
         string definition = EmbeddedResource.Read(resourcePath);
 
         IAgent agent = await new AgentBuilder()
-            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatModelId, TestConfiguration.AzureOpenAI.ApiKey)
+            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAIConfig.ModelId, TestConfiguration.AzureOpenAI.ApiKey)
             .FromTemplate(definition)
             .WithPlugin(plugin)
             .BuildAsync();

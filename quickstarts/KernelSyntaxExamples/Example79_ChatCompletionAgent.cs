@@ -5,13 +5,7 @@ public sealed class Example79_ChatCompletionAgent : BaseTest
     [Fact]
     public async Task ChatWithAgentAsync()
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-                modelId: TestConfiguration.AzureOpenAI.ChatModelId)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         ChatCompletionAgent agent = new(kernel,
             instructions: "You act as a professional financial adviser. However, clients may not know the terminology, so please provide a simple explanation.",
@@ -38,7 +32,7 @@ public sealed class Example79_ChatCompletionAgent : BaseTest
                 deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
                 endpoint: TestConfiguration.AzureOpenAI.Endpoint,
                 apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-                modelId: TestConfiguration.AzureOpenAI.ModelId)
+                modelId: TestConfiguration.AzureOpenAIConfig.ModelId)
             .Build();
 
         OpenAIPromptExecutionSettings settings = new OpenAIPromptExecutionSettings

@@ -241,7 +241,7 @@ public class Example65_HandlebarsPlanner : BaseTest
             }
         };
 
-        plannerOptions.AllowLoops = TestConfiguration.AzureOpenAI.ChatDeploymentName.Contains("gpt-4", StringComparison.OrdinalIgnoreCase);
+        plannerOptions.AllowLoops = TestConfiguration.AzureOpenAI.DeploymentName.Contains("gpt-4", StringComparison.OrdinalIgnoreCase);
 
         HandlebarsPlanner planner = new HandlebarsPlanner(plannerOptions);
 

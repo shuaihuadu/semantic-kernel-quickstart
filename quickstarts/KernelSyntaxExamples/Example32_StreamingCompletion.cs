@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example32_StreamingCompletion : BaseTest
+public class Example32_StreamingCompletion(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -12,7 +12,7 @@ public class Example32_StreamingCompletion : BaseTest
         //await OpenAITextGenerationStreamAsync();
     }
 
-    public async Task AzureOpenAITextGenerationStreamAsync()
+    private async Task AzureOpenAITextGenerationStreamAsync()
     {
         this.WriteLine("======== Azure OpenAI - Text Completion - Raw Streaming ========");
 
@@ -20,12 +20,12 @@ public class Example32_StreamingCompletion : BaseTest
             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
             endpoint: TestConfiguration.AzureOpenAI.Endpoint,
             apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-            modelId: TestConfiguration.AzureOpenAI.ModelId);
+            modelId: TestConfiguration.AzureOpenAIConfig.ModelId);
 
         await TextGenerationStreamAsync(chatCompletionService);
     }
 
-    public async Task OpenAITextGenerationStreamAsync()
+    private async Task OpenAITextGenerationStreamAsync()
     {
         this.WriteLine("======== Open AI - Text Completion - Raw Streaming ========");
 
@@ -55,9 +55,5 @@ public class Example32_StreamingCompletion : BaseTest
         }
 
         this.WriteLine();
-    }
-
-    public Example32_StreamingCompletion(ITestOutputHelper output) : base(output)
-    {
     }
 }

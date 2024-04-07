@@ -8,7 +8,7 @@ public class Example61_MultipleLLMs : BaseTest
         this.WriteLine("======== Example61_MultipleLLMs ========");
 
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
+        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
 
         if (deploymentName == null

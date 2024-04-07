@@ -8,7 +8,7 @@ public class Example62_CustomAIServiceSelector : BaseTest
         this.WriteLine("======== Example62_CustomAIServiceSelector ========");
 
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
+        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
 
         if (deploymentName == null

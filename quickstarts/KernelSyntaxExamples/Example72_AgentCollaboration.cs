@@ -101,7 +101,7 @@ public class Example72_AgentCollaboration(ITestOutputHelper output) : BaseTest(o
     {
         AgentBuilder builder = new();
 
-        return builder.WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatDeploymentName, TestConfiguration.AzureOpenAI.ApiKey);
+        return builder.WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey);
     }
 
     private void DisplayMessage(IEnumerable<IChatMessage> messages, IAgent? agent = null)

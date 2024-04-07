@@ -16,9 +16,9 @@ public class Realword_Example_001_VoiceTranslation(ITestOutputHelper output) : B
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAITextToAudio(
-            deploymentName: TestConfiguration.AzureOpenAI.TTSDeploymentName,
-            endpoint: TestConfiguration.AzureOpenAI.TTSEndpoint,
-            apiKey: TestConfiguration.AzureOpenAI.TTSApiKey
+            deploymentName: TestConfiguration.AzureOpenAITTS.DeploymentName,
+            endpoint: TestConfiguration.AzureOpenAITTS.Endpoint,
+            apiKey: TestConfiguration.AzureOpenAITTS.ApiKey
             ).Build();
 
         ITextToAudioService textToAudioService = kernel.GetRequiredService<ITextToAudioService>();

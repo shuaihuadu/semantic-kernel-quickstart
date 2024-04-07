@@ -8,10 +8,10 @@ public class Example45_MultiStreamingChatCompletion : BaseTest
         this.WriteLine("======== Azure OpenAI - Multiple Chat Completions - Raw Streaming ========");
 
         AzureOpenAIChatCompletionService chatCompletionService = new(
-            deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
+            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
             endpoint: TestConfiguration.AzureOpenAI.Endpoint,
             apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-            modelId: TestConfiguration.AzureOpenAI.ChatModelId);
+            modelId: TestConfiguration.AzureOpenAIConfig.ModelId);
 
         await StreamingChatCompetionAsync(chatCompletionService, 3);
     }

@@ -9,7 +9,7 @@ public class Example001_HelloAzureOpenAI(ITestOutputHelper output) : BaseTest(ou
 
         Kernel kernel1 = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
+                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
                 endpoint: TestConfiguration.AzureOpenAI.Endpoint,
                 apiKey: TestConfiguration.AzureOpenAI.ApiKey)
             .Build();
@@ -18,7 +18,7 @@ public class Example001_HelloAzureOpenAI(ITestOutputHelper output) : BaseTest(ou
 
         ChatMessageContent content1 = await chatCompletionService1.GetChatMessageContentAsync(prompt);
 
-        WriteLine(TestConfiguration.AzureOpenAI.ChatDeploymentName);
+        WriteLine(TestConfiguration.AzureOpenAI.DeploymentName);
         WriteLine(content1.Metadata!["Usage"]!.AsJson());
 
 

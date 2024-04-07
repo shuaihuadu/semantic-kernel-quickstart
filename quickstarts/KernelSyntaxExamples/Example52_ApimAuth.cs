@@ -35,7 +35,7 @@ public class Example52_ApimAuth : BaseTest
 
         builder.Services.AddLogging(configure => configure.SetMinimumLevel(LogLevel.Warning).AddConsole());
         builder.AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
+            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
             openAIClient: openAIClient);
 
         Kernel kernel = builder.Build();

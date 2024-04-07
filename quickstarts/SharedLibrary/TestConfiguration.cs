@@ -27,6 +27,9 @@ public sealed class TestConfiguration
 
     public static OpenAIConfig OpenAI => LoadSection<OpenAIConfig>();
     public static AzureOpenAIConfig AzureOpenAI => LoadSection<AzureOpenAIConfig>();
+    public static AzureOpenAIDalle3Config AzureOpenAIDalle3 => LoadSection<AzureOpenAIDalle3Config>();
+    public static AzureOpenAITTSConfig AzureOpenAITTS => LoadSection<AzureOpenAITTSConfig>();
+    public static AzureOpenAIWhisperConfig AzureOpenAIWhisper => LoadSection<AzureOpenAIWhisperConfig>();
     public static AzureOpenAIConfig AzureOpenAIImages => LoadSection<AzureOpenAIConfig>();
     public static AzureOpenAIEmbeddingsConfig AzureOpenAIEmbeddings => LoadSection<AzureOpenAIEmbeddingsConfig>();
     public static AzureAISearchConfig AzureAISearch => LoadSection<AzureAISearchConfig>();
@@ -72,24 +75,33 @@ public sealed class TestConfiguration
 
     public class AzureOpenAIConfig
     {
-        public string ServiceId { get; set; }
+        public const string ModelId = "gpt-4-32K";
+
         public string DeploymentName { get; set; }
-        public string ModelId { get; set; }
-        public string ChatDeploymentName { get; set; }
-        public string ChatModelId { get; set; }
-        public string ImageDeploymentName { get; set; }
-        public string ImageModelId { get; set; }
-        public string ImageEndpoint { get; set; }
         public string Endpoint { get; set; }
         public string ApiKey { get; set; }
-        public string ImageApiKey { get; set; }
         public string VisionDeploymentName { get; set; }
-        public string TTSDeploymentName { get; set; }
-        public string TTSEndpoint { get; set; }
-        public string TTSApiKey { get; set; }
-        public string WhisperDeploymentName { get; set; }
-        public string WhisperEndpoint { get; set; }
-        public string WhisperApiKey { get; set; }
+    }
+
+    public class AzureOpenAIDalle3Config
+    {
+        public const string ModelId = "dalle-3";
+
+        public string DeploymentName { get; set; }
+        public string Endpoint { get; set; }
+        public string ApiKey { get; set; }
+    }
+    public class AzureOpenAITTSConfig
+    {
+        public string DeploymentName { get; set; }
+        public string Endpoint { get; set; }
+        public string ApiKey { get; set; }
+    }
+    public class AzureOpenAIWhisperConfig
+    {
+        public string DeploymentName { get; set; }
+        public string Endpoint { get; set; }
+        public string ApiKey { get; set; }
     }
 
     public class AzureOpenAIEmbeddingsConfig

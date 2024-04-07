@@ -30,13 +30,7 @@ public class Example66_FunctionCallingStepwisePlanner : BaseTest
 
     private Kernel InitializeKernel()
     {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-                modelId: TestConfiguration.AzureOpenAI.ChatModelId)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         kernel.ImportPluginFromType<EmailPlugin>();
         kernel.ImportPluginFromType<MathPlugin>();

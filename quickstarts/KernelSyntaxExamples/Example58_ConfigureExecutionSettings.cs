@@ -9,7 +9,7 @@ public class Example58_ConfigureExecutionSettings : BaseTest
         this.WriteLine("======== Example58_ConfigureExecutionSettings ========");
 
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
+        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
 
         if (deploymentName == null

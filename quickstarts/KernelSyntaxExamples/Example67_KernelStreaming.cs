@@ -7,7 +7,7 @@ public class Example67_KernelStreaming : BaseTest
     public async Task RunAsync()
     {
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
+        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
 
         if (deploymentName == null

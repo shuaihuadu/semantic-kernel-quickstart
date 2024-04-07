@@ -4,13 +4,13 @@ const string DefaultSemanticFunctionsFolder = "Plugins";
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
-    .ConfigureServices(services =>
+    .ConfigureServices((Action<IServiceCollection>)(services =>
     {
-        services.AddTransient(providers =>
+        services.AddTransient<Kernel>((Func<IServiceProvider, Kernel>)(providers =>
         {
             IKernelBuilder builder = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
-               deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
+               deploymentName: (string)TestConfiguration.AzureOpenAI.DeploymentName,
                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
                apiKey: TestConfiguration.AzureOpenAI.ApiKey);
 
@@ -27,9 +27,9 @@ var host = new HostBuilder()
             kernel.ImportPluginFromPromptDirectory(Path.Combine(DefaultSemanticFunctionsFolder, "MiscPlugin"));
 
             return kernel;
-        })
+        }))
         .AddScoped<IAiPluginRunner, AiPluginRunner>();
-    })
+    }))
     .Build();
 
 host.Run();

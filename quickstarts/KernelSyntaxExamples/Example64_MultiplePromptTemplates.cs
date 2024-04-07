@@ -11,7 +11,7 @@ public class Example64_MultiplePromptTemplates : BaseTest
         this.WriteLine("======== Example64_MultiplePromptTemplates ========");
 
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
+        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
 
         if (deploymentName == null

@@ -23,7 +23,7 @@ public class Example26_AADAuth : BaseTest
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
+                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
                 endpoint: TestConfiguration.AzureOpenAI.Endpoint,
                 credentials: new DefaultAzureCredential(authOptions))
             .Build();

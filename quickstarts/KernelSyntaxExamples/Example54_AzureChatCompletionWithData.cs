@@ -83,7 +83,7 @@ public class Example54_AzureChatCompletionWithData : BaseTest
     {
         return new AzureOpenAIChatCompletionWithDataConfig
         {
-            CompletionModelId = TestConfiguration.AzureOpenAI.ChatDeploymentName,
+            CompletionModelId = TestConfiguration.AzureOpenAI.DeploymentName,
             CompletionEndpoint = TestConfiguration.AzureOpenAI.Endpoint,
             CompletionApiKey = TestConfiguration.AzureOpenAI.ApiKey,
             DataSourceEndpoint = TestConfiguration.AzureAISearch.Endpoint,

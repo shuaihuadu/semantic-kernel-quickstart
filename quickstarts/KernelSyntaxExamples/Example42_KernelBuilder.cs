@@ -4,29 +4,12 @@ namespace KernelSyntaxExamples;
 public class Example42_KernelBuilder : BaseTest
 {
     [Fact]
-    public void BuildKernelWithAzureChatCompletion()
-    {
-        Kernel kernel1 = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-                modelId: TestConfiguration.AzureOpenAI.ChatModelId)
-            .Build();
-    }
-
-    [Fact]
     public void BuildKernelUsingServiceCollection()
     {
-        IKernelBuilder builder = Kernel.CreateBuilder();
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Services.AddLogging(configure => configure.AddConsole().SetMinimumLevel(LogLevel.Information))
-            .AddHttpClient()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-                modelId: TestConfiguration.AzureOpenAI.ChatModelId);
+            .AddHttpClient();
 
         Kernel kernel2 = builder.Build();
     }
@@ -52,10 +35,9 @@ public class Example42_KernelBuilder : BaseTest
         services.AddLogging(configure => configure.AddConsole().SetMinimumLevel(LogLevel.Information));
         services.AddHttpClient();
         services.AddAzureOpenAIChatCompletion(
-            deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
+            deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
             endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-            apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-            modelId: TestConfiguration.AzureOpenAI.ChatModelId);
+            apiKey: TestConfiguration.AzureOpenAI.ApiKey);
 
         Kernel kernel4 = new(services.BuildServiceProvider());
         services.AddTransient<Kernel>();
@@ -70,10 +52,9 @@ public class Example42_KernelBuilder : BaseTest
         services.AddLogging(configure => configure.AddConsole().SetMinimumLevel(LogLevel.Information));
         services.AddHttpClient();
         services.AddKernel().AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.ChatDeploymentName,
+                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
                 endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-                modelId: TestConfiguration.AzureOpenAI.ChatModelId);
+                apiKey: TestConfiguration.AzureOpenAI.ApiKey);
 
         services.AddSingleton(sp => KernelPluginFactory.CreateFromType<TimePlugin>(serviceProvider: sp));
         services.AddSingleton(sp => KernelPluginFactory.CreateFromType<HttpPlugin>(serviceProvider: sp));

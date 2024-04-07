@@ -15,17 +15,17 @@ public class Example71_AgentDelegation(ITestOutputHelper output) : BaseTest(outp
         {
             KernelPlugin plugin = KernelPluginFactory.CreateFromType<MenuPlugin>();
 
-            IAgent menuAgent = Track(await new AgentBuilder().WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatDeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            IAgent menuAgent = Track(await new AgentBuilder().WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
                 .FromTemplate(EmbeddedResource.Read("Agents.ToolAgent.yaml"))
                 .WithDescription("Answer questions about how the menu uses the tool.")
                 .WithPlugin(plugin)
                 .BuildAsync());
 
-            IAgent parrotAgent = Track(await new AgentBuilder().WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatDeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            IAgent parrotAgent = Track(await new AgentBuilder().WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
                 .FromTemplate(EmbeddedResource.Read("Agents.ParrotAgent.yaml"))
                 .BuildAsync());
 
-            IAgent toolAgent = Track(await new AgentBuilder().WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatDeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            IAgent toolAgent = Track(await new AgentBuilder().WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
                 .FromTemplate(EmbeddedResource.Read("Agents.ToolAgent.yaml"))
                 .WithPlugin(parrotAgent.AsPlugin())
                 .WithPlugin(menuAgent.AsPlugin())

@@ -7,20 +7,7 @@ public class Example05_InlineFunctionDefinition(ITestOutputHelper output) : Base
     {
         this.WriteLine("======== Inline Function Definition ========");
 
-        string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
-        string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
-        string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-
-        if (string.IsNullOrEmpty(deploymentName) || string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(apiKey))
-        {
-            this.WriteLine("Azure OpenAI credentials not found. Skipping example.");
-
-            return;
-        }
-
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(deploymentName, endpoint, apiKey)
-            .Build();
+        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
         string promptTemplate = @"
 Generate a creative reason or excuse for the given event.
@@ -37,7 +24,7 @@ Event: {{$input}}
 
         KernelFunction excuseFunction = kernel.CreateFunctionFromPrompt(promptTemplate, new PromptExecutionSettings
         {
-            ModelId = TestConfiguration.AzureOpenAI.ModelId,
+            ModelId = TestConfiguration.AzureOpenAIConfig.ModelId,
             ExtensionData = new Dictionary<string, object>
             {
                 ["max_tokens"] = 100,
@@ -54,7 +41,7 @@ Event: {{$input}}
 
         var fixedFunction = kernel.CreateFunctionFromPrompt($"Translate this data {DateTimeOffset.Now:f} to French format", new PromptExecutionSettings
         {
-            ModelId = TestConfiguration.AzureOpenAI.ModelId,
+            ModelId = TestConfiguration.AzureOpenAIConfig.ModelId,
             ExtensionData = new Dictionary<string, object>
             {
                 ["max_tokens"] = 50,

@@ -12,7 +12,7 @@ public class Example44_MultiChatCompletion : BaseTest
             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
             endpoint: TestConfiguration.AzureOpenAI.Endpoint,
             apiKey: TestConfiguration.AzureOpenAI.ApiKey,
-            modelId: TestConfiguration.AzureOpenAI.ChatModelId);
+            modelId: TestConfiguration.AzureOpenAIConfig.ModelId);
 
         await RunChatAsync(chatCompletionService);
     }

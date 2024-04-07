@@ -8,7 +8,7 @@ public class Example06_TemplateLanguage(ITestOutputHelper output) : BaseTest(out
     {
         this.WriteLine("======== TemplateLanguage ========");
 
-        string deploymentName = TestConfiguration.AzureOpenAI.ChatDeploymentName;
+        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
         string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
         string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
 

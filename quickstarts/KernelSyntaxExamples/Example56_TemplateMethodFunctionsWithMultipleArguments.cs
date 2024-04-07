@@ -8,28 +8,10 @@ public class Example56_TemplateMethodFunctionsWithMultipleArguments : BaseTest
     {
         this.WriteLine("======== TemplateMethodFunctionsWithMultipleArguments ========");
 
-        string serviceId = TestConfiguration.AzureOpenAI.ServiceId;
-        string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
-        string modelId = TestConfiguration.AzureOpenAI.ChatModelId;
-        string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
 
-        if (apiKey == null || deploymentName == null || modelId == null || endpoint == null)
-        {
-            this.WriteLine("AzureOpenAI modelId, endpoint, apiKey, or deploymentName not found. Skipping example.");
-            return;
-        }
-
-        IKernelBuilder builder = Kernel.CreateBuilder();
+        IKernelBuilder builder = KernelHelper.AzureOpenAIChatCompletionKernelBuilder();
 
         builder.Services.AddLogging(configure => configure.AddConsole());
-
-        builder.AddAzureOpenAIChatCompletion(
-            deploymentName: deploymentName,
-            endpoint: endpoint,
-            serviceId: serviceId,
-            apiKey: apiKey,
-            modelId: modelId);
 
         Kernel kernel = builder.Build();
 

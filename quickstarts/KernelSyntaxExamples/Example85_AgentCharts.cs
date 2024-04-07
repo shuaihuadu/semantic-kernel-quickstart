@@ -14,7 +14,7 @@ public class Example85_AgentCharts(ITestOutputHelper output) : BaseTest(output)
         IAgent agent = await new AgentBuilder()
             .WithAzureOpenAIChatCompletion(
                 endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                model: TestConfiguration.AzureOpenAI.ChatModelId,
+                model: TestConfiguration.AzureOpenAIConfig.ModelId,
                 apiKey: TestConfiguration.AzureOpenAI.ApiKey)
             .WithCodeInterpreter()
             .BuildAsync();

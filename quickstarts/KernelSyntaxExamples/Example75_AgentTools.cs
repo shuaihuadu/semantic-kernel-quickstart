@@ -11,7 +11,7 @@ public class Example75_AgentTools(ITestOutputHelper output) : BaseTest(output)
         WriteLine("======== Using CodeInterpreter tool ========");
 
         AgentBuilder builder = new AgentBuilder()
-            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatDeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
             .WithInstructions("Write only code to solve the given problem without comment.");
 
         try
@@ -56,12 +56,12 @@ public class Example75_AgentTools(ITestOutputHelper output) : BaseTest(output)
 
         IAgent defaultAgent = Track(
             await new AgentBuilder()
-            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatDeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
             .BuildAsync());
 
         IAgent retrievalAgent = Track(
             await new AgentBuilder()
-            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ChatDeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
             .BuildAsync());
 
         if (!PassFileOnRequest)
