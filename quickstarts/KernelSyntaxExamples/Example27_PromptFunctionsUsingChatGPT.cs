@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example27_PromptFunctionsUsingChatGPT : BaseTest
+public class Example27_PromptFunctionsUsingChatGPT(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -14,9 +14,5 @@ public class Example27_PromptFunctionsUsingChatGPT : BaseTest
         FunctionResult functionResult = await kernel.InvokeAsync(kernelFunction, new() { ["input"] = "Earth" });
 
         this.WriteLine(functionResult.GetValue<string>());
-    }
-
-    public Example27_PromptFunctionsUsingChatGPT(ITestOutputHelper output) : base(output)
-    {
     }
 }

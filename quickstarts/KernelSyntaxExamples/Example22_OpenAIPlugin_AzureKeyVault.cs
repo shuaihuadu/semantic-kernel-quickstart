@@ -1,7 +1,7 @@
 ﻿
 namespace KernelSyntaxExamples;
 
-public class Example22_OpenAIPlugin_AzureKeyVault : BaseTest
+public class Example22_OpenAIPlugin_AzureKeyVault(ITestOutputHelper output) : BaseTest(output)
 {
     private const string SecretName = "Foo";
     private const string SecretValue = "Bar";
@@ -69,10 +69,11 @@ public class Example22_OpenAIPlugin_AzureKeyVault : BaseTest
 
     private async Task GetSecretFromAzureKeyVaultWithRetryAsync(Kernel kernel, KernelPlugin plugin)
     {
-        KernelArguments arguments = new();
-
-        arguments["secret-name"] = SecretName;
-        arguments["api-version"] = "7.0";
+        KernelArguments arguments = new()
+        {
+            ["secret-name"] = SecretName,
+            ["api-version"] = "7.0"
+        };
 
         FunctionResult functionResult = await kernel.InvokeAsync(plugin["GetSecret"], arguments);
 
@@ -80,24 +81,13 @@ public class Example22_OpenAIPlugin_AzureKeyVault : BaseTest
 
         this.WriteLine($"GetSecret function result: {response?.Content?.ToString()}");
     }
-
-
-    public Example22_OpenAIPlugin_AzureKeyVault(ITestOutputHelper output) : base(output)
-    {
-    }
 }
 
-internal sealed class OpenAIAuthenticationProvider
+internal sealed class OpenAIAuthenticationProvider(Dictionary<string, Dictionary<string, string>>? oAuthValues = null,
+    Dictionary<string, string>? credentials = null)
 {
-    private readonly Dictionary<string, Dictionary<string, string>> _oAuthValues;
-    private readonly Dictionary<string, string> _credentials;
-
-    public OpenAIAuthenticationProvider(Dictionary<string, Dictionary<string, string>>? oAuthValues = null,
-        Dictionary<string, string>? credentials = null)
-    {
-        this._oAuthValues = oAuthValues ?? new();
-        this._credentials = credentials ?? new();
-    }
+    private readonly Dictionary<string, Dictionary<string, string>> _oAuthValues = oAuthValues ?? [];
+    private readonly Dictionary<string, string> _credentials = credentials ?? [];
 
     public async Task AuthenticateRequestAsync(
         HttpRequestMessage request,

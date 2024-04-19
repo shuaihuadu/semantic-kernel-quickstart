@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example25_ReadOnlyMemoryStore : BaseTest
+public class Example25_ReadOnlyMemoryStore(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -220,8 +220,4 @@ public class Example25_ReadOnlyMemoryStore : BaseTest
             ""timestamp"": null
         }
     ]";
-
-    public Example25_ReadOnlyMemoryStore(ITestOutputHelper output) : base(output)
-    {
-    }
 }

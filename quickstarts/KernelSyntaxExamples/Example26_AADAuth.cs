@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example26_AADAuth : BaseTest
+public class Example26_AADAuth(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact(Skip = "Setup credentials")]
     public async Task RunAsync()
@@ -30,15 +30,12 @@ public class Example26_AADAuth : BaseTest
 
         IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-        ChatHistory chatHistory = new();
+        ChatHistory chatHistory = [];
 
         chatHistory.AddUserMessage("Tell me a joke about hourglasses");
 
         ChatMessageContent reply = await chatCompletionService.GetChatMessageContentAsync(chatHistory);
-        this.WriteLine(reply);
-    }
 
-    public Example26_AADAuth(ITestOutputHelper output) : base(output)
-    {
+        this.WriteLine(reply);
     }
 }

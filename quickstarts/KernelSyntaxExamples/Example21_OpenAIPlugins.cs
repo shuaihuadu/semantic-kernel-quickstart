@@ -1,7 +1,7 @@
 ﻿
 namespace KernelSyntaxExamples;
 
-public class Example21_OpenAIPlugins : BaseTest
+public class Example21_OpenAIPlugins(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact(Skip = "Run it only after filling the template below")]
     public async Task RunOpenAIPluginAsync()
@@ -41,9 +41,5 @@ public class Example21_OpenAIPlugins : BaseTest
         RestApiOperationResponse? result = functionResult.GetValue<RestApiOperationResponse>();
 
         this.WriteLine($"Function execution result: {result?.Content?.ToString()}");
-    }
-
-    public Example21_OpenAIPlugins(ITestOutputHelper output) : base(output)
-    {
     }
 }
