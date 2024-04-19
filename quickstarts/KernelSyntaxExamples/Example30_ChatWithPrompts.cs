@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public class Example30_ChatWithPrompts : BaseTest
+public class Example30_ChatWithPrompts(ITestOutputHelper output) : BaseTest(output)
 {
 
     [Fact]
@@ -41,9 +40,5 @@ public class Example30_ChatWithPrompts : BaseTest
         ChatMessageContent answer = await chatCompletionService.GetChatMessageContentAsync(chatHistory);
 
         this.WriteLine($"------------------------------------\n{answer}");
-    }
-
-    public Example30_ChatWithPrompts(ITestOutputHelper output) : base(output)
-    {
     }
 }
