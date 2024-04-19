@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public class Example14_SemanticMemory : BaseTest
+public class Example14_SemanticMemory(ITestOutputHelper output) : BaseTest(output)
 {
     private const string MemoryCollectionName = "SKGitHub";
 
@@ -96,9 +95,5 @@ public class Example14_SemanticMemory : BaseTest
             ["https://github.com/microsoft/semantic-kernel/blob/main/dotnet/src/SemanticKernel/Memory/VolatileMemoryStore.cs"]
                 = "C# class that defines a volatile embedding store",
         };
-    }
-
-    public Example14_SemanticMemory(ITestOutputHelper output) : base(output)
-    {
     }
 }

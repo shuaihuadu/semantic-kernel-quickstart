@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example18_DallE : BaseTest
+public class Example18_DallE(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -20,7 +20,7 @@ public class Example18_DallE : BaseTest
             endpoint: TestConfiguration.AzureOpenAIDalle3.Endpoint,
             apiKey: TestConfiguration.AzureOpenAIDalle3.ApiKey,
             modelId: TestConfiguration.AzureOpenAIDalle3Config.ModelId,
-            apiVersion: "2023-12-01-preview");
+            apiVersion: "2024-02-15-preview");
 
         //kernelBuilder.Services.ConfigureHttpClientDefaults(configure1 =>
         //{
@@ -72,9 +72,5 @@ public class Example18_DallE : BaseTest
         image = await dallE.GenerateImageAsync(reply.Content!, 1024, 1024);
         this.WriteLine("Bot: " + image);
         this.WriteLine("Img description: " + reply);
-    }
-
-    public Example18_DallE(ITestOutputHelper output) : base(output)
-    {
     }
 }

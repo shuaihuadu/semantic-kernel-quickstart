@@ -143,6 +143,7 @@ public sealed class TestConfiguration
     {
         public string ApiKey { get; set; } = string.Empty;
         public string ModelId { get; set; } = string.Empty;
+        public string EmbeddingModelId { get; set; } = string.Empty;
     }
 
     public class PineconeConfig

@@ -1,5 +1,4 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
 public class Example11_WebSearchQueries : BaseTest
 {

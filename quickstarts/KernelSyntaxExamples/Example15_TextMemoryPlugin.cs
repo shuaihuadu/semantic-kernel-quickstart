@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example15_TextMemoryPlugin : BaseTest
+public class Example15_TextMemoryPlugin(ITestOutputHelper output) : BaseTest(output)
 {
     private const string MemoryCollectionName = "aboutMe";
 
@@ -11,14 +11,11 @@ public class Example15_TextMemoryPlugin : BaseTest
     {
         //The bellow memorystore can be run on my PC:
 
-        IMemoryStore store;
-
-        // Volatile Memory Store - an in-memory store that is not persisted
-        switch (provider)
+        IMemoryStore store = provider switch
         {
-            case "AzureAISearch": store = CreateSampleAzureAISearchMemoryStore(); break;
-            default: store = new VolatileMemoryStore(); break;
-        }
+            "AzureAISearch" => CreateSampleAzureAISearchMemoryStore(),
+            _ => new VolatileMemoryStore(),
+        };
 
         // Sqlite Memory Store - a file-based store that persists data in a Sqlite database
         // store = await CreateSampleSqliteMemoryStoreAsync();
@@ -189,9 +186,5 @@ public class Example15_TextMemoryPlugin : BaseTest
         IMemoryStore store = new MilvusMemoryStore(TestConfiguration.Milvus.Host, TestConfiguration.Milvus.Port);
 
         return store;
-    }
-
-    public Example15_TextMemoryPlugin(ITestOutputHelper output) : base(output)
-    {
     }
 }

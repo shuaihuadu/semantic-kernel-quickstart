@@ -27,6 +27,54 @@ public class Example20_HuggingFace(ITestOutputHelper output) : BaseTest(output)
         this.WriteLine(result.GetValue<string>());
     }
 
+    [RetryFact(typeof(HttpOperationException), Skip = "TODO Hugging Face ")]
+    public async Task RunInferenceApiEmbeddingAsync()
+    {
+        this.WriteLine("\n======= Hugging Face Inference API - Embedding Example ========\n");
+
+        Kernel kernel = Kernel.CreateBuilder()
+            .AddHuggingFaceTextEmbeddingGeneration(
+                model: TestConfiguration.HuggingFace.EmbeddingModelId,
+                apiKey: TestConfiguration.HuggingFace.ApiKey)
+            .Build();
+
+        ITextEmbeddingGenerationService embeddingGenerator = kernel.GetRequiredService<ITextEmbeddingGenerationService>();
+
+        IList<ReadOnlyMemory<float>> embeddings = await embeddingGenerator.GenerateEmbeddingsAsync(["John: Hello, how are you?\nRoger: Hey, I'm Roger!"]);
+
+        WriteLine($"Generated {embeddings.Count} embeddings for the provided text");
+    }
+
+    [RetryFact(typeof(HttpOperationException), Skip = "TODO Hugging Face ")]
+    public async Task RunStreamingExampleAsync()
+    {
+        WriteLine("\n======== HuggingFace zephyr-7b-beta streaming example ========\n");
+
+        const string Model = "HuggingFaceH4/zephyr-7b-beta";
+
+        Kernel kernel = Kernel.CreateBuilder()
+            .AddHuggingFaceTextGeneration(
+                model: Model,
+                apiKey: TestConfiguration.HuggingFace.ApiKey)
+            .Build();
+
+        HuggingFacePromptExecutionSettings settings = new HuggingFacePromptExecutionSettings
+        {
+            UseCache = false
+        };
+
+        KernelFunction questionAnswerFunction = kernel.CreateFunctionFromPrompt("Question: {{$input}}; Answer:", new HuggingFacePromptExecutionSettings
+        {
+            UseCache = false
+        });
+
+        await foreach (string text in kernel.InvokePromptStreamingAsync<string>("Qustion: {{$input}}; Answer:", new KernelArguments(settings) { ["input"] = "What is New York?" }))
+        {
+            Write(text);
+        };
+    }
+
+    [Fact(Skip = "Requires local model or Huggingface Pro subscription")]
     private async Task RunLlamaExampleAsync()
     {
         this.WriteLine("\n======== HuggingFace Llama 2 example ========\n");
@@ -46,4 +94,69 @@ public class Example20_HuggingFace(ITestOutputHelper output) : BaseTest(output)
 
         this.WriteLine(result.GetValue<string>());
     }
+
+    //[Fact(Skip = "Requires TGI (text generation inference) deployment")]
+    //public async Task RunTGI_ChatCompletionAsync()
+    //{
+    //    WriteLine("\n======== HuggingFace - TGI Chat Completion ========\n");
+
+    //    Uri endpoint = new Uri("http://localhost:8000");
+
+    //    const string Model = "teknium/OpenHermes-2.5-Mistral-7B";
+
+    //    Kernel kernel = Kernel.CreateBuilder()
+    //        .AddHuggingFaceChatCompletion(
+    //            model: Model,
+    //            endpoint: endpoint)
+    //        .Build();
+
+    //    IChatCompletionService chatCompletion = kernel.GetRequiredService<IChatCompletionService>();
+
+    //    ChatHistory chatHistory = new("You are a helpful assistant.")
+    //    {
+    //        new ChatMessageContent(AuthorRole.User,"What is deep learning?")
+    //    };
+
+    //    ChatMessageContent result = await chatCompletion.GetChatMessageContentAsync(chatHistory);
+
+    //    WriteLine(result.Role);
+    //    WriteLine(result.Content);
+    //}
+
+    //[Fact(Skip = "Requires TGI (text generation inference) deployment")]
+    //public async Task RunTGI_StreamingChatCompletionAsync()
+    //{
+    //    WriteLine("\n======== HuggingFace - TGI Chat Completion Streaming ========\n");
+
+    //    Uri endpoint = new Uri("http://localhost:8000");
+
+    //    const string Model = "teknium/OpenHermes-2.5-Mistral-7B";
+
+    //    Kernel kernel = Kernel.CreateBuilder()
+    //        .AddHuggingFaceChatCompletion(
+    //            model: Model,
+    //            endpoint: endpoint)
+    //        .Build();
+
+    //    IChatCompletionService chatCompletion = kernel.GetRequiredService<IChatCompletionService>();
+
+    //    ChatHistory chatHistory = new("You are a helpful assistant.")
+    //        {
+    //            new ChatMessageContent(AuthorRole.User,"What is deep learning?")
+    //        };
+
+    //    AuthorRole? role = null;
+
+    //    await foreach (StreamingChatMessageContent chatMessageChunk in chatCompletion.GetStreamingChatMessageContentsAsync(chatHistory))
+    //    {
+    //        if (role is null)
+    //        {
+    //            role = chatMessageChunk.Role;
+
+    //            Write(role);
+    //        }
+
+    //        Write(chatMessageChunk.Content);
+    //    }
+    //}
 }
