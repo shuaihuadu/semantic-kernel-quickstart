@@ -1,7 +1,7 @@
 ﻿
 namespace KernelSyntaxExamples;
 
-public class Example09_FunctionTypes : BaseTest
+public class Example09_FunctionTypes(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -49,8 +49,5 @@ public class Example09_FunctionTypes : BaseTest
         await kernel.InvokeAsync(plugin[nameof(LocalExamplePlugin.TaskInjectingCancellationTokenWithStringResult)]);
 
         await kernel.InvokeAsync(kernel.Plugins["Examples"][nameof(LocalExamplePlugin.NoInputWithVoidResult)]);
-    }
-    public Example09_FunctionTypes(ITestOutputHelper output) : base(output)
-    {
     }
 }

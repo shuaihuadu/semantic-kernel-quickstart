@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example08_RetryHandler : BaseTest
+public class Example08_RetryHandler(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -38,9 +38,5 @@ public class Example08_RetryHandler : BaseTest
         {
             logger.LogInformation("Error: {Message}", ex.Message);
         }
-    }
-
-    public Example08_RetryHandler(ITestOutputHelper output) : base(output)
-    {
     }
 }

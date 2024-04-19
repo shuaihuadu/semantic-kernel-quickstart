@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public class Example10_DescribeAllPluginsAndFunctions : BaseTest
+public class Example10_DescribeAllPluginsAndFunctions(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public Task RunAsync()
@@ -55,8 +54,5 @@ public class Example10_DescribeAllPluginsAndFunctions : BaseTest
         }
 
         this.WriteLine();
-    }
-    public Example10_DescribeAllPluginsAndFunctions(ITestOutputHelper output) : base(output)
-    {
     }
 }
