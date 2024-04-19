@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example07_BingAndGooglePlugins : BaseTest
+public class Example07_BingAndGooglePlugins(ITestOutputHelper output) : BaseTest(output)
 {
     //[Fact(Skip = "Setup Credentials")]
     [Fact]
@@ -81,14 +81,11 @@ Answer: ";
 
         string question = "Who is the most followed person on Douyin right now? What's the exchange rate EUR:USD?";
 
-        KernelFunction oracle = kernel.CreateFunctionFromPrompt(SemanticFunction, new PromptExecutionSettings
+        KernelFunction oracle = kernel.CreateFunctionFromPrompt(SemanticFunction, new OpenAIPromptExecutionSettings
         {
-            ModelId = string.Empty,
-            ExtensionData = new Dictionary<string, object>
-            {
-                ["max_tokens"] = 200,
-                ["temperature"] = 0.0
-            }
+            MaxTokens = 150,
+            Temperature = 0,
+            TopP = 1
         });
 
         FunctionResult answer = await kernel.InvokeAsync(oracle, new()
@@ -125,8 +122,5 @@ Answer: ";
 
         this.WriteLine("----- ANSWER:");
         this.Write(answer.GetValue<string>());
-    }
-    public Example07_BingAndGooglePlugins(ITestOutputHelper output) : base(output)
-    {
     }
 }

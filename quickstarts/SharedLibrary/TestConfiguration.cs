@@ -9,7 +9,7 @@ public sealed class TestConfiguration
     public static void Initialize()
     {
         IConfigurationRoot configurationRoot = new ConfigurationBuilder()
-            .AddJsonFile(@"D:\appsettings\appsettings.local.json", true)
+            .AddJsonFile(@"D:\appsettings\test_configuration.json", true)
             .Build();
 
         Initialize(configurationRoot);
