@@ -135,7 +135,7 @@ public class Example65_HandlebarsPlanner(ITestOutputHelper output) : BaseTest(ou
         return RunSampleAsync(goal, plannerOptions, null, shouldPrintPrompt, true, "WriterPlugin");
     }
 
-    [RetryTheory(typeof(HttpOperationException), Skip = "TODO CreatePlanPromptHandler")]
+    [RetryTheory(typeof(HttpOperationException))]
     [InlineData(true)]
     public Task RunOverrideCreatePlanPromptSampleAsync(bool shouldPrintPrompt)
     {
@@ -152,7 +152,7 @@ public class Example65_HandlebarsPlanner(ITestOutputHelper output) : BaseTest(ou
 
         HandlebarsPlannerOptions plannerOptions = new HandlebarsPlannerOptions
         {
-            //TODO CreatePlanPromptHandler
+            CreatePlanPromptHandler = OverridePlanPrompt
         };
 
         string goal = "I just watched the movie 'Inception' and I loved it! I want to leave a 5 start review. Can you help me?";
