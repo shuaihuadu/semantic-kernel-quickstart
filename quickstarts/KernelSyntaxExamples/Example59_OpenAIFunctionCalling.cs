@@ -67,33 +67,15 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
 
             while (true)
             {
-                OpenAIChatMessageContent result = (OpenAIChatMessageContent)await chat.GetChatMessageContentAsync(chatHistory, setting, kernel);
+                ChatMessageContent result = await chat.GetChatMessageContentAsync(chatHistory, setting, kernel);
 
                 if (result.Content is not null)
                 {
                     Write(result.Content);
                 }
 
-                List<ChatCompletionsFunctionToolCall> toolCalls = result.ToolCalls.OfType<ChatCompletionsFunctionToolCall>().ToList();
-
-                if (toolCalls.Count == 0)
-                {
-                    break;
-                }
-
-                chatHistory.Add(result);
-
-                foreach (var toolCall in toolCalls)
-                {
-                    string content = kernel.Plugins.TryGetFunctionAndArguments(toolCall, out KernelFunction? function, out KernelArguments? argument)
-                        ? JsonSerializer.Serialize((await function.InvokeAsync(kernel, argument)).GetValue<object>())
-                        : "Unable to find function. Please try again!";
-
-                    chatHistory.Add(new ChatMessageContent(AuthorRole.Tool, content, metadata: new Dictionary<string, object?>(1)
-                    {
-                        { OpenAIChatMessageContent.ToolIdProperty, toolCall.Id }
-                    }));
-                }
+                //TODO FunctionCallContent
+                //IEnumerable<FunctionCallContent>
             }
 
             WriteLine();

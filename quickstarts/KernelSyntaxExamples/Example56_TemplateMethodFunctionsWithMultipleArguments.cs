@@ -1,7 +1,7 @@
 ﻿
 namespace KernelSyntaxExamples;
 
-public class Example56_TemplateMethodFunctionsWithMultipleArguments : BaseTest
+public class Example56_TemplateMethodFunctionsWithMultipleArguments(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -40,9 +40,5 @@ public class Example56_TemplateMethodFunctionsWithMultipleArguments : BaseTest
         FunctionResult result = await kernel.InvokeAsync(kernelFunction, arguments);
 
         this.WriteLine(result.GetValue<string>());
-    }
-
-    public Example56_TemplateMethodFunctionsWithMultipleArguments(ITestOutputHelper output) : base(output)
-    {
     }
 }

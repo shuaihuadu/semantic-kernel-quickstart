@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example54_AzureChatCompletionWithData : BaseTest
+public class Example54_AzureChatCompletionWithData(ITestOutputHelper output) : BaseTest(output)
 {
 
     // https://learn.microsoft.com/en-us/azure/ai-services/openai/use-your-data-quickstart
@@ -12,7 +12,7 @@ public class Example54_AzureChatCompletionWithData : BaseTest
 
         AzureOpenAIChatCompletionWithDataService chatCompletionWithDataService = new(GetCompletionWithDataConfig());
 
-        ChatHistory chatHistory = new();
+        ChatHistory chatHistory = [];
 
         //string ask = "How did Emily and David meet?";
         string ask = "How many hotels?";
@@ -90,8 +90,5 @@ public class Example54_AzureChatCompletionWithData : BaseTest
             DataSourceApiKey = TestConfiguration.AzureAISearch.ApiKey,
             DataSourceIndex = TestConfiguration.AzureAISearch.IndexName
         };
-    }
-    public Example54_AzureChatCompletionWithData(ITestOutputHelper output) : base(output)
-    {
     }
 }

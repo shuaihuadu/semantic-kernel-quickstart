@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public class Example58_ConfigureExecutionSettings : BaseTest
+public class Example58_ConfigureExecutionSettings(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -45,9 +44,5 @@ public class Example58_ConfigureExecutionSettings : BaseTest
         result = await kernel.InvokeAsync(kernelFunction);
 
         this.WriteLine(result.GetValue<string>());
-    }
-
-    public Example58_ConfigureExecutionSettings(ITestOutputHelper output) : base(output)
-    {
     }
 }

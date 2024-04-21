@@ -2,7 +2,7 @@
 
 #pragma warning disable CS0618 // Events are deprecated
 
-public class Example57_KernelHooks : BaseTest
+public class Example57_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task GetUsageAsync()
@@ -186,9 +186,5 @@ public class Example57_KernelHooks : BaseTest
 
         this.WriteLine($"Function Invoked Times: {functionInvokeCount}");
         this.WriteLine($"Function Invoking Times:{functionInvokingCount}");
-    }
-
-    public Example57_KernelHooks(ITestOutputHelper output) : base(output)
-    {
     }
 }
