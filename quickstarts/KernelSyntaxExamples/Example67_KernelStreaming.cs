@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public class Example67_KernelStreaming : BaseTest
+public class Example67_KernelStreaming(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -33,9 +32,5 @@ public class Example67_KernelStreaming : BaseTest
                 this.Write(update.Content);
             }
         }
-    }
-
-    public Example67_KernelStreaming(ITestOutputHelper output) : base(output)
-    {
     }
 }

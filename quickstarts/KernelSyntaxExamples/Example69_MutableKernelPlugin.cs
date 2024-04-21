@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example69_MutableKernelPlugin : BaseTest
+public class Example69_MutableKernelPlugin(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -42,13 +42,14 @@ public class Example69_MutableKernelPlugin : BaseTest
                 {
                     ArgumentNullException.ThrowIfNull(function);
 
-                    this._functions.Add(function.Name, function);
+                    KernelFunction cloned = function.Clone(name);
+
+                    this._functions.Add(cloned.Name, cloned);
                 }
             }
         }
 
         public override int FunctionCount => this._functions.Count;
-
 
         public override IEnumerator<KernelFunction> GetEnumerator() => this._functions.Values.GetEnumerator();
 
@@ -57,11 +58,10 @@ public class Example69_MutableKernelPlugin : BaseTest
         public void AddFunction(KernelFunction function)
         {
             ArgumentNullException.ThrowIfNull(function);
-            this._functions.Add(function.Name, function);
-        }
-    }
 
-    public Example69_MutableKernelPlugin(ITestOutputHelper output) : base(output)
-    {
+            KernelFunction cloned = function.Clone(this.Name);
+
+            this._functions.Add(cloned.Name, cloned);
+        }
     }
 }

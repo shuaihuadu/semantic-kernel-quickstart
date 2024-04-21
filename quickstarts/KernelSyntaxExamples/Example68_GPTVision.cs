@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example68_GPTVision : BaseTest
+public class Example68_GPTVision(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -70,9 +70,5 @@ public class Example68_GPTVision : BaseTest
         this.WriteLine("------------------------");
 
         return Task.CompletedTask;
-    }
-
-    public Example68_GPTVision(ITestOutputHelper output) : base(output)
-    {
     }
 }

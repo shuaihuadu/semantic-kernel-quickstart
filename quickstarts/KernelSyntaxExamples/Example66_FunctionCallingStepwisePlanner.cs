@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example66_FunctionCallingStepwisePlanner : BaseTest
+public class Example66_FunctionCallingStepwisePlanner(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -13,7 +13,7 @@ public class Example66_FunctionCallingStepwisePlanner : BaseTest
 
         Kernel kernel = InitializeKernel();
 
-        FunctionCallingStepwisePlannerOptions options = new FunctionCallingStepwisePlannerOptions
+        FunctionCallingStepwisePlannerOptions options = new()
         {
             MaxIterations = 15,
             MaxTokens = 4000
@@ -28,7 +28,7 @@ public class Example66_FunctionCallingStepwisePlanner : BaseTest
         }
     }
 
-    private Kernel InitializeKernel()
+    private static Kernel InitializeKernel()
     {
         Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
@@ -37,9 +37,5 @@ public class Example66_FunctionCallingStepwisePlanner : BaseTest
         kernel.ImportPluginFromType<TimePlugin>();
 
         return kernel;
-    }
-
-    public Example66_FunctionCallingStepwisePlanner(ITestOutputHelper output) : base(output)
-    {
     }
 }
