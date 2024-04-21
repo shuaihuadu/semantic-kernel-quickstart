@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public class Example41_HttpClientUsage : BaseTest
+public class Example41_HttpClientUsage(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public void UseDefaultHttpClient()
@@ -65,9 +64,5 @@ public class Example41_HttpClientUsage : BaseTest
                     httpClient: factory.CreateClient("test-client"))
                 .Build();
         });
-    }
-
-    public Example41_HttpClientUsage(ITestOutputHelper output) : base(output)
-    {
     }
 }

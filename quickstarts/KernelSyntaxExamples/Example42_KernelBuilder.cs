@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public class Example42_KernelBuilder : BaseTest
+public class Example42_KernelBuilder(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public void BuildKernelUsingServiceCollection()
@@ -60,10 +59,5 @@ public class Example42_KernelBuilder : BaseTest
         services.AddSingleton(sp => KernelPluginFactory.CreateFromType<HttpPlugin>(serviceProvider: sp));
 
         Kernel kernel6 = services.BuildServiceProvider().GetRequiredService<Kernel>();
-    }
-
-
-    public Example42_KernelBuilder(ITestOutputHelper output) : base(output)
-    {
     }
 }

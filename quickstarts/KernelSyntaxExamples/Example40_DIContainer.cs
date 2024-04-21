@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example40_DIContainer : BaseTest
+public class Example40_DIContainer(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -41,9 +41,5 @@ public class Example40_DIContainer : BaseTest
 
             this._logger.LogWarning("Result - {value}", result.GetValue<string>());
         }
-    }
-
-    public Example40_DIContainer(ITestOutputHelper output) : base(output)
-    {
     }
 }

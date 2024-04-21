@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example49_LogitBias : BaseTest
+public class Example49_LogitBias(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -45,9 +45,5 @@ public class Example49_LogitBias : BaseTest
         this.WriteLine("------------------------");
 
         return Task.CompletedTask;
-    }
-
-    public Example49_LogitBias(ITestOutputHelper output) : base(output)
-    {
     }
 }

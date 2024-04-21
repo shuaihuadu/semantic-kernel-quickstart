@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example43_GetModelResult : BaseTest
+public class Example43_GetModelResult(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task GetTokenUsageMetadataAsync()
@@ -18,9 +18,5 @@ public class Example43_GetModelResult : BaseTest
         this.WriteLine(result.GetValue<string>());
         this.WriteLine(result.Metadata?["Usage"]?.AsJson());
         this.WriteLine();
-    }
-
-    public Example43_GetModelResult(ITestOutputHelper output) : base(output)
-    {
     }
 }

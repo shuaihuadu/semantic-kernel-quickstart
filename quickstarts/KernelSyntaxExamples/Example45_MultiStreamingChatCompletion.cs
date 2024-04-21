@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example45_MultiStreamingChatCompletion : BaseTest
+public class Example45_MultiStreamingChatCompletion(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task AzureOpenAIMultiStreamingChatCompletionAsync()
@@ -57,9 +57,5 @@ public class Example45_MultiStreamingChatCompletion : BaseTest
 
             this.WriteLine(messagesPerChoice[chatUpdate.ChoiceIndex]);
         }
-    }
-
-    public Example45_MultiStreamingChatCompletion(ITestOutputHelper output) : base(output)
-    {
     }
 }

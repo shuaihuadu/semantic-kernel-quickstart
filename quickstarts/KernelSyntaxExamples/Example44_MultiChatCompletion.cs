@@ -1,14 +1,13 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public class Example44_MultiChatCompletion : BaseTest
+public class Example44_MultiChatCompletion(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task AzureOpenAIMultipleChatCompletionAsync()
     {
         this.WriteLine("======== Azure OpenAI - Multiple Chat Completion ========");
 
-        AzureOpenAIChatCompletionService chatCompletionService = new AzureOpenAIChatCompletionService(
+        AzureOpenAIChatCompletionService chatCompletionService = new(
             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
             endpoint: TestConfiguration.AzureOpenAI.Endpoint,
             apiKey: TestConfiguration.AzureOpenAI.ApiKey,
@@ -50,9 +49,5 @@ public class Example44_MultiChatCompletion : BaseTest
         this.WriteLine("------------------------");
 
         return Task.CompletedTask;
-    }
-
-    public Example44_MultiChatCompletion(ITestOutputHelper output) : base(output)
-    {
     }
 }

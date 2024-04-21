@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example48_GroundednessChecks : BaseTest
+public class Example48_GroundednessChecks(ITestOutputHelper output) : BaseTest(output)
 {
     [RetryFact(typeof(HttpOperationException))]
     public async Task GroundednessCheckingAsync()
@@ -132,8 +132,4 @@ a beggar.This last blow overcame her, and she knelt by Beaufort's coffin weeping
 the chamber. He came like a protecting spirit to the poor girl, who committed herself to his care; and after the
 interment of his friend he conducted her to Geneva and placed her under the protection of a relation.Two years
 after this event Caroline became his wife.""";
-
-    public Example48_GroundednessChecks(ITestOutputHelper output) : base(output)
-    {
-    }
 }

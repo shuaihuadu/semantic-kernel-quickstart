@@ -1,5 +1,4 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
 public class Example36_MultiCompletion(ITestOutputHelper output) : BaseTest(output)
 {
