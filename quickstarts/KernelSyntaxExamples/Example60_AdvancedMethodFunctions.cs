@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example60_AdvancedMethodFunctions : BaseTest
+public class Example60_AdvancedMethodFunctions(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task MethodFunctionsChainingAsync()
@@ -65,8 +65,5 @@ public class Example60_AdvancedMethodFunctions : BaseTest
         {
             return JsonSerializer.Serialize(value);
         }
-    }
-    public Example60_AdvancedMethodFunctions(ITestOutputHelper output) : base(output)
-    {
     }
 }

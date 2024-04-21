@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace KernelSyntaxExamples;
 
-public class Example64_MultiplePromptTemplates : BaseTest
+public class Example64_MultiplePromptTemplates(ITestOutputHelper output) : BaseTest(output)
 {
     [RetryTheory(typeof(HttpOperationException))]
     [InlineData("semantic-kernel", "Hello AI, my name is {{$name}}. What is the origin of my name?")]
@@ -40,9 +39,5 @@ public class Example64_MultiplePromptTemplates : BaseTest
         FunctionResult result = await kernel.InvokeAsync(function, arguments);
 
         this.WriteLine(result.GetValue<string>());
-    }
-
-    public Example64_MultiplePromptTemplates(ITestOutputHelper output) : base(output)
-    {
     }
 }

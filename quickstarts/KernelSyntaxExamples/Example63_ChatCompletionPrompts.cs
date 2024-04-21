@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example63_ChatCompletionPrompts : BaseTest
+public class Example63_ChatCompletionPrompts(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -34,9 +34,5 @@ public class Example63_ChatCompletionPrompts : BaseTest
 
         this.WriteLine("---------- Streamed Content ----------");
         this.WriteLine(completeMessage);
-    }
-
-    public Example63_ChatCompletionPrompts(ITestOutputHelper output) : base(output)
-    {
     }
 }

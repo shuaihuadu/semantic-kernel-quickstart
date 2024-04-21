@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example61_MultipleLLMs : BaseTest
+public class Example61_MultipleLLMs(ITestOutputHelper output) : BaseTest(output)
 {
     [RetryFact(typeof(HttpOperationException))]
     public async Task RunAsync()
@@ -45,11 +45,12 @@ public class Example61_MultipleLLMs : BaseTest
 
         string prompt = "Hello AI, what can you do for me?";
 
-        KernelArguments arguments = new();
-
-        arguments.ExecutionSettings = new Dictionary<string, PromptExecutionSettings>
+        KernelArguments arguments = new()
         {
-            { serviceId,new PromptExecutionSettings() }
+            ExecutionSettings = new Dictionary<string, PromptExecutionSettings>
+            {
+                { serviceId,new PromptExecutionSettings() }
+            }
         };
 
         FunctionResult result = await kernel.InvokePromptAsync(prompt, arguments);
@@ -79,7 +80,7 @@ public class Example61_MultipleLLMs : BaseTest
 
         string prompt = "Hello AI, what can you do for me?";
 
-        Dictionary<string, PromptExecutionSettings> modelSettings = new();
+        Dictionary<string, PromptExecutionSettings> modelSettings = [];
 
         foreach (string modelId in modelIds)
         {
@@ -100,9 +101,5 @@ public class Example61_MultipleLLMs : BaseTest
         FunctionResult result = await kernel.InvokeAsync(function);
 
         this.WriteLine(result.GetValue<string>());
-    }
-
-    public Example61_MultipleLLMs(ITestOutputHelper output) : base(output)
-    {
     }
 }

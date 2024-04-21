@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example62_CustomAIServiceSelector : BaseTest
+public class Example62_CustomAIServiceSelector(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -44,14 +44,9 @@ public class Example62_CustomAIServiceSelector : BaseTest
         this.WriteLine(result.GetValue<string>());
     }
 
-    private sealed class GptAIServiceSelector : IAIServiceSelector
+    private sealed class GptAIServiceSelector(ITestOutputHelper output) : IAIServiceSelector
     {
-        private readonly ITestOutputHelper _output;
-
-        public GptAIServiceSelector(ITestOutputHelper output)
-        {
-            this._output = output;
-        }
+        private readonly ITestOutputHelper _output = output;
 
         bool IAIServiceSelector.TrySelectAIService<T>(
             Kernel kernel,
@@ -82,8 +77,5 @@ public class Example62_CustomAIServiceSelector : BaseTest
 
             return false;
         }
-    }
-    public Example62_CustomAIServiceSelector(ITestOutputHelper output) : base(output)
-    {
     }
 }

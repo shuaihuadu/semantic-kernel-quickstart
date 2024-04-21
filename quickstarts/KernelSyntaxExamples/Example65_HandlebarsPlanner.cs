@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example65_HandlebarsPlanner : BaseTest
+public class Example65_HandlebarsPlanner(ITestOutputHelper output) : BaseTest(output)
 {
     private static int sampleIndex;
 
@@ -76,7 +76,7 @@ public class Example65_HandlebarsPlanner : BaseTest
     {
         WriteSampleHeading("CreatePlan Prompt With Predefined Variables");
 
-        KernelArguments initialArguments = new KernelArguments()
+        KernelArguments initialArguments = new()
         {
             {"",new List<string>(){ "hey","bye"} },
             {"sortNumber",1 },
@@ -244,9 +244,5 @@ public class Example65_HandlebarsPlanner : BaseTest
         string result = shouldInvokePlan ? await plan.InvokeAsync(kernel, initialContext) : string.Empty;
 
         PrintPlannerDetails(goal, plan, result, shouldPrintPrompt);
-    }
-
-    public Example65_HandlebarsPlanner(ITestOutputHelper output) : base(output)
-    {
     }
 }
