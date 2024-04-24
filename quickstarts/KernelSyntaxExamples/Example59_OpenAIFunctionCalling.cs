@@ -74,8 +74,28 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
                     Write(result.Content);
                 }
 
-                //TODO FunctionCallContent
-                //IEnumerable<FunctionCallContent>
+                IEnumerable<FunctionCallContent> functionCalls = FunctionCallContent.GetFunctionCalls(result);
+
+                if (!functionCalls.Any())
+                {
+                    break;
+                }
+
+                chatHistory.Add(result);
+
+                foreach (var functionCall in functionCalls)
+                {
+                    try
+                    {
+                        FunctionResultContent resultContent = await functionCall.InvokeAsync(kernel);
+
+                        chatHistory.Add(resultContent.ToChatMessage());
+                    }
+                    catch (Exception ex)
+                    {
+                        chatHistory.Add(new FunctionResultContent(functionCall, ex).ToChatMessage());
+                    }
+                }
             }
 
             WriteLine();
