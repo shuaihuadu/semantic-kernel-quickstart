@@ -27,7 +27,10 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
                 },"Get_Weather_For_City","Gets the current weather for the specified city")
         ]);
 
-        await RunExample3Async(kernel);
+        //await RunExample1Async(kernel);
+        //await RunExample2Async(kernel);
+        //await RunExample3Async(kernel);
+        await RunExample4Async(kernel);
     }
 
     private async Task RunExample1Async(Kernel kernel)
@@ -118,10 +121,52 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
 
     private async Task RunExample4Async(Kernel kernel)
     {
-
-        WriteLine("======== Example 4: Use automated function calling with a streaming chat ========");
+        WriteLine("======== Example 4: Simulated function calling with a non-streaming prompt ========");
         {
+            IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
+            OpenAIPromptExecutionSettings settings = new()
+            {
+                ToolCallBehavior = ToolCallBehavior.EnableKernelFunctions
+            };
+
+            ChatHistory chatHistory = [];
+
+            chatHistory.AddUserMessage("Given the current time of day and weather, what is the likely color of the sky in Boston?");
+
+            while (true)
+            {
+                ChatMessageContent result = await chatCompletionService.GetChatMessageContentAsync(chatHistory, settings, kernel);
+
+                if (result.Content is not null)
+                {
+                    Write(result.Content);
+                }
+
+                chatHistory.Add(result);
+
+                IEnumerable<FunctionCallContent> functionCalls = FunctionCallContent.GetFunctionCalls(result);
+
+                if (!functionCalls.Any())
+                {
+                    break;
+                }
+
+                foreach (FunctionCallContent functionCall in functionCalls)
+                {
+                    FunctionResultContent resultContent = await functionCall.InvokeAsync(kernel);
+
+                    chatHistory.Add(resultContent.ToChatMessage());
+                }
+
+                FunctionCallContent simulatedFunctionCall = new("weather-alter", id: "call_123");
+
+                result.Items.Add(simulatedFunctionCall);
+
+                string simluatedFunctionResult = "A Tornado Watch has been issued, with potential for severe thunderstorms causing unusual sky colors like green, yellow, or dark gray. Stay informed and follow safety instructions from authorities.";
+
+                chatHistory.Add(new FunctionResultContent(simulatedFunctionCall, simluatedFunctionResult).ToChatMessage());
+            }
         }
     }
 }
