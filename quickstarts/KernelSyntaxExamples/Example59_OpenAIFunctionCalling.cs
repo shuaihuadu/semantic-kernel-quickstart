@@ -27,6 +27,12 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
                 },"Get_Weather_For_City","Gets the current weather for the specified city")
         ]);
 
+        await RunExample3Async(kernel);
+    }
+
+    private async Task RunExample1Async(Kernel kernel)
+    {
+
         WriteLine("======== Example 1: Use automated function calling with a non-streaming prompt ========");
         {
             OpenAIPromptExecutionSettings settings = new()
@@ -38,6 +44,10 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
 
             WriteLine();
         }
+    }
+
+    private async Task RunExample2Async(Kernel kernel)
+    {
         WriteLine("======== Example 2: Use automated function calling with a streaming prompt ========");
         {
             OpenAIPromptExecutionSettings setting = new()
@@ -52,6 +62,10 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
 
             WriteLine();
         }
+    }
+
+    private async Task RunExample3Async(Kernel kernel)
+    {
         WriteLine("======== Example 3: Use manual function calling with a non-streaming prompt ========");
         {
             IChatCompletionService chat = kernel.GetRequiredService<IChatCompletionService>();
@@ -60,7 +74,7 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
 
             OpenAIPromptExecutionSettings setting = new()
             {
-                ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
+                ToolCallBehavior = ToolCallBehavior.EnableKernelFunctions
             };
 
             chatHistory.AddUserMessage("Given the current time of day and weather, what is the likely color of the sky in Boston?");
@@ -100,6 +114,14 @@ public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTes
 
             WriteLine();
         }
+    }
+
+    private async Task RunExample4Async(Kernel kernel)
+    {
+
         WriteLine("======== Example 4: Use automated function calling with a streaming chat ========");
+        {
+
+        }
     }
 }
