@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples.GettingStart;
 
-public class Step7_Observability : BaseTest
+public class Step7_Observability(ITestOutputHelper output) : BaseTest(output)
 {
 
     [Fact]
@@ -11,11 +11,11 @@ public class Step7_Observability : BaseTest
         kernelBuilder.Plugins.AddFromType<TimeInformation>();
 
         kernelBuilder.Services.AddSingleton(this.Output);
-        kernelBuilder.Services.AddSingleton<IFunctionFilter, MyFunctionFilter>();
+        kernelBuilder.Services.AddSingleton<IFunctionInvocationFilter, MyFunctionFilter>();
 
         Kernel kernel = kernelBuilder.Build();
 
-        kernel.PromptFilters.Add(new MyPromptFilter(this.Output));
+        kernel.PromptRenderFilters.Add(new MyPromptFilter(this.Output));
 
         OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
 
@@ -76,52 +76,28 @@ public class Step7_Observability : BaseTest
         public string GetCurrentUtcTime() => DateTime.UtcNow.ToString("R");
     }
 
-    private sealed class MyFunctionFilter : IFunctionFilter
+    private sealed class MyFunctionFilter(ITestOutputHelper output) : IFunctionInvocationFilter
     {
-        private readonly ITestOutputHelper _output;
+        private readonly ITestOutputHelper _output = output;
 
-        public MyFunctionFilter(ITestOutputHelper output)
+        public async Task OnFunctionInvocationAsync(FunctionInvocationContext context, Func<FunctionInvocationContext, Task> next)
         {
-            this._output = output;
-        }
-
-        public void OnFunctionInvoked(FunctionInvokedContext context)
-        {
-            IReadOnlyDictionary<string, object?>? metadata = context.Result.Metadata;
-
-            if (metadata is not null && metadata.ContainsKey("Usage"))
-            {
-                this._output.WriteLine($"Token usage: {metadata["Usage"]?.AsJson()}");
-            }
-        }
-
-        public void OnFunctionInvoking(FunctionInvokingContext context)
-        {
-            this._output.WriteLine($"Invoking {context.Function.Name}");
+            this._output.WriteLine($"{nameof(MyFunctionFilter)}.FunctionInvoking - {context.Function.PluginName}.{context.Function.Name}");
+            await next(context);
+            this._output.WriteLine($"{nameof(MyFunctionFilter)}.FunctionInvoked - {context.Function.PluginName}.{context.Function.Name}");
         }
     }
 
-    private sealed class MyPromptFilter : IPromptFilter
+    private sealed class MyPromptFilter(ITestOutputHelper output) : IPromptRenderFilter
     {
-        private readonly ITestOutputHelper _output;
+        private readonly ITestOutputHelper _output = output;
 
-        public MyPromptFilter(ITestOutputHelper output)
+        public async Task OnPromptRenderAsync(PromptRenderContext context, Func<PromptRenderContext, Task> next)
         {
-            this._output = output;
-        }
+            this._output.WriteLine($"{nameof(MyPromptFilter)}.PromptRendering - {context.Function.PluginName}.{context.Function.Name}");
+            await next(context);
+            this._output.WriteLine($"{nameof(MyPromptFilter)}.PromptRendered - {context.Function.PluginName}.{context.Function.Name}");
 
-        public void OnPromptRendered(PromptRenderedContext context)
-        {
-            this._output.WriteLine($"Prompt sent to model: {context.RenderedPrompt}");
         }
-
-        public void OnPromptRendering(PromptRenderingContext context)
-        {
-            this._output.WriteLine($"Rendering prompt for {context.Function.Name}");
-        }
-    }
-
-    public Step7_Observability(ITestOutputHelper output) : base(output)
-    {
     }
 }

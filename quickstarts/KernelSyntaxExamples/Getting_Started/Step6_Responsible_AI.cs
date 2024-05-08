@@ -1,4 +1,5 @@
-﻿namespace KernelSyntaxExamples.GettingStart;
+﻿
+namespace KernelSyntaxExamples.GettingStart;
 
 public class Step6_Responsible_AI : BaseTest
 {
@@ -9,7 +10,7 @@ public class Step6_Responsible_AI : BaseTest
 
         builder.Services.AddSingleton(this.Output);
 
-        builder.Services.AddSingleton<IPromptFilter, PromptFilter>();
+        builder.Services.AddSingleton<IPromptRenderFilter, PromptFilter>();
 
         Kernel kernel = builder.Build();
 
@@ -24,7 +25,7 @@ public class Step6_Responsible_AI : BaseTest
     }
 
 
-    private sealed class PromptFilter : IPromptFilter
+    private sealed class PromptFilter : IPromptRenderFilter
     {
         private ITestOutputHelper _output;
 
@@ -33,20 +34,18 @@ public class Step6_Responsible_AI : BaseTest
             this._output = output;
         }
 
-        public void OnPromptRendered(PromptRenderedContext context)
-        {
-            context.RenderedPrompt += " NO SEXISM, RACISM OR OTHER BIAS/BIGOTRY";
-
-            this._output.WriteLine(context.RenderedPrompt);
-        }
-
-        public void OnPromptRendering(PromptRenderingContext context)
+        public async Task OnPromptRenderAsync(PromptRenderContext context, Func<PromptRenderContext, Task> next)
         {
             if (context.Arguments.ContainsName("card_number"))
             {
                 context.Arguments["card_number"] = "**** **** **** ****";
             }
+
+            await next(context);
+
+            context.RenderedPrompt += " NO SEXISM, RACISM OR OTHER BIAS/BIGOTRY";
         }
+
     }
 
     public Step6_Responsible_AI(ITestOutputHelper output) : base(output)
