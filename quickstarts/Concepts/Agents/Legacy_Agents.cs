@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Agents;
 
-public class Example70_Agents(ITestOutputHelper output) : BaseTest(output)
+public class Legacy_Agents(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public Task RunSimpleChatAsync()
@@ -20,19 +20,22 @@ public class Example70_Agents(ITestOutputHelper output) : BaseTest(output)
     {
         WriteLine("======== Run:WithMethodFunctions ========");
 
-        KernelPlugin plugin = KernelPluginFactory.CreateFromType<MenuPlugin>();
+        LegacyMenuPlugin menuApi = new();
+
+        KernelPlugin plugin = KernelPluginFactory.CreateFromObject(menuApi);
 
         return ChatAsync(
             "Agents.ParrotAgent.yaml",
             plugin,
-            arguments: null,
+            arguments: new() { { LegacyMenuPlugin.CorrelationIdArgument, 3.141592653 } },
             "Hello",
             "What is the special soup?",
             "What is the special drink?",
+            "Do you have enough soup for 5 orders?",
             "Thank you!");
     }
 
-    [Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : Incorrect API key provided: You can find your API key at https://platform.openai.com/account/api-keys.")]
+    [Fact(Skip = "Runtime type 'Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatMessageContent' is not supported by polymorphic type 'Microsoft.SemanticKernel.KernelContent'. Path: $.")]
     public Task RunWithPromptFunctionsAsync()
     {
         WriteLine("======== WithPromptFunctions ========");
@@ -81,7 +84,7 @@ public class Example70_Agents(ITestOutputHelper output) : BaseTest(output)
         string definition = EmbeddedResource.Read(resourcePath);
 
         IAgent agent = await new AgentBuilder()
-            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAIConfig.ModelId, TestConfiguration.AzureOpenAI.ApiKey)
+            .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
             .FromTemplate(definition)
             .WithPlugin(plugin)
             .BuildAsync();
