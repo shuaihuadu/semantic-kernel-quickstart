@@ -1,5 +1,4 @@
-﻿
-namespace DocumentationExamples;
+﻿namespace DocumentationExamples;
 
 public class FunctionsWithPrompts : BaseTest
 {
@@ -11,7 +10,7 @@ public class FunctionsWithPrompts : BaseTest
         builder.Plugins.AddFromType<ConversationSummaryPlugin>();
 
         builder.Services.AddSingleton(this.Output);
-        builder.Services.AddSingleton<IPromptFilter, PromptFilter>();
+        builder.Services.AddSingleton<IPromptRenderFilter, PromptFilter>();
 
 
         Kernel kernel = builder.Build();
@@ -123,20 +122,15 @@ Assistant: ");
         ];
     }
 
-    private sealed class PromptFilter(ITestOutputHelper output) : IPromptFilter
+    private sealed class PromptFilter(ITestOutputHelper output) : IPromptRenderFilter
     {
         private readonly ITestOutputHelper _output = output;
 
-        public void OnPromptRendered(PromptRenderedContext context)
+        public async Task OnPromptRenderAsync(PromptRenderContext context, Func<PromptRenderContext, Task> next)
         {
-            this._output.WriteLine("======== RenderedPrompt Start ========");
-            this._output.WriteLine(context.RenderedPrompt);
-            this._output.WriteLine("======== RenderedPrompt End ========");
-        }
-
-        public void OnPromptRendering(PromptRenderingContext context)
-        {
-
+            this._output.WriteLine($"{nameof(PromptFilter)}.PromptRendering - {context.Function.PluginName}.{context.Function.Name}");
+            await next(context);
+            this._output.WriteLine($"{nameof(PromptFilter)}.PromptRendered - {context.Function.PluginName}.{context.Function.Name}");
         }
     }
 }

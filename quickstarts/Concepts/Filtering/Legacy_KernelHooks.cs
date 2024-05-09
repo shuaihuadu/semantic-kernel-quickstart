@@ -1,8 +1,8 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Filtering;
 
 #pragma warning disable CS0618 // Events are deprecated
 
-public class Example57_KernelHooks(ITestOutputHelper output) : BaseTest(output)
+public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task GetUsageAsync()

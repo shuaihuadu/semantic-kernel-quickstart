@@ -30,9 +30,6 @@ public class Example002_ActualTokenCalculate(ITestOutputHelper output) : BaseTes
 
         Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
-        kernel.PromptFilters.Add(new PromptFilter());
-        kernel.FunctionFilters.Add(new FunctionFilter());
-
         FunctionResult functionResult = await kernel.InvokePromptAsync(content);
 
         //exampleMessages =
@@ -98,27 +95,5 @@ public class Example002_ActualTokenCalculate(ITestOutputHelper output) : BaseTes
         numTokens += 3; //every reply is primed with <|start|>assistant<|message|>
 
         return numTokens;
-    }
-}
-
-public sealed class PromptFilter : IPromptFilter
-{
-    public void OnPromptRendered(PromptRenderedContext context)
-    {
-    }
-
-    public void OnPromptRendering(PromptRenderingContext context)
-    {
-    }
-}
-
-public sealed class FunctionFilter : IFunctionFilter
-{
-    public void OnFunctionInvoked(FunctionInvokedContext context)
-    {
-    }
-
-    public void OnFunctionInvoking(FunctionInvokingContext context)
-    {
     }
 }

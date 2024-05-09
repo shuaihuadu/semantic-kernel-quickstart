@@ -49,6 +49,7 @@
 		<None Remove="Resources\GenerateStory.yaml" />
 		<None Remove="Resources\GenerateStoryHandlebars.yaml" />
 		<None Remove="Resources\test_image.jpg" />
+		<None Remove="Resources\travelinfo.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -68,6 +69,14 @@
 		<EmbeddedResource Include="Resources\test_image.jpg">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\travelinfo.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SharedLibrary\SharedLibrary.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<Using Include="Xunit" />
