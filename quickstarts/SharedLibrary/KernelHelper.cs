@@ -1,7 +1,4 @@
-﻿using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
-
-namespace SharedLibrary;
+﻿namespace SharedLibrary;
 
 public class KernelHelper
 {
