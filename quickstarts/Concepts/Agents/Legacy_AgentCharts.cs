@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Agents;
 
-public class Example85_AgentCharts(ITestOutputHelper output) : BaseTest(output)
+public class Legacy_AgentCharts(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : Response status code does not indicate success: 404 (Not Found).")]
     public async Task CreateChartAsync()
@@ -9,13 +9,9 @@ public class Example85_AgentCharts(ITestOutputHelper output) : BaseTest(output)
 
         this.WriteLine(Environment.CurrentDirectory);
 
-        OpenAIFileService fileService = new(TestConfiguration.OpenAI.ApiKey);
+        OpenAIFileService fileService = new(new Uri(TestConfiguration.AzureOpenAI.Endpoint), TestConfiguration.AzureOpenAI.ApiKey);
 
-        IAgent agent = await new AgentBuilder()
-            .WithAzureOpenAIChatCompletion(
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                model: TestConfiguration.AzureOpenAIConfig.ModelId,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
+        IAgent agent = await AgentHelper.CreareAgentBuilder()
             .WithCodeInterpreter()
             .BuildAsync();
 

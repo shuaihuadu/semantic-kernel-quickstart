@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Agents;
 
-public class Example72_AgentCollaboration(ITestOutputHelper output) : BaseTest(output)
+public class Legacy_AgentCollaboration(ITestOutputHelper output) : BaseTest(output)
 {
     private static readonly List<IAgent> agents = [];
 
@@ -46,7 +46,7 @@ public class Example72_AgentCollaboration(ITestOutputHelper output) : BaseTest(o
 
     }
 
-    [Fact(Skip = "Response status code does not indicate success: 400 (Bad Request)")]
+    [Fact]
     public async Task RunAsPluginsAsync()
     {
         WriteLine($"======== Example72: AsPlugins: AzureAI ========");

@@ -1,10 +1,10 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Agents;
 
-public class Example71_AgentDelegation(ITestOutputHelper output) : BaseTest(output)
+public class Legacy_AgentDelegation(ITestOutputHelper output) : BaseTest(output)
 {
     private static readonly List<IAgent> agents = [];
 
-    [Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : Response status code does not indicate success: 400 (Bad Request).")]
+    [Fact]
     public async Task RunAsync()
     {
         WriteLine("======== Example71_AgentDelegation ========");
@@ -15,17 +15,17 @@ public class Example71_AgentDelegation(ITestOutputHelper output) : BaseTest(outp
         {
             KernelPlugin plugin = KernelPluginFactory.CreateFromType<MenuPlugin>();
 
-            IAgent menuAgent = Track(await new AgentBuilder().WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            IAgent menuAgent = Track(await AgentHelper.CreareAgentBuilder()
                 .FromTemplate(EmbeddedResource.Read("Agents.ToolAgent.yaml"))
                 .WithDescription("Answer questions about how the menu uses the tool.")
                 .WithPlugin(plugin)
                 .BuildAsync());
 
-            IAgent parrotAgent = Track(await new AgentBuilder().WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            IAgent parrotAgent = Track(await AgentHelper.CreareAgentBuilder()
                 .FromTemplate(EmbeddedResource.Read("Agents.ParrotAgent.yaml"))
                 .BuildAsync());
 
-            IAgent toolAgent = Track(await new AgentBuilder().WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
+            IAgent toolAgent = Track(await AgentHelper.CreareAgentBuilder()
                 .FromTemplate(EmbeddedResource.Read("Agents.ToolAgent.yaml"))
                 .WithPlugin(parrotAgent.AsPlugin())
                 .WithPlugin(menuAgent.AsPlugin())

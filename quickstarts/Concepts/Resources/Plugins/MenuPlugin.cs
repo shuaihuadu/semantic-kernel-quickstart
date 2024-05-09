@@ -1,6 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-
-namespace Resources.Plugins;
+﻿namespace Resources.Plugins;
 
 public sealed class MenuPlugin
 {
