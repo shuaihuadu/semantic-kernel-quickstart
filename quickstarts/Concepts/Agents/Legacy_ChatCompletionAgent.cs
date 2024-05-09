@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Agents;
 
-public sealed class Example79_ChatCompletionAgent : BaseTest
+public sealed class Legacy_ChatCompletionAgent(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task ChatWithAgentAsync()
@@ -20,7 +20,7 @@ public sealed class Example79_ChatCompletionAgent : BaseTest
 
         string prompt = PrintPrompt("I need help with my investment portfolio. Please guide me.");
 
-        PrintConversation(await agent.InvokeAsync(new[] { new ChatMessageContent(AuthorRole.User, prompt) }));
+        PrintConversation(await agent.InvokeAsync([new ChatMessageContent(AuthorRole.User, prompt)]));
     }
 
 
@@ -29,7 +29,7 @@ public sealed class Example79_ChatCompletionAgent : BaseTest
     {
         Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
-        OpenAIPromptExecutionSettings settings = new OpenAIPromptExecutionSettings
+        OpenAIPromptExecutionSettings settings = new()
         {
             MaxTokens = 1500,
             Temperature = 0.7,
@@ -58,7 +58,7 @@ public sealed class Example79_ChatCompletionAgent : BaseTest
             settings);
 
 
-        TurnBasedChat chat = new(new[] { fitnessTrainer, stressManagementExpert }, (chatHistory, replies, turn) =>
+        TurnBasedChat chat = new([fitnessTrainer, stressManagementExpert], (chatHistory, replies, turn) =>
             turn >= 10 || replies.Any(message => message.Role == AuthorRole.Assistant && message.Content!.Contains("WELLNESS_PLAN_COMPLETE", StringComparison.InvariantCulture)));
 
         string prompt = "I need help creating a simple wellness plan for a beginner. Please guide me.";
@@ -83,23 +83,17 @@ public sealed class Example79_ChatCompletionAgent : BaseTest
         }
     }
 
-    private sealed class TurnBasedChat
+    private sealed class TurnBasedChat(IEnumerable<ChatCompletionAgent> agents, Func<ChatHistory, IEnumerable<ChatMessageContent>, int, bool> exitCondition)
     {
-        private readonly ChatCompletionAgent[] _agents;
-        private readonly Func<ChatHistory, IEnumerable<ChatMessageContent>, int, bool> _exitCondition;
-
-        public TurnBasedChat(IEnumerable<ChatCompletionAgent> agents, Func<ChatHistory, IEnumerable<ChatMessageContent>, int, bool> exitCondition)
-        {
-            this._agents = agents.ToArray();
-            this._exitCondition = exitCondition;
-        }
+        private readonly ChatCompletionAgent[] _agents = agents.ToArray();
+        private readonly Func<ChatHistory, IEnumerable<ChatMessageContent>, int, bool> _exitCondition = exitCondition;
 
         public async Task<IReadOnlyList<ChatMessageContent>> SendMessageAsync(string message, CancellationToken cancellationToken = default)
         {
             ChatHistory chat = new();
             chat.AddUserMessage(message);
 
-            IReadOnlyList<ChatMessageContent> result = new List<ChatMessageContent>();
+            IReadOnlyList<ChatMessageContent> result = [];
 
             int turn = 0;
 
@@ -117,9 +111,5 @@ public sealed class Example79_ChatCompletionAgent : BaseTest
 
             return chat;
         }
-    }
-
-    public Example79_ChatCompletionAgent(ITestOutputHelper output) : base(output)
-    {
     }
 }
