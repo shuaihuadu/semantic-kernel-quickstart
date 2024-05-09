@@ -1,4 +1,6 @@
-﻿namespace Agents;
+﻿using Microsoft.SemanticKernel.Experimental.Agents;
+
+namespace Agents;
 
 public class Legacy_AgentDelegation(ITestOutputHelper output) : BaseTest(output)
 {

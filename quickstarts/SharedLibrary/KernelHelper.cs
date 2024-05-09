@@ -16,6 +16,13 @@ public class KernelHelper
         return builder;
     }
 
+    public static Kernel CreateKernelWithAzureOpenAIChatCompletion()
+    {
+        IKernelBuilder builder = AzureOpenAIChatCompletionKernelBuilder();
+
+        return builder.Build();
+    }
+
     public static IChatCompletionService CreateCompletionService()
     {
         return new AzureOpenAIChatCompletionService(

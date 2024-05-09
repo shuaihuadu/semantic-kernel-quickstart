@@ -1,4 +1,6 @@
-﻿namespace Agents;
+﻿using Microsoft.SemanticKernel.Experimental.Agents;
+
+namespace Agents;
 
 public class Legacy_AgentAuthoring(ITestOutputHelper output) : BaseTest(output)
 {

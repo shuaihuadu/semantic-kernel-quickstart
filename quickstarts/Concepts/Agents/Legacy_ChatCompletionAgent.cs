@@ -1,4 +1,5 @@
-﻿namespace Agents;
+﻿using ChatCompletionAgent = Microsoft.SemanticKernel.Experimental.Agents.ChatCompletionAgent;
+namespace Agents;
 
 public sealed class Legacy_ChatCompletionAgent(ITestOutputHelper output) : BaseTest(output)
 {
