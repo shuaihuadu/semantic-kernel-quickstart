@@ -7,9 +7,9 @@ public class Legacy_AgentCharts(ITestOutputHelper output) : BaseTest(output)
     [Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : Response status code does not indicate success: 404 (Not Found).")]
     public async Task CreateChartAsync()
     {
-        this.WriteLine("======== Using CodeInterpreter tool ========");
+        Console.WriteLine("======== Using CodeInterpreter tool ========");
 
-        this.WriteLine(Environment.CurrentDirectory);
+        Console.WriteLine(Environment.CurrentDirectory);
 
         OpenAIFileService fileService = new(new Uri(TestConfiguration.AzureOpenAI.Endpoint), TestConfiguration.AzureOpenAI.ApiKey);
 
@@ -57,7 +57,7 @@ Sum      426  1622     856 2904
 
                     string path = Path.Join(Environment.CurrentDirectory, fileName);
 
-                    this.WriteLine($"# {message.Role}: {path}");
+                    Console.WriteLine($"# {message.Role}: {path}");
 
                     Process.Start(new ProcessStartInfo
                     {
@@ -67,7 +67,7 @@ Sum      426  1622     856 2904
                 }
                 else
                 {
-                    this.WriteLine($"# {message.Role}: {message.Content}");
+                    Console.WriteLine($"# {message.Role}: {message.Content}");
                 }
             }
         }

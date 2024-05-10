@@ -7,7 +7,7 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public async Task GetUsageAsync()
     {
-        this.WriteLine("\n======== Get Usage Data ========\n");
+        Console.WriteLine("\n======== Get Usage Data ========\n");
 
         Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
@@ -25,18 +25,18 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 
         void PreHandler(object? sender, FunctionInvokingEventArgs e)
         {
-            this.WriteLine($"{e.Function.Name} : Pre Execution Handler - Triggered");
+            Console.WriteLine($"{e.Function.Name} : Pre Execution Handler - Triggered");
         }
 
         void RemovedPreExecutionHandler(object? sender, FunctionInvokingEventArgs e)
         {
-            this.WriteLine($"{e.Function.Name} : Pre Execution Handler - Should not trigger");
+            Console.WriteLine($"{e.Function.Name} : Pre Execution Handler - Should not trigger");
             e.Cancel = true;
         }
 
         void PostExecutionHandler(object? sender, FunctionInvokedEventArgs e)
         {
-            this.WriteLine($"{e.Function.Name} : Post Execution Handler - Usage: {e.Result.Metadata?["Usage"]?.AsJson()}");
+            Console.WriteLine($"{e.Function.Name} : Post Execution Handler - Usage: {e.Result.Metadata?["Usage"]?.AsJson()}");
         }
 
         kernel.FunctionInvoking += PreHandler;
@@ -49,14 +49,14 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 
         FunctionResult result = await kernel.InvokeAsync(excuseFunction, new() { ["input"] = Input });
 
-        this.WriteLine($"Function Result:{result.GetValue<string>()}");
+        Console.WriteLine($"Function Result:{result.GetValue<string>()}");
     }
 
 
     [Fact]
     public async Task GetRenderedPromptAsync()
     {
-        this.WriteLine("\n======== Get Rendered Prompt ========\n");
+        Console.WriteLine("\n======== Get Rendered Prompt ========\n");
 
         Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
@@ -74,13 +74,13 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 
         void PromptRendering(object? sender, PromptRenderingEventArgs e)
         {
-            this.WriteLine($"{e.Function.Name} : Prompt Rendering Handler - Triggered");
+            Console.WriteLine($"{e.Function.Name} : Prompt Rendering Handler - Triggered");
             e.Arguments["style"] = "Seinfeld";
         }
 
         void PromptRendered(object? sender, PromptRenderedEventArgs e)
         {
-            this.WriteLine($"{e.Function.Name} : Prompt Rendered Handler - Triggered");
+            Console.WriteLine($"{e.Function.Name} : Prompt Rendered Handler - Triggered");
             e.RenderedPrompt += "USE SHORT, CLEAR, COMPLETE SENTENCES.";
         }
 
@@ -90,14 +90,14 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
         const string Input = "I missed the F1 final race";
         FunctionResult result = await kernel.InvokeAsync(excuseFunction, new() { ["input"] = Input });
 
-        this.WriteLine($"Function Result: {result.GetValue<string>()}");
+        Console.WriteLine($"Function Result: {result.GetValue<string>()}");
     }
 
 
     [Fact]
     public async Task ChangingResultAsync()
     {
-        this.WriteLine("\n======== Changing/Filtering Function Result ========\n");
+        Console.WriteLine("\n======== Changing/Filtering Function Result ========\n");
 
         Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
@@ -121,14 +121,14 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 
         FunctionResult result = await kernel.InvokeAsync(writerFunction);
 
-        this.WriteLine($"Function Result: {result.GetValue<string>()}");
+        Console.WriteLine($"Function Result: {result.GetValue<string>()}");
     }
 
 
     [Fact]
     public async Task BeforeInvokeCancellationiAsync()
     {
-        this.WriteLine("\n======== Cancelling Pipeline Execution - Invoking event ========\n");
+        Console.WriteLine("\n======== Cancelling Pipeline Execution - Invoking event ========\n");
 
         Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
@@ -141,7 +141,7 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 
         kernel.FunctionInvoking += (object? sender, FunctionInvokingEventArgs e) =>
         {
-            this.WriteLine($"{e.Function.Name} : FunctionInvoking - Cancelling before execution");
+            Console.WriteLine($"{e.Function.Name} : FunctionInvoking - Cancelling before execution");
             e.Cancel = true;
         };
 
@@ -154,14 +154,14 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 
         FunctionResult result = await kernel.InvokeAsync(writerFunction);
 
-        this.WriteLine($"Function Invocation Times: {functionInvokeCount}");
+        Console.WriteLine($"Function Invocation Times: {functionInvokeCount}");
     }
 
 
     [Fact]
     public async Task AfterInvokeCancellationAsync()
     {
-        this.WriteLine("\n======== Cancelling Pipeline Execution - Invoked event ========\n");
+        Console.WriteLine("\n======== Cancelling Pipeline Execution - Invoked event ========\n");
 
         Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
 
@@ -184,7 +184,7 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 
         FunctionResult result = await kernel.InvokeAsync(function1);
 
-        this.WriteLine($"Function Invoked Times: {functionInvokeCount}");
-        this.WriteLine($"Function Invoking Times:{functionInvokingCount}");
+        Console.WriteLine($"Function Invoked Times: {functionInvokeCount}");
+        Console.WriteLine($"Function Invoking Times:{functionInvokingCount}");
     }
 }

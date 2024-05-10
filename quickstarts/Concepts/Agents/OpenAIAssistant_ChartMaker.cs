@@ -45,18 +45,18 @@ public class OpenAIAssistant_ChartMaker(ITestOutputHelper output) : BaseTest(out
         {
             chat.AddChatMessage(new ChatMessageContent(AuthorRole.User, input));
 
-            WriteLine($"# {AuthorRole.User}: '{input}'");
+            Console.WriteLine($"# {AuthorRole.User}: '{input}'");
 
             await foreach (var message in chat.InvokeAsync(agent))
             {
                 if (!string.IsNullOrWhiteSpace(message.Content))
                 {
-                    WriteLine($"# {message.Role} - {message.AuthorName ?? "*"}:'{message.Content}'");
+                    Console.WriteLine($"# {message.Role} - {message.AuthorName ?? "*"}:'{message.Content}'");
                 }
 
                 foreach (var fileReference in message.Items.OfType<FileReferenceContent>())
                 {
-                    WriteLine($"# {message.Role} - {message.AuthorName ?? "*"}:#{fileReference.FileId}");
+                    Console.WriteLine($"# {message.Role} - {message.AuthorName ?? "*"}:#{fileReference.FileId}");
                 }
             }
         }

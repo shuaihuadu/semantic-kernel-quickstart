@@ -69,7 +69,7 @@ public sealed class Legacy_ChatCompletionAgent(ITestOutputHelper output) : BaseT
 
     private string PrintPrompt(string prompt)
     {
-        WriteLine($"Prompt: {prompt}");
+        Console.WriteLine($"Prompt: {prompt}");
 
         return prompt;
     }
@@ -78,9 +78,9 @@ public sealed class Legacy_ChatCompletionAgent(ITestOutputHelper output) : BaseT
     {
         foreach (var message in messages)
         {
-            WriteLine($"------------------------------- {message.Role} ------------------------------");
-            WriteLine(message.Content);
-            WriteLine();
+            Console.WriteLine($"------------------------------- {message.Role} ------------------------------");
+            Console.WriteLine(message.Content);
+            Console.WriteLine();
         }
     }
 

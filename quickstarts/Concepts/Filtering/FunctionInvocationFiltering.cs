@@ -22,7 +22,7 @@ public class FunctionInvocationFiltering(ITestOutputHelper output) : BaseTest(ou
 
         FunctionResult result = await kernel.InvokeAsync(kernel.Plugins["MyPlugin"]["MyFunction"]);
 
-        WriteLine(result);
+        Console.WriteLine(result);
     }
 
     [Fact]
@@ -38,9 +38,9 @@ public class FunctionInvocationFiltering(ITestOutputHelper output) : BaseTest(ou
 
         FunctionResult result = await kernel.InvokeAsync(function);
 
-        WriteLine(result);
+        Console.WriteLine(result);
 
-        WriteLine($"Metadata: {string.Join(",", result.Metadata!.Select(kv => $"{kv.Key}:{kv.Value}"))}");
+        Console.WriteLine($"Metadata: {string.Join(",", result.Metadata!.Select(kv => $"{kv.Key}:{kv.Value}"))}");
     }
 
     [Fact]
@@ -63,7 +63,7 @@ public class FunctionInvocationFiltering(ITestOutputHelper output) : BaseTest(ou
 
         await foreach (var item in kernel.InvokeStreamingAsync<int>(function))
         {
-            WriteLine(item);
+            Console.WriteLine(item);
         }
     }
 
@@ -80,7 +80,7 @@ public class FunctionInvocationFiltering(ITestOutputHelper output) : BaseTest(ou
 
         FunctionResult result = await kernel.InvokeAsync(function);
 
-        WriteLine(result);
+        Console.WriteLine(result);
     }
 
     [Fact]
@@ -103,7 +103,7 @@ public class FunctionInvocationFiltering(ITestOutputHelper output) : BaseTest(ou
 
         await foreach (var item in kernel.InvokeStreamingAsync<string>(function))
         {
-            WriteLine(item);
+            Console.WriteLine(item);
         }
     }
 

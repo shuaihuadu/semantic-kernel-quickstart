@@ -9,7 +9,7 @@ public class Legacy_AgentTools(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public async Task RunCodeInterpreterToolAsync()
     {
-        WriteLine("======== Using CodeInterpreter tool ========");
+        Console.WriteLine("======== Using CodeInterpreter tool ========");
 
         AgentBuilder builder = AgentHelper.CreareAgentBuilder()
             .WithInstructions("Write only code to solve the given problem without comment.");
@@ -38,7 +38,7 @@ public class Legacy_AgentTools(ITestOutputHelper output) : BaseTest(output)
     {
         const bool PassFileOnRequest = false;
 
-        WriteLine("======== Using Retrieval tool ========");
+        Console.WriteLine("======== Using Retrieval tool ========");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIFiles(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ApiKey)
@@ -52,7 +52,7 @@ public class Legacy_AgentTools(ITestOutputHelper output) : BaseTest(output)
 
         string fileId = result.Id;
 
-        WriteLine($"! {fileId}");
+        Console.WriteLine($"! {fileId}");
 
         IAgent defaultAgent = Track(await AgentHelper.CreareAgentBuilder().BuildAsync());
 
@@ -94,10 +94,10 @@ public class Legacy_AgentTools(ITestOutputHelper output) : BaseTest(output)
 
         foreach (string question in questions)
         {
-            WriteLine("\nDEFAULT AGENT:");
+            Console.WriteLine("\nDEFAULT AGENT:");
             await InvokeAgentAsync(defaultAgent, question, fileIds);
 
-            WriteLine("\nTOOL ENABLED AGENT:");
+            Console.WriteLine("\nTOOL ENABLED AGENT:");
             await InvokeAgentAsync(enableAgent, question, fileIds);
         }
     }
@@ -113,20 +113,20 @@ public class Legacy_AgentTools(ITestOutputHelper output) : BaseTest(output)
                 content = content.Replace(annotation.Label, string.Empty, StringComparison.Ordinal);
             }
 
-            WriteLine($"# {message.Role}: {content}");
+            Console.WriteLine($"# {message.Role}: {content}");
 
             if (message.Annotations.Count > 0)
             {
-                WriteLine("\n# files:");
+                Console.WriteLine("\n# files:");
 
                 foreach (var annotation in message.Annotations)
                 {
-                    WriteLine($"* {annotation.FileId}");
+                    Console.WriteLine($"* {annotation.FileId}");
                 }
             }
         }
 
-        WriteLine();
+        Console.WriteLine();
     }
 
     private IAgent Track(IAgent agent)

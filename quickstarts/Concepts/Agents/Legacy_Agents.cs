@@ -7,7 +7,7 @@ public class Legacy_Agents(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public Task RunSimpleChatAsync()
     {
-        WriteLine("======== Run:SimpleChat ========");
+        Console.WriteLine("======== Run:SimpleChat ========");
 
         return ChatAsync("Agents.ParrotAgent.yaml",
             plugin: null,
@@ -20,7 +20,7 @@ public class Legacy_Agents(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public Task RunWithMethodFunctionsAsync()
     {
-        WriteLine("======== Run:WithMethodFunctions ========");
+        Console.WriteLine("======== Run:WithMethodFunctions ========");
 
         LegacyMenuPlugin menuApi = new();
 
@@ -40,7 +40,7 @@ public class Legacy_Agents(ITestOutputHelper output) : BaseTest(output)
     [Fact(Skip = "Runtime type 'Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatMessageContent' is not supported by polymorphic type 'Microsoft.SemanticKernel.KernelContent'. Path: $.")]
     public Task RunWithPromptFunctionsAsync()
     {
-        WriteLine("======== WithPromptFunctions ========");
+        Console.WriteLine("======== WithPromptFunctions ========");
 
         KernelFunction function = KernelFunctionFactory.CreateFromPrompt(
              "Correct any misspelling or gramatical errors provided in input: {{$input}}",
@@ -62,7 +62,7 @@ public class Legacy_Agents(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public async Task RunAsFunctionAsync()
     {
-        WriteLine("======== Run:AsFunction ========");
+        Console.WriteLine("======== Run:AsFunction ========");
 
         IAgent agent = await new AgentBuilder()
             .WithAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.ApiKey)
@@ -73,7 +73,7 @@ public class Legacy_Agents(ITestOutputHelper output) : BaseTest(output)
         {
             string response = await agent.AsPlugin().InvokeAsync("Practice makes perfect.", new KernelArguments { { "count", 2 } });
 
-            WriteLine(response ?? $"No response from agent: {agent.Id}");
+            Console.WriteLine(response ?? $"No response from agent: {agent.Id}");
         }
         finally
         {
@@ -95,14 +95,14 @@ public class Legacy_Agents(ITestOutputHelper output) : BaseTest(output)
 
         try
         {
-            WriteLine($"[{agent.Id}]");
+            Console.WriteLine($"[{agent.Id}]");
 
             foreach (var responses in messages.Select(m => thread.InvokeAsync(agent, m, arguments)))
             {
                 await foreach (var message in responses)
                 {
-                    WriteLine($"[{message.Id}]");
-                    WriteLine($"# {message.Role}: {message.Content}");
+                    Console.WriteLine($"[{message.Id}]");
+                    Console.WriteLine($"# {message.Role}: {message.Content}");
                 }
             }
         }

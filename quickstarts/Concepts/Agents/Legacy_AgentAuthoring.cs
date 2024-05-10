@@ -9,7 +9,7 @@ public class Legacy_AgentAuthoring(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public async Task RunAgentAsync()
     {
-        WriteLine("======== Example73_AgentAuthoring ========");
+        Console.WriteLine("======== Example73_AgentAuthoring ========");
 
         try
         {
@@ -17,8 +17,8 @@ public class Legacy_AgentAuthoring(ITestOutputHelper output) : BaseTest(output)
 
             await foreach (IChatMessage message in articleGenerator.InvokeAsync("Chinese food is the best in the world"))
             {
-                WriteLine($"[{message.Id}]");
-                WriteLine($"# {message.Role}: {message.Content}");
+                Console.WriteLine($"[{message.Id}]");
+                Console.WriteLine($"# {message.Role}: {message.Content}");
             }
         }
         finally
@@ -30,7 +30,7 @@ public class Legacy_AgentAuthoring(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public async Task RunAsPluginAsync()
     {
-        WriteLine("======== Example73_AgentAuthoring ========");
+        Console.WriteLine("======== Example73_AgentAuthoring ========");
 
         try
         {
@@ -38,7 +38,7 @@ public class Legacy_AgentAuthoring(ITestOutputHelper output) : BaseTest(output)
 
             string response = await articleGenerator.AsPlugin().InvokeAsync("Chinese food is the best in the world");
 
-            WriteLine(response);
+            Console.WriteLine(response);
         }
         finally
         {

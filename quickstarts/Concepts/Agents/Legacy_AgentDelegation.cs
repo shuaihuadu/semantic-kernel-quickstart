@@ -9,7 +9,7 @@ public class Legacy_AgentDelegation(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public async Task RunAsync()
     {
-        WriteLine("======== Example71_AgentDelegation ========");
+        Console.WriteLine("======== Example71_AgentDelegation ========");
 
         IAgentThread? threand = null;
 
@@ -46,8 +46,8 @@ public class Legacy_AgentDelegation(ITestOutputHelper output) : BaseTest(output)
             {
                 await foreach (IChatMessage message in response)
                 {
-                    WriteLine($"[{message.Id}]");
-                    WriteLine($"# {message.Role}: {message.Content}");
+                    Console.WriteLine($"[{message.Id}]");
+                    Console.WriteLine($"# {message.Role}: {message.Content}");
                 }
             }
         }

@@ -22,7 +22,7 @@ public class AutoFunctionInvocationFiltering(ITestOutputHelper output) : BaseTes
 
         FunctionResult result = await kernel.InvokePromptAsync("Invoke provided function and return result", new(executionSettings));
 
-        WriteLine(result);
+        Console.WriteLine(result);
     }
 
     private sealed class AutoFunctionInvocationFilterExample(ITestOutputHelper output) : IAutoFunctionInvocationFilter

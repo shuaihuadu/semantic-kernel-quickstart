@@ -1,5 +1,4 @@
 ﻿using Microsoft.SemanticKernel.Agents.Chat;
-using Microsoft.SemanticKernel.Agents.OpenAI;
 
 namespace Agents;
 
@@ -57,14 +56,14 @@ public class MixedChat_Agents(ITestOutputHelper output) : BaseTest(output)
 
         chat.AddChatMessage(new ChatMessageContent(AuthorRole.User, input));
 
-        WriteLine($"# {AuthorRole.User}: '{input}'");
+        Console.WriteLine($"# {AuthorRole.User}: '{input}'");
 
         await foreach (var content in chat.InvokeAsync())
         {
-            WriteLine($"# {content.Role} - {content.AuthorName ?? "*"}: '{content.Content}'");
+            Console.WriteLine($"# {content.Role} - {content.AuthorName ?? "*"}: '{content.Content}'");
         }
 
-        WriteLine($"# IS COMPLETE: {chat.IsComplete}");
+        Console.WriteLine($"# IS COMPLETE: {chat.IsComplete}");
     }
 
     private sealed class ApprovalTerminationStrategy : TerminationStrategy

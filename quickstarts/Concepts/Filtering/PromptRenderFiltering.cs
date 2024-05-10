@@ -19,7 +19,7 @@ public class PromptRenderFiltering(ITestOutputHelper output) : BaseTest(output)
 
         FunctionResult result = await kernel.InvokeAsync(kernel.Plugins["MyPlugin"]["MyFunction"]);
 
-        WriteLine(result.ToString());
+        Console.WriteLine(result.ToString());
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class PromptRenderFiltering(ITestOutputHelper output) : BaseTest(output)
 
         FunctionResult result = await kernel.InvokePromptAsync("Hi, how can you help me?");
 
-        WriteLine(result);
+        Console.WriteLine(result);
     }
 
     private sealed class FirstPromptFilter(ITestOutputHelper output) : IPromptRenderFilter

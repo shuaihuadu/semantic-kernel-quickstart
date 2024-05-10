@@ -9,7 +9,7 @@ public class Legacy_AgentCollaboration(ITestOutputHelper output) : BaseTest(outp
     [Fact]
     public async Task RunCollaborationAsync()
     {
-        WriteLine($"======== Example72:Collaboration: AzureAI ========");
+        Console.WriteLine($"======== Example72:Collaboration: AzureAI ========");
 
         IAgentThread? thread = null;
 
@@ -51,7 +51,7 @@ public class Legacy_AgentCollaboration(ITestOutputHelper output) : BaseTest(outp
     [Fact]
     public async Task RunAsPluginsAsync()
     {
-        WriteLine($"======== Example72: AsPlugins: AzureAI ========");
+        Console.WriteLine($"======== Example72: AsPlugins: AzureAI ========");
 
         try
         {
@@ -68,7 +68,7 @@ public class Legacy_AgentCollaboration(ITestOutputHelper output) : BaseTest(outp
 
             string response = await coordinator.AsPlugin().InvokeAsync("concept: maps made out of egg cartons.");
 
-            WriteLine(response);
+            Console.WriteLine(response);
         }
         finally
         {
@@ -116,15 +116,15 @@ public class Legacy_AgentCollaboration(ITestOutputHelper output) : BaseTest(outp
 
     private void DisplayMessage(IChatMessage message, IAgent? agent = null)
     {
-        WriteLine($"[{message.Id}]");
+        Console.WriteLine($"[{message.Id}]");
 
         if (agent is not null)
         {
-            WriteLine($"# {message.Role}: ({agent.Name}) {message.Content}");
+            Console.WriteLine($"# {message.Role}: ({agent.Name}) {message.Content}");
         }
         else
         {
-            WriteLine($"# {message.Role}: {message.Content}");
+            Console.WriteLine($"# {message.Role}: {message.Content}");
         }
     }
 
