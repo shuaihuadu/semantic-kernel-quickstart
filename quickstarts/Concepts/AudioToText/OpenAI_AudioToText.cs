@@ -1,8 +1,8 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace AudioToText;
 
-public sealed class Example82_Audio(ITestOutputHelper output) : BaseTest(output)
+public sealed class OpenAI_AudioToText(ITestOutputHelper output) : BaseTest(output)
 {
-    private const string AudioFilePath = "audio.wav";
+    private const string AudioFilePath = "test_audio.wav";
 
     [Fact]
     public async Task TextToAudioAsync()
@@ -49,14 +49,17 @@ public sealed class Example82_Audio(ITestOutputHelper output) : BaseTest(output)
 
         OpenAIAudioToTextExecutionSettings settings = new(AudioFilePath)
         {
-            Language = "zh",
+            Language = "en",
             Prompt = "简体中文，正确使用标点符号",
             ResponseFormat = "json",
             Temperature = 0.3f
         };
 
-        ReadOnlyMemory<byte> audioData = await File.ReadAllBytesAsync(AudioFilePath);
-        AudioContent audioContent = new(new BinaryData(audioData));
+        await using var audioFileStream = EmbeddedResource.ReadStream(AudioFilePath);
+
+        var audioFileBinaryData = await BinaryData.FromStreamAsync(audioFileStream!);
+
+        AudioContent audioContent = new(new BinaryData(audioFileBinaryData));
 
         TextContent textContent = await audioToTextService.GetTextContentAsync(audioContent, settings);
 

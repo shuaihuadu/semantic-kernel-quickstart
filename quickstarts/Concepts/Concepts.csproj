@@ -50,6 +50,7 @@
 		<None Remove="Resources\EnglishRoberta\vocab.bpe" />
 		<None Remove="Resources\GenerateStory.yaml" />
 		<None Remove="Resources\GenerateStoryHandlebars.yaml" />
+		<None Remove="Resources\test_audio.wav" />
 		<None Remove="Resources\test_image.jpg" />
 		<None Remove="Resources\travelinfo.txt" />
 	</ItemGroup>
@@ -68,6 +69,7 @@
 		<EmbeddedResource Include="Resources\EnglishRoberta\vocab.bpe" />
 		<EmbeddedResource Include="Resources\GenerateStory.yaml" />
 		<EmbeddedResource Include="Resources\GenerateStoryHandlebars.yaml" />
+		<EmbeddedResource Include="Resources\test_audio.wav" />
 		<EmbeddedResource Include="Resources\test_image.jpg">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
