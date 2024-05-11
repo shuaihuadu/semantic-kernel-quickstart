@@ -13,7 +13,7 @@ public class OpenAIAssistant_CodeInterpreter(ITestOutputHelper output) : BaseTes
                 ModelId = TestConfiguration.AzureOpenAI.DeploymentName
             });
 
-        AgentGroupChat chat = new AgentGroupChat();
+        AgentGroupChat chat = new();
 
         try
         {

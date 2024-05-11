@@ -18,7 +18,7 @@ public class OpenAIAssistant_ChartMaker(ITestOutputHelper output) : BaseTest(out
                 ModelId = TestConfiguration.AzureOpenAI.DeploymentName
             });
 
-        AgentGroupChat chat = new AgentGroupChat();
+        AgentGroupChat chat = new();
 
         try
         {

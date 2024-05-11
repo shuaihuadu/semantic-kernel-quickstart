@@ -21,7 +21,7 @@ public class OpenAIAssistant_Retrieval(ITestOutputHelper output) : BaseTest(outp
                 FileIds = [uploadFile.Id]
             });
 
-        AgentGroupChat chat = new AgentGroupChat();
+        AgentGroupChat chat = new();
 
         try
         {
