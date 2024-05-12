@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging.Abstractions;
-
-namespace Filtering;
+﻿namespace Filtering;
 
 public class FunctionInvocationFiltering(ITestOutputHelper output) : BaseTest(output)
 {
@@ -52,7 +50,7 @@ public class FunctionInvocationFiltering(ITestOutputHelper output) : BaseTest(ou
 
         Kernel kernel = builder.Build();
 
-        static async IAsyncEnumerable<int> GetData()
+        static IEnumerable<int> GetData()
         {
             yield return 1;
             yield return 2;
@@ -92,7 +90,7 @@ public class FunctionInvocationFiltering(ITestOutputHelper output) : BaseTest(ou
 
         Kernel kernel = builder.Build();
 
-        static async IAsyncEnumerable<string> GetData()
+        static IEnumerable<string> GetData()
         {
             yield return "first chunk";
 
