@@ -7,6 +7,7 @@ global using Microsoft.SemanticKernel.Agents.OpenAI;
 global using Microsoft.SemanticKernel.AudioToText;
 global using Microsoft.SemanticKernel.ChatCompletion;
 global using Microsoft.SemanticKernel.Connectors.OpenAI;
+global using Microsoft.SemanticKernel.Memory;
 global using Microsoft.SemanticKernel.TextToAudio;
 global using Resources;
 global using Resources.Plugins;
