@@ -38,6 +38,7 @@
     public static PineconeConfig Pinecone => LoadSection<PineconeConfig>();
     public static BingConfig Bing => LoadSection<BingConfig>();
     public static GoogleConfig Google => LoadSection<GoogleConfig>();
+    public static GoogleAIConfig GoogleAI => LoadSection<GoogleAIConfig>();
     public static GithubConfig Github => LoadSection<GithubConfig>();
     public static PostgresConfig Postgres => LoadSection<PostgresConfig>();
     public static RedisConfig Redis => LoadSection<RedisConfig>();
@@ -203,5 +204,19 @@
         public string Host { get; set; } = string.Empty;
 
         public int Port { get; set; }
+    }
+
+    public class GoogleAIConfig
+    {
+        public string ApiKey { get; set; } = string.Empty;
+
+        public string EmbeddingModelId { get; set; } = string.Empty;
+
+        public GeminiConfig Gemini { get; set; } = null!;
+
+        public class GeminiConfig
+        {
+            public string ModelId { get; set; } = string.Empty;
+        }
     }
 }
