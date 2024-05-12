@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-using System.Text.Json;
-
 public static class ObjectExtensions
 {
     private static readonly JsonSerializerOptions s_jsonOptionsCache = new() { WriteIndented = true };

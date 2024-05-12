@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace AutoFunctionCalling;
 
-public class Example59_OpenAIFunctionCalling(ITestOutputHelper output) : BaseTest(output)
+public class OpenAI_FunctionCalling(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()

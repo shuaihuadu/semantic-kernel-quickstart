@@ -36,7 +36,12 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
 
         void PostExecutionHandler(object? sender, FunctionInvokedEventArgs e)
         {
-            Console.WriteLine($"{e.Function.Name} : Post Execution Handler - Usage: {e.Result.Metadata?["Usage"]?.AsJson()}");
+            var usage = e.Result.Metadata?["Usage"];
+
+            Console.WriteLine($"{e.Function.Name} : Post Execution Handler - Usage: {usage}");
+
+            //Console.WriteLine($"{e.Function.Name} : Post Execution Handler");
+            //Console.WriteLine($"Usage: {e.Result.Metadata?["Usage"]}");
         }
 
         kernel.FunctionInvoking += PreHandler;
@@ -50,6 +55,8 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
         FunctionResult result = await kernel.InvokeAsync(excuseFunction, new() { ["input"] = Input });
 
         Console.WriteLine($"Function Result:{result.GetValue<string>()}");
+
+        //await Assert.ThrowsAsync<KernelFunctionCanceledException>(async () => await kernel.InvokeAsync(excuseFunction, new() { ["input"] = Input }));
     }
 
 
@@ -152,9 +159,10 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
             functionInvokeCount++;
         };
 
-        FunctionResult result = await kernel.InvokeAsync(writerFunction);
+        //FunctionResult result = await kernel.InvokeAsync(writerFunction);
 
-        Console.WriteLine($"Function Invocation Times: {functionInvokeCount}");
+        //Console.WriteLine($"Function Invocation Times: {functionInvokeCount}");
+        await Assert.ThrowsAsync<KernelFunctionCanceledException>(async () => await kernel.InvokeAsync(writerFunction));
     }
 
 
@@ -182,9 +190,11 @@ public class Legacy_KernelHooks(ITestOutputHelper output) : BaseTest(output)
             e.Cancel = true;
         };
 
-        FunctionResult result = await kernel.InvokeAsync(function1);
+        //FunctionResult result = await kernel.InvokeAsync(function1);
 
-        Console.WriteLine($"Function Invoked Times: {functionInvokeCount}");
-        Console.WriteLine($"Function Invoking Times:{functionInvokingCount}");
+        //Console.WriteLine($"Function Invoked Times: {functionInvokeCount}");
+        //Console.WriteLine($"Function Invoking Times:{functionInvokingCount}");
+
+        await Assert.ThrowsAsync<KernelFunctionCanceledException>(async () => await kernel.InvokeAsync(function1));
     }
 }
