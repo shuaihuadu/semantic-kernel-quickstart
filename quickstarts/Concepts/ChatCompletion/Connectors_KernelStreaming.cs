@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example67_KernelStreaming(ITestOutputHelper output) : BaseTest(output)
+public class Connectors_KernelStreaming(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -17,20 +17,27 @@ public class Example67_KernelStreaming(ITestOutputHelper output) : BaseTest(outp
 
         bool roleDisplayed = false;
 
-        this.WriteLine("\n===  Prompt Function - Streaming ===\n");
+        Console.WriteLine("\n===  Prompt Function - Streaming ===\n");
+
+        string fullContent = string.Empty;
 
         await foreach (var update in kernel.InvokeStreamingAsync<OpenAIStreamingChatMessageContent>(funnyParagraphFunction))
         {
             if (roleDisplayed && update.Role.HasValue)
             {
-                this.WriteLine($"Role: {update.Role}");
+                Console.WriteLine($"Role: {update.Role}");
+                fullContent += $"Role: {update.Role}\n";
                 roleDisplayed = true;
             }
 
             if (update.Content is { Length: > 0 })
             {
-                this.Write(update.Content);
+                fullContent += update.Content;
+                Console.Write(update.Content);
             }
         }
+
+        Console.WriteLine("\n------  Streamed Content ------\n");
+        Console.WriteLine(fullContent);
     }
 }

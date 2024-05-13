@@ -1,14 +1,17 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example68_GPTVision(ITestOutputHelper output) : BaseTest(output)
+public class OpenAI_ChatCompletionWithVision(ITestOutputHelper output) : BaseTest(output)
 {
-    [Fact]
+    [Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : The SSL connection could not be established, see inner exception.")]
     public async Task RunAsync()
     {
         const string ImageUri1 = "https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2024%2F0208%2F26a8f4b0j00s8iho2000fd000g0009gp.jpg&thumbnail=660x2147483647&quality=80&type=jpg";
         const string ImageUri2 = "https://pics2.baidu.com/feed/42166d224f4a20a4b343e2fa7656ec2f720ed045.jpeg@f_auto?token=830b80889236bf1e4922dd1cf1b6bfd0";
 
-        Kernel kernel = KernelHelper.AzureOpenAIChatCompletionKernelBuilder().Build();
+        Kernel kernel = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(
+            deploymentName: TestConfiguration.AzureOpenAI.VisionDeploymentName,
+            endpoint: TestConfiguration.AzureOpenAI.Endpoint,
+            apiKey: TestConfiguration.AzureOpenAI.ApiKey).Build();
 
         IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
@@ -54,20 +57,20 @@ public class Example68_GPTVision(ITestOutputHelper output) : BaseTest(output)
             {
                 if (item is ImageContent imageContent && imageContent.Uri is not null)
                 {
-                    this.WriteLine($"{imageContent.Uri!.AbsoluteUri}");
+                    Console.WriteLine($"{imageContent.Uri!.AbsoluteUri}");
                 }
                 if (item is TextContent textContent)
                 {
-                    this.WriteLine($"{message.Role}: {textContent.Text}");
+                    Console.WriteLine($"{message.Role}: {textContent.Text}");
                 }
             }
         }
         else
         {
-            this.WriteLine($"{message.Role}: {message.Content}");
+            Console.WriteLine($"{message.Role}: {message.Content}");
         }
 
-        this.WriteLine("------------------------");
+        Console.WriteLine("------------------------");
 
         return Task.CompletedTask;
     }

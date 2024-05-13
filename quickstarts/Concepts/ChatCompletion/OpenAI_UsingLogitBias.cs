@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example49_LogitBias(ITestOutputHelper output) : BaseTest(output)
+public class OpenAI_UsingLogitBias(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -16,8 +16,8 @@ public class Example49_LogitBias(ITestOutputHelper output) : BaseTest(output)
 
         executionSettings.TokenSelectionBiases = keys.ToDictionary(key => key, key => -100);
 
-        this.WriteLine("Chat content:");
-        this.WriteLine("------------------------");
+        Console.WriteLine("Chat content:");
+        Console.WriteLine("------------------------");
 
         ChatHistory chatHistory = new("You are a librarian expert");
 
@@ -41,8 +41,8 @@ public class Example49_LogitBias(ITestOutputHelper output) : BaseTest(output)
     {
         var message = chatHistory.Last();
 
-        this.WriteLine($"{message.Role}: {message.Content}");
-        this.WriteLine("------------------------");
+        Console.WriteLine($"{message.Role}: {message.Content}");
+        Console.WriteLine("------------------------");
 
         return Task.CompletedTask;
     }

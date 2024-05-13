@@ -1,11 +1,11 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example52_CustomOpenAIClient(ITestOutputHelper output) : BaseTest(output)
+public class OpenAI_CustomAzureOpenAIClient(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
     {
-        this.WriteLine("======== Using a custom OpenAI client ========");
+        Console.WriteLine("======== Using a custom OpenAI client ========");
 
         HttpClient httpClient = new();
 
@@ -32,7 +32,7 @@ public class Example52_CustomOpenAIClient(ITestOutputHelper output) : BaseTest(o
             kernel.Plugins["FunPlugin"]["Excuses"],
             new() { ["input"] = "I have no homework" });
 
-        WriteLine(result.ToString());
+        Console.WriteLine(result.ToString());
 
         httpClient.Dispose();
     }

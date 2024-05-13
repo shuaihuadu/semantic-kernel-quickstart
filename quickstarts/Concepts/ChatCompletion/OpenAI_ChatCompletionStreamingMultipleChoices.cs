@@ -1,11 +1,11 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example45_MultiStreamingChatCompletion(ITestOutputHelper output) : BaseTest(output)
+public class OpenAI_ChatCompletionStreamingMultipleChoices(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task AzureOpenAIMultiStreamingChatCompletionAsync()
     {
-        this.WriteLine("======== Azure OpenAI - Multiple Chat Completions - Raw Streaming ========");
+        Console.WriteLine("======== Azure OpenAI - Multiple Chat Completions - Raw Streaming ========");
 
         AzureOpenAIChatCompletionService chatCompletionService = new(
             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
@@ -34,7 +34,7 @@ public class Example45_MultiStreamingChatCompletion(ITestOutputHelper output) : 
 
         await ProcessStreamAsyncEnumerableAsync(chatCompletionService, prompt, executionSettings, consoleLinesPerResult);
 
-        this.WriteLine();
+        Console.WriteLine();
     }
 
     private async Task ProcessStreamAsyncEnumerableAsync(IChatCompletionService chatCompletionService, string prompt, OpenAIPromptExecutionSettings executionSettings, int consoleLinesPerResult)
@@ -55,7 +55,7 @@ public class Example45_MultiStreamingChatCompletion(ITestOutputHelper output) : 
                 messagesPerChoice[chatUpdate.ChoiceIndex] += chatUpdate.Content;
             }
 
-            this.WriteLine(messagesPerChoice[chatUpdate.ChoiceIndex]);
+            Console.WriteLine(messagesPerChoice[chatUpdate.ChoiceIndex]);
         }
     }
 }
