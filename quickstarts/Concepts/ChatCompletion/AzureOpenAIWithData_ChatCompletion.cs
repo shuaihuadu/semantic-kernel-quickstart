@@ -1,8 +1,7 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example54_AzureChatCompletionWithData(ITestOutputHelper output) : BaseTest(output)
+public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : BaseTest(output)
 {
-
     // https://learn.microsoft.com/en-us/azure/ai-services/openai/use-your-data-quickstart
 
     [RetryFact(typeof(HttpOperationException))]
