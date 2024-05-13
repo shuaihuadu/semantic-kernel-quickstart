@@ -20,6 +20,7 @@ global using System.Reflection;
 global using System.Runtime.CompilerServices;
 global using System.Security.Cryptography;
 global using System.Text.Json;
+global using System.Text.Json.Serialization.Metadata;
 global using System.Text.RegularExpressions;
 global using xRetry;
 global using Xunit.Abstractions;
