@@ -1,35 +1,21 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example61_MultipleLLMs(ITestOutputHelper output) : BaseTest(output)
+public class Connectors_WithMultipleLLMs(ITestOutputHelper output) : BaseTest(output)
 {
     [RetryFact(typeof(HttpOperationException))]
     public async Task RunAsync()
     {
-        this.WriteLine("======== Example61_MultipleLLMs ========");
-
-        string apiKey = TestConfiguration.AzureOpenAI.ApiKey;
-        string deploymentName = TestConfiguration.AzureOpenAI.DeploymentName;
-        string endpoint = TestConfiguration.AzureOpenAI.Endpoint;
-
-        if (deploymentName == null
-            || endpoint == null
-            || apiKey == null)
-        {
-            this.WriteLine("AzureOpenAI endpoint, apiKey, or deploymentName not found. Skipping example.");
-            return;
-        }
-
         Kernel kernel = Kernel.CreateBuilder()
             .AddAzureOpenAIChatCompletion(
-                deploymentName: deploymentName,
-                endpoint: endpoint,
-                apiKey: apiKey,
+                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
+                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
+                apiKey: TestConfiguration.AzureOpenAI.ApiKey,
                 serviceId: "aoai_service_1",
                 modelId: "aoai_model_1")
             .AddAzureOpenAIChatCompletion(
-                deploymentName: deploymentName,
-                endpoint: endpoint,
-                apiKey: apiKey,
+                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
+                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
+                apiKey: TestConfiguration.AzureOpenAI.ApiKey,
                 serviceId: "aoai_service_2",
                 modelId: "aoai_model_2")
             .Build();
@@ -41,7 +27,7 @@ public class Example61_MultipleLLMs(ITestOutputHelper output) : BaseTest(output)
 
     private async Task RunByServiceIdAsync(Kernel kernel, string serviceId)
     {
-        this.WriteLine($"======== Service Id: {serviceId} ========");
+        Console.WriteLine($"======== Service Id: {serviceId} ========");
 
         string prompt = "Hello AI, what can you do for me?";
 
@@ -55,12 +41,12 @@ public class Example61_MultipleLLMs(ITestOutputHelper output) : BaseTest(output)
 
         FunctionResult result = await kernel.InvokePromptAsync(prompt, arguments);
 
-        this.WriteLine(result.GetValue<string>());
+        Console.WriteLine(result.GetValue<string>());
     }
 
     private async Task RunByModelIdAsync(Kernel kernel, string modelId)
     {
-        this.WriteLine($"======== Model Id: {modelId} ========");
+        Console.WriteLine($"======== Model Id: {modelId} ========");
 
         string prompt = "Hello AI, what can you do for me?";
 
@@ -71,12 +57,12 @@ public class Example61_MultipleLLMs(ITestOutputHelper output) : BaseTest(output)
                 ModelId = modelId
             }));
 
-        this.WriteLine(result.GetValue<string>());
+        Console.WriteLine(result.GetValue<string>());
     }
 
     private async Task RunByFirstModelIdAsync(Kernel kernel, params string[] modelIds)
     {
-        this.WriteLine($"======== Model Ids: {string.Join(", ", modelIds)} ========");
+        Console.WriteLine($"======== Model Ids: {string.Join(", ", modelIds)} ========");
 
         string prompt = "Hello AI, what can you do for me?";
 
@@ -100,6 +86,6 @@ public class Example61_MultipleLLMs(ITestOutputHelper output) : BaseTest(output)
 
         FunctionResult result = await kernel.InvokeAsync(function);
 
-        this.WriteLine(result.GetValue<string>());
+        Console.WriteLine(result.GetValue<string>());
     }
 }

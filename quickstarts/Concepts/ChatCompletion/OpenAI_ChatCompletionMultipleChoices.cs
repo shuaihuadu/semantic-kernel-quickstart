@@ -1,13 +1,11 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example36_MultiCompletion(ITestOutputHelper output) : BaseTest(output)
+public class ChatCompletion(ITestOutputHelper output) : BaseTest(output)
 {
-    private readonly ITestOutputHelper _output = output;
-
     [Fact]
     public Task AzureOpenAIMultiChatCompletionAsync()
     {
-        WriteLine("======== Azure OpenAI - Multiple Chat Completion ========");
+        Console.WriteLine("======== Azure OpenAI - Multiple Chat Completion ========");
 
         IChatCompletionService chatCompletionService = new AzureOpenAIChatCompletionService(
             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
@@ -36,11 +34,11 @@ public class Example36_MultiCompletion(ITestOutputHelper output) : BaseTest(outp
 
         foreach (ChatMessageContent chatMessage in await chatCompletionService.GetChatMessageContentsAsync(chatHistory, executionSettings))
         {
-            Write(chatMessage.Content ?? string.Empty);
+            Console.Write(chatMessage.Content ?? string.Empty);
 
-            WriteLine("\n----------\n");
+            Console.WriteLine("\n----------\n");
         }
 
-        WriteLine();
+        Console.WriteLine();
     }
 }

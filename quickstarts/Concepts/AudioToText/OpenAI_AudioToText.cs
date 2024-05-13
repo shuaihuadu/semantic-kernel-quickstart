@@ -63,6 +63,6 @@ public sealed class OpenAI_AudioToText(ITestOutputHelper output) : BaseTest(outp
 
         TextContent textContent = await audioToTextService.GetTextContentAsync(audioContent, settings);
 
-        WriteLine(textContent);
+        Console.WriteLine(textContent);
     }
 }

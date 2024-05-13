@@ -7,7 +7,7 @@ public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : Base
     [RetryFact(typeof(HttpOperationException))]
     public async Task ExampleWithChatCompletionAsync()
     {
-        this.WriteLine("=== Example with Chat Completion ===");
+        Console.WriteLine("=== Example with Chat Completion ===");
 
         AzureOpenAIChatCompletionWithDataService chatCompletionWithDataService = new(GetCompletionWithDataConfig());
 
@@ -22,9 +22,9 @@ public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : Base
         string response = chatMessage.Content!;
         string? toolResponse = chatMessage.ToolContent;
 
-        this.WriteLine($"Ask: {ask}");
-        this.WriteLine($"Response: {response}");
-        this.WriteLine();
+        Console.WriteLine($"Ask: {ask}");
+        Console.WriteLine($"Response: {response}");
+        Console.WriteLine();
 
         if (!string.IsNullOrEmpty(toolResponse))
         {
@@ -36,21 +36,21 @@ public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : Base
         //ask = "What are Emily and David studying?";
         ask = "Where is the Triple Landscape Hotel?";
 
-        this.WriteLine($"Ask: {ask}");
-        this.WriteLine("Response: ");
+        Console.WriteLine($"Ask: {ask}");
+        Console.WriteLine("Response: ");
 
         await foreach (var word in chatCompletionWithDataService.GetStreamingChatMessageContentsAsync(chatHistory))
         {
-            this.Write(word);
+            Console.Write(word);
         }
 
-        this.WriteLine(Environment.NewLine);
+        Console.WriteLine(Environment.NewLine);
     }
 
     [RetryFact(typeof(HttpOperationException))]
     private async Task ExampleWithKernelAsync()
     {
-        this.WriteLine("=== Example with Kernel ===");
+        Console.WriteLine("=== Example with Kernel ===");
 
         //string ask = "How did Emily and David meet?";
         string ask = "How many hotels?";
@@ -65,17 +65,17 @@ public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : Base
 
         FunctionResult result = await kernel.InvokeAsync(function, new() { ["input"] = ask });
 
-        this.WriteLine($"Ask: {ask}");
-        this.WriteLine($"Response: {result.GetValue<string>()}");
-        this.WriteLine();
+        Console.WriteLine($"Ask: {ask}");
+        Console.WriteLine($"Response: {result.GetValue<string>()}");
+        Console.WriteLine();
 
         //ask = "What are Emily and David studying?";
         ask = "Where is the Triple Landscape Hotel?";
         result = await kernel.InvokeAsync(function, new() { ["input"] = ask });
 
-        this.WriteLine($"Ask: {ask}");
-        this.WriteLine($"Response: {result.GetValue<string>()}");
-        this.WriteLine();
+        Console.WriteLine($"Ask: {ask}");
+        Console.WriteLine($"Response: {result.GetValue<string>()}");
+        Console.WriteLine();
     }
 
     private static AzureOpenAIChatCompletionWithDataConfig GetCompletionWithDataConfig()

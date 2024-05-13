@@ -26,17 +26,17 @@ public class ChatHistorySerialization(ITestOutputHelper output) : BaseTest(outpu
 
         ChatMessageContent? deserializedMessage = deserializedHistory!.Single();
 
-        WriteLine($"Content: {deserializedMessage.Content}");
+        Console.WriteLine($"Content: {deserializedMessage.Content}");
 
-        WriteLine($"Role: {deserializedMessage.Role.Label}");
+        Console.WriteLine($"Role: {deserializedMessage.Role.Label}");
 
-        WriteLine($"Text content: {(deserializedMessage.Items![0]! as TextContent)!.Text}");
+        Console.WriteLine($"Text content: {(deserializedMessage.Items![0]! as TextContent)!.Text}");
 
-        WriteLine($"Image content: {(deserializedMessage.Items![1]! as ImageContent)!.Uri}");
+        Console.WriteLine($"Image content: {(deserializedMessage.Items![1]! as ImageContent)!.Uri}");
 
-        WriteLine($"Binary content: {(deserializedMessage.Items![2]! as BinaryContent)!.Content}");
+        Console.WriteLine($"Binary content: {(deserializedMessage.Items![2]! as BinaryContent)!.Content}");
 
-        WriteLine($"Audio content: {(deserializedMessage.Items![3]! as AudioContent)!.Data}");
+        Console.WriteLine($"Audio content: {(deserializedMessage.Items![3]! as AudioContent)!.Data}");
     }
 
     [Fact]
@@ -64,13 +64,13 @@ public class ChatHistorySerialization(ITestOutputHelper output) : BaseTest(outpu
 
         ChatMessageContent? deserializedMessage = deserializedHistory!.Single();
 
-        WriteLine($"Content: {deserializedMessage.Content}");
+        Console.WriteLine($"Content: {deserializedMessage.Content}");
 
-        WriteLine($"Role: {deserializedMessage.Role.Label}");
+        Console.WriteLine($"Role: {deserializedMessage.Role.Label}");
 
-        WriteLine($"Text content: {(deserializedMessage.Items![0]! as TextContent)!.Text}");
+        Console.WriteLine($"Text content: {(deserializedMessage.Items![0]! as TextContent)!.Text}");
 
-        WriteLine($"Custom content: {(deserializedMessage.Items![1]! as CustomContent)!.Content}");
+        Console.WriteLine($"Custom content: {(deserializedMessage.Items![1]! as CustomContent)!.Content}");
     }
 
     private sealed class CustomContent(string content) : KernelContent(content)

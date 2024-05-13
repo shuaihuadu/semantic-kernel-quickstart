@@ -36,22 +36,22 @@ public class OpenAI_FunctionCalling(ITestOutputHelper output) : BaseTest(output)
     private async Task RunExample1Async(Kernel kernel)
     {
 
-        WriteLine("======== Example 1: Use automated function calling with a non-streaming prompt ========");
+        Console.WriteLine("======== Example 1: Use automated function calling with a non-streaming prompt ========");
         {
             OpenAIPromptExecutionSettings settings = new()
             {
                 ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
             };
 
-            WriteLine(await kernel.InvokePromptAsync("Given the current time of day and weather, what is the likely color of the sky in Boston?", new(settings)));
+            Console.WriteLine(await kernel.InvokePromptAsync("Given the current time of day and weather, what is the likely color of the sky in Boston?", new(settings)));
 
-            WriteLine();
+            Console.WriteLine();
         }
     }
 
     private async Task RunExample2Async(Kernel kernel)
     {
-        WriteLine("======== Example 2: Use automated function calling with a streaming prompt ========");
+        Console.WriteLine("======== Example 2: Use automated function calling with a streaming prompt ========");
         {
             OpenAIPromptExecutionSettings setting = new()
             {
@@ -60,16 +60,16 @@ public class OpenAI_FunctionCalling(ITestOutputHelper output) : BaseTest(output)
 
             await foreach (var update in kernel.InvokePromptStreamingAsync("Given the current time of day and weather, what is the likely color of the sky in Boston?", new(setting)))
             {
-                Write(update);
+                Console.Write(update);
             }
 
-            WriteLine();
+            Console.WriteLine();
         }
     }
 
     private async Task RunExample3Async(Kernel kernel)
     {
-        WriteLine("======== Example 3: Use manual function calling with a non-streaming prompt ========");
+        Console.WriteLine("======== Example 3: Use manual function calling with a non-streaming prompt ========");
         {
             IChatCompletionService chat = kernel.GetRequiredService<IChatCompletionService>();
 
@@ -88,7 +88,7 @@ public class OpenAI_FunctionCalling(ITestOutputHelper output) : BaseTest(output)
 
                 if (result.Content is not null)
                 {
-                    Write(result.Content);
+                    Console.Write(result.Content);
                 }
 
                 IEnumerable<FunctionCallContent> functionCalls = FunctionCallContent.GetFunctionCalls(result);
@@ -115,13 +115,13 @@ public class OpenAI_FunctionCalling(ITestOutputHelper output) : BaseTest(output)
                 }
             }
 
-            WriteLine();
+            Console.WriteLine();
         }
     }
 
     private async Task RunExample4Async(Kernel kernel)
     {
-        WriteLine("======== Example 4: Simulated function calling with a non-streaming prompt ========");
+        Console.WriteLine("======== Example 4: Simulated function calling with a non-streaming prompt ========");
         {
             IChatCompletionService chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
@@ -140,7 +140,7 @@ public class OpenAI_FunctionCalling(ITestOutputHelper output) : BaseTest(output)
 
                 if (result.Content is not null)
                 {
-                    Write(result.Content);
+                    Console.Write(result.Content);
                 }
 
                 chatHistory.Add(result);

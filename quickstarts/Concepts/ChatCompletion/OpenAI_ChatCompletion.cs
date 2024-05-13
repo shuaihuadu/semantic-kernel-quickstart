@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example17_ChatGPT(ITestOutputHelper output) : BaseTest(output)
+public class OpenAI_ChatCompletion(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -10,7 +10,7 @@ public class Example17_ChatGPT(ITestOutputHelper output) : BaseTest(output)
 
     private async Task AzureOpenAIChatSampleAsync()
     {
-        this.WriteLine("======== Azure Open AI - ChatGPT ========");
+        Console.WriteLine("======== Azure Open AI - ChatGPT ========");
 
         AzureOpenAIChatCompletionService chatCompletionService = new(
             TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.Endpoint,
@@ -21,8 +21,8 @@ public class Example17_ChatGPT(ITestOutputHelper output) : BaseTest(output)
 
     private async Task StartChatAsync(IChatCompletionService chatCompletionService)
     {
-        this.WriteLine("Chat content:");
-        this.WriteLine("------------------------");
+        Console.WriteLine("Chat content:");
+        Console.WriteLine("------------------------");
 
         var chatHistory = new ChatHistory("You are a librarian, expert about books");
 
@@ -45,8 +45,8 @@ public class Example17_ChatGPT(ITestOutputHelper output) : BaseTest(output)
     {
         ChatMessageContent message = chatHistory.Last();
 
-        this.WriteLine($"{message.Role}: {message.Content}");
-        this.WriteLine("------------------------");
+        Console.WriteLine($"{message.Role}: {message.Content}");
+        Console.WriteLine("------------------------");
 
         return Task.CompletedTask;
     }
