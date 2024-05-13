@@ -25,6 +25,8 @@ public class KernelHelper
 
     public static IChatCompletionService CreateCompletionService()
     {
+        TestConfiguration.Initialize();
+
         return new AzureOpenAIChatCompletionService(
             deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
             endpoint: TestConfiguration.AzureOpenAI.Endpoint,

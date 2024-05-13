@@ -80,6 +80,8 @@ public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : Base
 
     private static AzureOpenAIChatCompletionWithDataConfig GetCompletionWithDataConfig()
     {
+        //TestConfiguration.Initialize();
+
         return new AzureOpenAIChatCompletionWithDataConfig
         {
             CompletionModelId = TestConfiguration.AzureOpenAI.DeploymentName,

@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace ChatCompletion;
 
-public class Example37_CompletionIdentity(ITestOutputHelper output) : BaseTest(output)
+public class ChatHistoryAuthorName(ITestOutputHelper output) : BaseTest(output)
 {
     private static readonly OpenAIPromptExecutionSettings executionSettings = new OpenAIPromptExecutionSettings
     {
