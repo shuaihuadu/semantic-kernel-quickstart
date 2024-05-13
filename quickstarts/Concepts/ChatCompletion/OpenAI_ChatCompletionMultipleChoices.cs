@@ -1,6 +1,6 @@
 ﻿namespace ChatCompletion;
 
-public class ChatCompletion(ITestOutputHelper output) : BaseTest(output)
+public class OpenAI_ChatCompletionMultipleChoices(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public Task AzureOpenAIMultiChatCompletionAsync()
