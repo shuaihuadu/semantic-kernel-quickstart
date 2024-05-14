@@ -1,13 +1,13 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace DependencyInjection;
 
-public class Example40_DIContainer(ITestOutputHelper output) : BaseTest(output)
+public class Kernel_Injecting(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
     {
         IServiceCollection services = new ServiceCollection();
 
-        services.AddSingleton(ConsoleLogger.LoggerFactory);
+        services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Information));
         services.AddAzureOpenAIChatCompletion(TestConfiguration.AzureOpenAI.DeploymentName, TestConfiguration.AzureOpenAI.Endpoint, TestConfiguration.AzureOpenAI.ApiKey);
         services.AddSingleton<Kernel>();
 
