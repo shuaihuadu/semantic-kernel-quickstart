@@ -2,11 +2,12 @@
 
 public class OpenAI_ChatCompletionWithVision(ITestOutputHelper output) : BaseTest(output)
 {
-    [Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : The SSL connection could not be established, see inner exception.")]
+    //[Fact(Skip = "Microsoft.SemanticKernel.HttpOperationException : The SSL connection could not be established, see inner exception.")]
+    [Fact]
     public async Task RunAsync()
     {
-        const string ImageUri1 = "https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2024%2F0208%2F26a8f4b0j00s8iho2000fd000g0009gp.jpg&thumbnail=660x2147483647&quality=80&type=jpg";
-        const string ImageUri2 = "https://pics2.baidu.com/feed/42166d224f4a20a4b343e2fa7656ec2f720ed045.jpeg@f_auto?token=830b80889236bf1e4922dd1cf1b6bfd0";
+        const string ImageUri1 = "https://ailabpocdemo.blob.core.windows.net/ai-lab-images-poc-demo/1238715435310907443/1239583826439569480/60763b20-174f-4d1e-8eef-b9c9c15629d5/1715610214/2346d5a6-f496-4d8a-a719-a4d7461ca772.png";
+        const string ImageUri2 = "https://ailabpocdemo.blob.core.windows.net/ai-lab-images-poc-demo/1238715435310907443/1239583826439569480/60763b20-174f-4d1e-8eef-b9c9c15629d5/1715610214/2346d5a6-f496-4d8a-a719-a4d7461ca772.png";
 
         Kernel kernel = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(
             deploymentName: TestConfiguration.AzureOpenAI.VisionDeploymentName,
