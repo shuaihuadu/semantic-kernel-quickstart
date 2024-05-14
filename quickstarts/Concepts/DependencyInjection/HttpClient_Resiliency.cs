@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace DependencyInjection;
 
-public class Example08_RetryHandler(ITestOutputHelper output) : BaseTest(output)
+public class HttpClient_Resiliency(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -25,7 +25,7 @@ public class Example08_RetryHandler(ITestOutputHelper output) : BaseTest(output)
 
         Kernel kernel = builder.Build();
 
-        ILogger logger = kernel.LoggerFactory.CreateLogger(typeof(Example08_RetryHandler));
+        ILogger logger = kernel.LoggerFactory.CreateLogger(typeof(HttpClient_Resiliency));
 
         const string Question = "How popular is the Polly library?";
         logger.LogInformation("Question: {Question}", Question);

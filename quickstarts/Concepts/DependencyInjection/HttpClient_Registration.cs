@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace DependencyInjection;
 
-public class Example41_HttpClientUsage(ITestOutputHelper output) : BaseTest(output)
+public class HttpClient_Registration(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public void UseBasicRegistrationWithHttpClientFactory()
