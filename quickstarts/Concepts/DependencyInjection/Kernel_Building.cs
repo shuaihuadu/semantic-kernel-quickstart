@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace DependencyInjection;
 
-public class Example42_KernelBuilder(ITestOutputHelper output) : BaseTest(output)
+public class Kernel_Building(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public void BuildKernelUsingServiceCollection()
@@ -11,16 +11,6 @@ public class Example42_KernelBuilder(ITestOutputHelper output) : BaseTest(output
             .AddHttpClient();
 
         Kernel kernel2 = builder.Build();
-    }
-
-    [Fact]
-    public void BuildKernelWithPlugins()
-    {
-
-        IKernelBuilder builder = Kernel.CreateBuilder();
-        builder.Plugins.AddFromType<HttpPlugin>();
-
-        Kernel kernel3 = builder.Build();
     }
 
     [Fact]
