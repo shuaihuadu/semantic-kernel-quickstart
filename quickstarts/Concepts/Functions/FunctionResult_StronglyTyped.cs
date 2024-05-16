@@ -1,7 +1,8 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Functions;
 
-public class Example77_StronglyTypedFunctionResult : BaseTest
+public class FunctionResult_StronglyTyped(ITestOutputHelper output) : BaseTest(output)
 {
+    //[Fact(Skip = "Prompt Optimize")]
     [Fact]
     public async Task RunAsync()
     {
@@ -11,29 +12,26 @@ public class Example77_StronglyTypedFunctionResult : BaseTest
 
         string promptTestDataGeneration = "Return a JSON with an array of 3 JSON objects with the following fields: "
             + "First, an id field with a random GUID, next a name field with a random company name and last a description field with a random short company description. "
-            + "Ensure the JSON is valid and it contains a JSON array named testcompanies with the three fields.";
+            + "Ensure the JSON is valid and it contains a JSON array named testcompanies with the three fields."
+            + "ONLY output the JSON content, DO NOT add any other texts and markdown Code block!";
 
-        Stopwatch stopwatch = new Stopwatch();
+        Stopwatch stopwatch = new();
         stopwatch.Start();
 
         FunctionResult functionResult = await kernel.InvokePromptAsync(promptTestDataGeneration);
 
         stopwatch.Stop();
 
-        FunctionResultTestDataGen functionResultTestDataGen = new FunctionResultTestDataGen(functionResult, stopwatch.ElapsedMilliseconds);
+        FunctionResultTestDataGen functionResultTestDataGen = new(functionResult, stopwatch.ElapsedMilliseconds);
 
-        this.WriteLine($"Test data: {functionResultTestDataGen.Result} \n");
-        this.WriteLine($"Milliseconds: {functionResultTestDataGen.ExecutionTimeInMilliseconds} \n");
-        this.WriteLine($"Total Tokens:{functionResultTestDataGen.TokenCounts!.TotalTokens} \n");
-    }
-
-    public Example77_StronglyTypedFunctionResult(ITestOutputHelper output) : base(output)
-    {
+        Console.WriteLine($"Test data: {functionResultTestDataGen.Result} \n");
+        Console.WriteLine($"Milliseconds: {functionResultTestDataGen.ExecutionTimeInMilliseconds} \n");
+        Console.WriteLine($"Total Tokens:{functionResultTestDataGen.TokenCounts!.TotalTokens} \n");
     }
 
     private sealed class RootObject
     {
-        public List<TestCompany> TestCompanies { get; set; } = new List<TestCompany>();
+        public List<TestCompany> TestCompanies { get; set; } = [];
     }
 
     public sealed class TestCompany
@@ -61,10 +59,7 @@ public class Example77_StronglyTypedFunctionResult : BaseTest
 
         private List<TestCompany> ParaseTestCompanies()
         {
-            RootObject? rootObject = JsonSerializer.Deserialize<RootObject>(this.Result, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
+            RootObject? rootObject = JsonSerializer.Deserialize<RootObject>(this.Result);
 
             List<TestCompany> companies = rootObject!.TestCompanies;
 
@@ -82,20 +77,13 @@ public class Example77_StronglyTypedFunctionResult : BaseTest
         }
     }
 
-    private sealed class TokenCounts
+    private sealed class TokenCounts(int completionTokens, int promptTokens, int totalTokens)
     {
-        public int CompletionTokens { get; set; }
+        public int CompletionTokens { get; set; } = completionTokens;
 
-        public int PromptTokens { get; set; }
+        public int PromptTokens { get; set; } = promptTokens;
 
-        public int TotalTokens { get; set; }
-
-        public TokenCounts(int completionTokens, int promptTokens, int totalTokens)
-        {
-            this.CompletionTokens = completionTokens;
-            this.PromptTokens = promptTokens;
-            this.TotalTokens = totalTokens;
-        }
+        public int TotalTokens { get; set; } = totalTokens;
     }
 
     private class FunctionResultExtended
