@@ -74,8 +74,7 @@ public abstract class BaseTest
     /// </summary>
     /// <param name="format">Format string</param>
     /// <param name="args">Arguments</param>
-    public void WriteLine(string? format, params object?[] args)
-        => this.Output.WriteLine(format ?? string.Empty, args);
+    public void WriteLine(string? format, params object?[] args) => this.Output.WriteLine(format);// ?? string.Empty, args);
 
     /// <summary>
     /// Current interface ITestOutputHelper does not have a Write method. This extension method adds it to make it analogous to Console.Write when used in Console apps.
