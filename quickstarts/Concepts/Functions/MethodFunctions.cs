@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Functions;
 
-public class Example01_MethodFunctions(ITestOutputHelper output) : BaseTest(output)
+public class MethodFunctions(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public Task RunAsync()
