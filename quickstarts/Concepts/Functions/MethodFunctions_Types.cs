@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace Functions;
 
-public class Example09_FunctionTypes(ITestOutputHelper output) : BaseTest(output)
+public class MethodFunctions_Types(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()

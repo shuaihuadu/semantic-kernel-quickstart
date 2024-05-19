@@ -1,4 +1,4 @@
-﻿namespace KernelSyntaxExamples.Plugins;
+﻿namespace Resources.Plugins;
 
 internal sealed class LocalExamplePlugin
 {

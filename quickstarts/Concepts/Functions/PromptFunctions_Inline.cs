@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Functions;
 
-public class Example05_InlineFunctionDefinition(ITestOutputHelper output) : BaseTest(output)
+public class PromptFunctions_Inline(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()

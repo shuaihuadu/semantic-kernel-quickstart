@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace Functions;
 
-public class Example56_TemplateMethodFunctionsWithMultipleArguments(ITestOutputHelper output) : BaseTest(output)
+public class PromptFunctions_MultipleArguments(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()

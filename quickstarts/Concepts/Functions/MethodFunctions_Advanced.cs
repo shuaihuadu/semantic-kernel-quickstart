@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace Functions;
 
-public class Example60_AdvancedMethodFunctions(ITestOutputHelper output) : BaseTest(output)
+public class MethodFunctions_Advanced(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task MethodFunctionsChainingAsync()
