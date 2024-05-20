@@ -1,6 +1,9 @@
-﻿namespace KernelSyntaxExamples;
+﻿using Microsoft.SemanticKernel.Services;
+using System.Diagnostics.CodeAnalysis;
 
-public class Example62_CustomAIServiceSelector(ITestOutputHelper output) : BaseTest(output)
+namespace KernelSyntaxExamples;
+
+public class CustomAIServiceSelector(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()

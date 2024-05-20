@@ -1,6 +1,6 @@
 ﻿namespace KernelSyntaxExamples;
 
-public class Example58_ConfigureExecutionSettings(ITestOutputHelper output) : BaseTest(output)
+public class ConfigureExecutionSettings(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
