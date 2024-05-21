@@ -91,5 +91,8 @@
 	<ItemGroup>
 		<Using Include="Xunit" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Memory\" />
+	</ItemGroup>
 
 </Project>
