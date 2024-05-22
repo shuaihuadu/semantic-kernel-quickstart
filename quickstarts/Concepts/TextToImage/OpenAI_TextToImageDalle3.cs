@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace TextToImage;
 
-public class Example18_DallE(ITestOutputHelper output) : BaseTest(output)
+public class OpenAI_TextToImageDalle3(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
