@@ -2,20 +2,39 @@
 
 public class MultipleProviders_ChatCompletion(ITestOutputHelper output) : BaseTest(output)
 {
-    // # Ollama https://ollama.com
-    // 1.docker pull ollama/ollama
-    // 2.CPU only: docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
-    // 3.Run a model : docker exec -it ollama ollama run llama2
-    //                 docker exec -it ollama ollama run llama3
-    //                 docker exec -it ollama ollama run phi3
-    //                 docker exec -it ollama ollama run mistral
-    // https://ollama.com/library
+    [Theory]
+    [InlineData("Ollama", "http://localhost:19888", "phi3")]
+    public async Task LocalModel_ExampleAsync(string messageAPIPlatform, string url, string modelId)
+    {
+        Console.WriteLine($"Example using local {messageAPIPlatform}");
+
+        var kernel = Kernel.CreateBuilder()
+            .AddOpenAIChatCompletion(
+                modelId: modelId,
+                apiKey: null,
+                endpoint: new Uri(url))
+            .Build();
+
+        var prompt = @"请使用简体中文将三个```之间的文本重写为商务邮件。使用专业的语气，清晰简洁。
+                   设置邮件签名为：AI Assistant.
+                   文本: ```{{$input}}```";
+
+        var mailFunction = kernel.CreateFunctionFromPrompt(prompt, new OpenAIPromptExecutionSettings
+        {
+            TopP = 0.5,
+            MaxTokens = 1000,
+        });
+
+        var response = await kernel.InvokeAsync(mailFunction, new() { ["input"] = "告诉张三，我将在本周末前完成商业计划。" });
+
+        Console.WriteLine(response);
+    }
 
     [Theory]
     //[InlineData("LMStudio", "http://localhost:1234", "llama2")]
-    [InlineData("Ollama", "http://localhost:11434", "llama2")]
+    [InlineData("Ollama", "http://localhost:19888", "phi3")]
     //[InlineData("LocalAI", "http://localhost:8080", "phi-2")]
-    public async Task LocalModel_ExampleAsync(string messageAPIPlatform, string url, string modelId)
+    public async Task LocalModel_Example1Async(string messageAPIPlatform, string url, string modelId)
     {
         Console.WriteLine($"Example using local {messageAPIPlatform}");
 
