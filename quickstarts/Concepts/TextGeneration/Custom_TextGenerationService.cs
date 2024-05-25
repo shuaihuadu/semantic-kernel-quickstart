@@ -1,7 +1,6 @@
-﻿
-namespace KernelSyntaxExamples;
+﻿namespace TextGeneration;
 
-public class Example16_CustomLLM(ITestOutputHelper output) : BaseTest(output)
+public class Custom_TextGenerationService(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
@@ -11,7 +10,9 @@ public class Example16_CustomLLM(ITestOutputHelper output) : BaseTest(output)
         await CustomTextGenerationStreamAsync();
     }
 
-    private async Task CustomTextGenerationWithKernelFunctionAsync()
+
+    [Fact]
+    public async Task CustomTextGenerationWithKernelFunctionAsync()
     {
         this.WriteLine("\n======== Custom LLM - Text Completion - KernelFunction ========");
 
@@ -34,7 +35,9 @@ public class Example16_CustomLLM(ITestOutputHelper output) : BaseTest(output)
         this.WriteLine(result.GetValue<string>());
     }
 
-    private async Task CustomTextGenerationAsync()
+
+    [Fact]
+    public async Task CustomTextGenerationAsync()
     {
         this.WriteLine("\n======== Custom LLM  - Text Completion - Raw ========");
 
@@ -49,7 +52,9 @@ public class Example16_CustomLLM(ITestOutputHelper output) : BaseTest(output)
         this.WriteLine(result);
     }
 
-    private async Task CustomTextGenerationStreamAsync()
+
+    [Fact]
+    public async Task CustomTextGenerationStreamAsync()
     {
         this.WriteLine("\n======== Custom LLM  - Text Completion - Raw Streaming ========");
 

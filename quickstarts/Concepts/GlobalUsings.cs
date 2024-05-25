@@ -16,6 +16,7 @@ global using Microsoft.SemanticKernel.Connectors.OpenAI;
 global using Microsoft.SemanticKernel.ImageToText;
 global using Microsoft.SemanticKernel.Memory;
 global using Microsoft.SemanticKernel.Plugins.Core;
+global using Microsoft.SemanticKernel.TextGeneration;
 global using Microsoft.SemanticKernel.TextToAudio;
 global using Microsoft.SemanticKernel.TextToImage;
 global using Resources;

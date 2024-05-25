@@ -1,18 +1,9 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace TextGeneration;
 
-public class Example32_StreamingCompletion(ITestOutputHelper output) : BaseTest(output)
+public class OpenAI_TextGenerationStreaming(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
-    public async Task RunAsync()
-    {
-        //text-davinci-003 已弃用
-
-        await AzureOpenAITextGenerationStreamAsync();
-
-        //await OpenAITextGenerationStreamAsync();
-    }
-
-    private async Task AzureOpenAITextGenerationStreamAsync()
+    public async Task AzureOpenAITextGenerationStreamAsync()
     {
         this.WriteLine("======== Azure OpenAI - Text Completion - Raw Streaming ========");
 
@@ -25,7 +16,8 @@ public class Example32_StreamingCompletion(ITestOutputHelper output) : BaseTest(
         await TextGenerationStreamAsync(chatCompletionService);
     }
 
-    private async Task OpenAITextGenerationStreamAsync()
+    [Fact]
+    public async Task OpenAITextGenerationStreamAsync()
     {
         this.WriteLine("======== Open AI - Text Completion - Raw Streaming ========");
 
