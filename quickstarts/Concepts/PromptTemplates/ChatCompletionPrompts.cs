@@ -1,6 +1,6 @@
-﻿namespace KernelSyntaxExamples;
+﻿namespace PromptTemplates;
 
-public class Example63_ChatCompletionPrompts(ITestOutputHelper output) : BaseTest(output)
+public class ChatCompletionPrompts(ITestOutputHelper output) : BaseTest(output)
 {
     [Fact]
     public async Task RunAsync()
