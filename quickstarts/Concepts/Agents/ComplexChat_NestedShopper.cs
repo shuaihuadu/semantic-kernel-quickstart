@@ -1,5 +1,5 @@
-﻿using Azure.AI.OpenAI;
-using Microsoft.SemanticKernel.Agents.Chat;
+﻿using Microsoft.SemanticKernel.Agents.Chat;
+using ChatCompletionAgent = Microsoft.SemanticKernel.Agents.ChatCompletionAgent;
 
 namespace Agents;
 

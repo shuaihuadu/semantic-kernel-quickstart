@@ -1,4 +1,5 @@
 ﻿using Microsoft.SemanticKernel.Agents.Chat;
+using ChatCompletionAgent = Microsoft.SemanticKernel.Agents.ChatCompletionAgent;
 
 namespace Agents;
 
