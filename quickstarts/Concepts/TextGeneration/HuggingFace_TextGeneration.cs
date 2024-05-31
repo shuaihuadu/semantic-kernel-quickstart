@@ -2,14 +2,16 @@
 
 public class HuggingFace_TextGeneration(ITestOutputHelper output) : BaseTest(output)
 {
-    [Fact(Skip = "TODO Hugging Face ")]
+    [Fact]
     public async Task RunInferenceApiExampleAsync()
     {
         this.WriteLine("\n======== HuggingFace Inference API example ========\n");
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddHuggingFaceTextGeneration(
-                model: TestConfiguration.HuggingFace.ModelId,
+                //model: "microsoft/phi-2",
+                model: "gpt2",
+                //model: "mistralai/Mistral-7B-Instruct-v0.3",
                 apiKey: TestConfiguration.HuggingFace.ApiKey)
             .Build();
 
@@ -20,7 +22,7 @@ public class HuggingFace_TextGeneration(ITestOutputHelper output) : BaseTest(out
         this.WriteLine(result.GetValue<string>());
     }
 
-    [RetryFact(typeof(HttpOperationException), Skip = "TODO Hugging Face ")]
+    [RetryFact(typeof(HttpOperationException))]
     public async Task RunStreamingExampleAsync()
     {
         const string Model = "HuggingFaceH4/zephyr-7b-beta";
@@ -47,8 +49,8 @@ public class HuggingFace_TextGeneration(ITestOutputHelper output) : BaseTest(out
         };
     }
 
-    [Fact(Skip = "Requires local model or Huggingface Pro subscription")]
-    private async Task RunLlamaExampleAsync()
+    [Fact]
+    public async Task RunLlamaExampleAsync()
     {
         Console.WriteLine("\n======== HuggingFace Llama 2 example ========\n");
 

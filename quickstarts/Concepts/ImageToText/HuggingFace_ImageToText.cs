@@ -5,7 +5,7 @@ public class HuggingFace_ImageToText(ITestOutputHelper output) : BaseTest(output
     private const string ImageToTextModel = "Salesforce/blip-image-captioning-base";
     private const string ImageFilePath = "test_image.jpg";
 
-    [Fact(Skip = "TODO Hugging Face ")]
+    [Fact]
     public async Task ImageToTextAsync()
     {
         Kernel kernel = Kernel.CreateBuilder()
@@ -13,7 +13,6 @@ public class HuggingFace_ImageToText(ITestOutputHelper output) : BaseTest(output
                 model: ImageToTextModel,
                 apiKey: TestConfiguration.HuggingFace.ApiKey)
             .Build();
-
 
         IImageToTextService imageToText = kernel.GetRequiredService<IImageToTextService>();
 
@@ -24,7 +23,10 @@ public class HuggingFace_ImageToText(ITestOutputHelper output) : BaseTest(output
 
         ReadOnlyMemory<byte> imageData = await EmbeddedResource.ReadAllAsync(ImageFilePath);
 
-        ImageContent imageContent = new(new BinaryData(imageData), "image/jpeg");
+        ImageContent imageContent = new(new BinaryData(imageData))
+        {
+            MimeType = "image/jpeg"
+        };
 
         TextContent textContent = await imageToText.GetTextContentAsync(imageContent, executionSettings);
 

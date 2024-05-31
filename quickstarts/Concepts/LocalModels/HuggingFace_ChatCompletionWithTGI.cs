@@ -2,19 +2,19 @@
 
 public class HuggingFace_ChatCompletionWithTGI(ITestOutputHelper output) : BaseTest(output)
 {
-
     [Fact(Skip = "Requires TGI (text generation inference) deployment")]
     public async Task RunTGI_ChatCompletionAsync()
     {
         WriteLine("\n======== HuggingFace - TGI Chat Completion ========\n");
 
-        Uri endpoint = new Uri("http://localhost:8000");
+        Uri endpoint = new Uri("http://localhost:8080");
 
-        const string Model = "teknium/OpenHermes-2.5-Mistral-7B";
+        const string Model = "tgi";
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddHuggingFaceChatCompletion(
                 model: Model,
+                apiKey: TestConfiguration.HuggingFace.ApiKey,
                 endpoint: endpoint)
             .Build();
 
@@ -36,13 +36,15 @@ public class HuggingFace_ChatCompletionWithTGI(ITestOutputHelper output) : BaseT
     {
         WriteLine("\n======== HuggingFace - TGI Chat Completion Streaming ========\n");
 
-        Uri endpoint = new Uri("http://localhost:8000");
+        Uri endpoint = new Uri("http://localhost:8080");
 
-        const string Model = "teknium/OpenHermes-2.5-Mistral-7B";
+        const string Model = "tgi";
+
 
         Kernel kernel = Kernel.CreateBuilder()
             .AddHuggingFaceChatCompletion(
                 model: Model,
+                apiKey: TestConfiguration.HuggingFace.ApiKey,
                 endpoint: endpoint)
             .Build();
 
