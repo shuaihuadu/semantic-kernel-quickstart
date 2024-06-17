@@ -5,7 +5,7 @@ public class Arguments(ITestOutputHelper output) : BaseTest(output)
     [Fact]
     public async Task RunAsync()
     {
-        this.WriteLine("======== Arguments ========");
+        Console.WriteLine("======== Arguments ========");
 
         Kernel kernel = new();
 
@@ -18,14 +18,14 @@ public class Arguments(ITestOutputHelper output) : BaseTest(output)
         };
 
         string? resultValue = await kernel.InvokeAsync<string>(textPlugin["AppendDay"], arguments);
-        this.WriteLine($"string -> {resultValue}");
+        Console.WriteLine($"string -> {resultValue}");
 
         FunctionResult functionResult = await kernel.InvokeAsync(textPlugin["AppendDay"], arguments);
 
         var metadata = functionResult.Metadata;
 
-        this.WriteLine($"FunctionResult.GetValue<string>() -> {functionResult.GetValue<string>()}");
+        Console.WriteLine($"FunctionResult.GetValue<string>() -> {functionResult.GetValue<string>()}");
 
-        this.WriteLine($"FunctionResult.ToString() -> {functionResult}");
+        Console.WriteLine($"FunctionResult.ToString() -> {functionResult}");
     }
 }
