@@ -1,6 +1,4 @@
-﻿using Microsoft.SemanticKernel.Experimental.Agents;
-
-namespace Agents;
+﻿namespace Agents;
 
 public class Legacy_AgentTools(ITestOutputHelper output) : BaseTest(output)
 {
