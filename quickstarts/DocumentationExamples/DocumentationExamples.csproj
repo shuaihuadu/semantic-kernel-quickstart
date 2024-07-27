@@ -35,8 +35,8 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
 		<PackageReference Include="Microsoft.SemanticKernel" Version="1.16.1" />
-		<PackageReference Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.16.0-preview" />
-		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.16.0-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.16.1-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.16.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.16.1" />
 		<PackageReference Include="Microsoft.SemanticKernel.Yaml" Version="1.16.1" />
 		<PackageReference Include="xRetry" Version="1.9.0" />

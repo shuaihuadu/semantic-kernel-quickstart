@@ -25,29 +25,29 @@
 		<PackageReference Include="Microsoft.ML.Tokenizers" Version="0.22.0-preview.24271.1" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
 		<PackageReference Include="Microsoft.SemanticKernel" Version="1.16.1" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.OpenAI" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAISearch" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Chroma" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.DuckDB" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.HuggingFace" Version="1.16.0-preview" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Kusto" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Milvus" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.MongoDB" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Onnx" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Pinecone" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Postgres" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Redis" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Sqlite" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Weaviate" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.16.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.16.0-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.OpenAI" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAISearch" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Chroma" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.DuckDB" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.HuggingFace" Version="1.16.1-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Kusto" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Milvus" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.MongoDB" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Onnx" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Pinecone" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Postgres" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Redis" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Sqlite" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Weaviate" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.16.1-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.16.1-alpha" />
 		<PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.16.1" />
-		<PackageReference Include="Microsoft.SemanticKernel.Prompty" Version="1.16.0-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Prompty" Version="1.16.1-alpha" />
 		<PackageReference Include="xRetry" Version="1.9.0" />
 		<PackageReference Include="xunit" Version="2.9.0" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
