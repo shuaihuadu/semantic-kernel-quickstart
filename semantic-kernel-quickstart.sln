@@ -50,7 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Concepts", "quickstarts\Con
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{D90CB10E-79F9-4E58-B8D2-4B3A2F231FE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuggingFaceImageToText", "quickstarts\HuggingFaceImageToText\HuggingFaceImageToText.csproj", "{9E7849D3-BE2E-4F81-B1A7-6BC85D9C2C15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuggingFaceImageToText", "quickstarts\HuggingFaceImageToText\HuggingFaceImageToText.csproj", "{9E7849D3-BE2E-4F81-B1A7-6BC85D9C2C15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
