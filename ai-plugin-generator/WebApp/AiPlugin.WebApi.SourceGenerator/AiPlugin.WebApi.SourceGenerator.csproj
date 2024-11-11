@@ -9,6 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="AiPluginApiGenerator.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Include="..\..\AzureFunctions\AiPlugin.Functions.SourceGenerator\SemanticKernel\AI\PromptExecutionSettings.cs" Link="SemanticKernel\AI\PromptExecutionSettings.cs" />
 	  <Compile Include="..\..\AzureFunctions\AiPlugin.Functions.SourceGenerator\SemanticKernel\PromptTemplate\InputVariable.cs" Link="SemanticKernel\PromptTemplate\InputVariable.cs" />
 	  <Compile Include="..\..\AzureFunctions\AiPlugin.Functions.SourceGenerator\SemanticKernel\PromptTemplate\OutputVariable.cs" Link="SemanticKernel\PromptTemplate\OutputVariable.cs" />
@@ -16,7 +20,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
+	  <Content Include="AiPluginApiGenerator.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

@@ -21,10 +21,12 @@ public class Example78_RAG : BaseTest
     {
         ISemanticTextMemory memory = new MemoryBuilder()
             .WithMemoryStore(new ChromaMemoryStore("http://localhost:8000"))
-            .WithAzureOpenAITextEmbeddingGeneration(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey)
+            .WithOpenAITextEmbeddingGeneration(
+                //deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
+                //endpoint: TestConfiguration.AzureOpenAI.Endpoint,
+                //apiKey: TestConfiguration.AzureOpenAI.ApiKey
+                modelId: string.Empty,
+                 apiKey: string.Empty)
             .Build();
 
 

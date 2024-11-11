@@ -1,4 +1,6 @@
-﻿namespace ChatCompletion;
+﻿using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
+
+namespace ChatCompletion;
 
 public class OpenAI_ChatCompletionStreaming(ITestOutputHelper output) : BaseTest(output)
 {

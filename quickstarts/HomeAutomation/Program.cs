@@ -1,4 +1,6 @@
-﻿namespace HomeAutomation;
+﻿using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
+
+namespace HomeAutomation;
 
 internal class Program
 {

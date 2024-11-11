@@ -1,4 +1,6 @@
-﻿namespace SharedLibrary;
+﻿using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
+
+namespace SharedLibrary;
 
 public class KernelHelper
 {

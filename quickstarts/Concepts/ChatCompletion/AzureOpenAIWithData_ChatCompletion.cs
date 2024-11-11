@@ -1,4 +1,7 @@
-﻿namespace ChatCompletion;
+﻿using Azure.AI.OpenAI.Chat;
+using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
+
+namespace ChatCompletion;
 
 public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : BaseTest(output)
 {
@@ -9,40 +12,57 @@ public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : Base
     {
         Console.WriteLine("=== Example with Chat Completion ===");
 
-        AzureOpenAIChatCompletionWithDataService chatCompletionWithDataService = new(GetCompletionWithDataConfig());
+        Kernel kernel = Kernel.CreateBuilder()
+            .AddAzureOpenAIChatCompletion(
+            TestConfiguration.AzureOpenAI.DeploymentName,
+            TestConfiguration.AzureOpenAI.Endpoint,
+            TestConfiguration.AzureOpenAI.ApiKey)
+            .Build();
 
         ChatHistory chatHistory = [];
 
-        //string ask = "How did Emily and David meet?";
-        string ask = "How many hotels?";
+        string ask = "How did Emily and David meet?";
+
         chatHistory.AddUserMessage(ask);
 
-        AzureOpenAIWithDataChatMessageContent chatMessage = (AzureOpenAIWithDataChatMessageContent)await chatCompletionWithDataService.GetChatMessageContentAsync(chatHistory);
+        AzureSearchChatDataSource dataSource = GetAzureSearchChatDataSource();
+
+        AzureOpenAIPromptExecutionSettings promptExecutionSettings = new AzureOpenAIPromptExecutionSettings
+        {
+            AzureChatDataSource = dataSource
+        };
+
+        IChatCompletionService chatCompletion = kernel.GetRequiredService<IChatCompletionService>();
+
+        ChatMessageContent chatMessage = await chatCompletion.GetChatMessageContentAsync(chatHistory, promptExecutionSettings);
 
         string response = chatMessage.Content!;
-        string? toolResponse = chatMessage.ToolContent;
 
         Console.WriteLine($"Ask: {ask}");
         Console.WriteLine($"Response: {response}");
-        Console.WriteLine();
 
-        if (!string.IsNullOrEmpty(toolResponse))
-        {
-            chatHistory.AddMessage(AuthorRole.Tool, toolResponse);
-        }
+        IReadOnlyList<ChatCitation> citations = GetChatCitations(chatMessage);
+
+        OutputCitations(citations);
+
+        Console.WriteLine();
 
         chatHistory.AddAssistantMessage(response);
 
-        //ask = "What are Emily and David studying?";
-        ask = "Where is the Triple Landscape Hotel?";
+        ask = "What are Emily and David studying?";
+        chatHistory.AddUserMessage(ask);
 
         Console.WriteLine($"Ask: {ask}");
         Console.WriteLine("Response: ");
 
-        await foreach (var word in chatCompletionWithDataService.GetStreamingChatMessageContentsAsync(chatHistory))
+        await foreach (var word in chatCompletion.GetStreamingChatMessageContentsAsync(chatHistory, promptExecutionSettings))
         {
             Console.Write(word);
         }
+
+        citations = GetChatCitations(chatMessage);
+
+        OutputCitations(citations);
 
         Console.WriteLine(Environment.NewLine);
     }
@@ -52,13 +72,13 @@ public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : Base
     {
         Console.WriteLine("=== Example with Kernel ===");
 
-        //string ask = "How did Emily and David meet?";
-        string ask = "How many hotels?";
-
-        AzureOpenAIChatCompletionWithDataConfig completionWithDataConfig = GetCompletionWithDataConfig();
+        string ask = "How did Emily and David meet?";
 
         Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(config: completionWithDataConfig)
+            .AddAzureOpenAIChatCompletion(
+                TestConfiguration.AzureOpenAI.DeploymentName,
+                TestConfiguration.AzureOpenAI.Endpoint,
+                TestConfiguration.AzureOpenAI.ApiKey)
             .Build();
 
         KernelFunction function = kernel.CreateFunctionFromPrompt("Question: {{$input}}");
@@ -78,18 +98,36 @@ public class AzureOpenAIWithData_ChatCompletion(ITestOutputHelper output) : Base
         Console.WriteLine();
     }
 
-    private static AzureOpenAIChatCompletionWithDataConfig GetCompletionWithDataConfig()
+    private static AzureSearchChatDataSource GetAzureSearchChatDataSource()
     {
-        //TestConfiguration.Initialize();
-
-        return new AzureOpenAIChatCompletionWithDataConfig
+        return new AzureSearchChatDataSource
         {
-            CompletionModelId = TestConfiguration.AzureOpenAI.DeploymentName,
-            CompletionEndpoint = TestConfiguration.AzureOpenAI.Endpoint,
-            CompletionApiKey = TestConfiguration.AzureOpenAI.ApiKey,
-            DataSourceEndpoint = TestConfiguration.AzureAISearch.Endpoint,
-            DataSourceApiKey = TestConfiguration.AzureAISearch.ApiKey,
-            DataSourceIndex = TestConfiguration.AzureAISearch.IndexName
+            Endpoint = new Uri(TestConfiguration.AzureAISearch.Endpoint),
+            Authentication = DataSourceAuthentication.FromApiKey(TestConfiguration.AzureAISearch.ApiKey),
+            IndexName = TestConfiguration.AzureAISearch.IndexName
         };
+    }
+
+    private static IReadOnlyList<ChatCitation> GetChatCitations(ChatMessageContent chatMessageContent)
+    {
+        OpenAI.Chat.ChatCompletion? message = chatMessageContent.InnerContent as OpenAI.Chat.ChatCompletion;
+
+        ChatMessageContext messageContext = message.GetMessageContext();
+
+        return messageContext.Citations;
+    }
+
+    private void OutputCitations(IReadOnlyList<ChatCitation> citations)
+    {
+        Console.WriteLine("Citations:");
+
+        foreach (var citation in citations)
+        {
+            Console.WriteLine($"Chunk ID: {citation.ChunkId}");
+            Console.WriteLine($"Title: {citation.Title}");
+            Console.WriteLine($"File Path:{citation.FilePath}");
+            Console.WriteLine($"URI:{citation.Uri}");
+            Console.WriteLine($"Content: {citation.Content}");
+        }
     }
 }
