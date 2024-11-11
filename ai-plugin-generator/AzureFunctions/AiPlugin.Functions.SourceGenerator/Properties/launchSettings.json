@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "AiPlugin-SourceGenerator-Debug": {
-      "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\AiPlugin\\AiPlugin.csproj"
-    }
-  }
-}

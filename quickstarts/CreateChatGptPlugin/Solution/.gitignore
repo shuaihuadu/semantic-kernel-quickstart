@@ -1,8 +1,0 @@
-appsettings.json
-appsettings.Develpoment.json
-bin
-obj
-*.ini
-*.cache
-*.log
-*.tmp

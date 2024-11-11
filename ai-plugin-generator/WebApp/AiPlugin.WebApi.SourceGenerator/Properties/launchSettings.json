@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "AiPlugin.WebApi.SourceGenerator-Debug": {
-      "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\AiPlugin.Web\\AiPlugin.Web.csproj"
-    }
-  }
-}

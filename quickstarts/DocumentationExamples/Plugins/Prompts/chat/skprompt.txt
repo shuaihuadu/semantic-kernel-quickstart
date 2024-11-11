@@ -1,3 +1,0 @@
-﻿{{ConversationSummaryPlugin.SummarizeConversation $history}}
-User: {{$request}}
-Assistant:
