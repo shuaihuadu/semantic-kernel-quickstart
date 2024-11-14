@@ -1,0 +1,5 @@
+<Project>
+	<ItemGroup>
+		<Compile Include="$(SolutionDir)/InternalUtilities/**/*.cs" Link="InternalUtilities/%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+</Project>
