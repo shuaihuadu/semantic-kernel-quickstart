@@ -36,7 +36,9 @@ public class AzureOpenAI_ChatCompletion : BaseTest
 
         string systemMessage = "你是一个专业的数据分析专家，尤其擅长汽车行业的数据分析和预测，可以帮我完成复杂的数据分析和预测工作，请使用中文与我交流。";
 
-        string prompt = $"请分析下面数据，并帮我定制一个合理的计划：{Environment.NewLine}{markdown}";
+        string prompt = $"请分析下面数据，并帮我定制一个合理的生产计划安排，请做出具体的报表，并用表格输出相关的数据。" +
+            $"请分析库存现状、计划准确率、具体产品的库存和市场需求，对于产品的生产数量给出合理的具体的数字值。" +
+            $"需要分析的数据如下：{Environment.NewLine}{markdown}";
 
         ChatHistory chatHistory = [];
 
@@ -57,6 +59,7 @@ public class AzureOpenAI_ChatCompletion : BaseTest
             foreach (var message in chatHistory)
             {
                 await writer.WriteLineAsync(message.Content);
+                await writer.WriteLineAsync();
             }
         }
 
