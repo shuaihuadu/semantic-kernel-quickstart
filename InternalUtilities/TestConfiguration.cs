@@ -94,6 +94,7 @@ public sealed class TestConfiguration
     {
         public string ConnectionString { get; set; }
         public string ChatModelId { get; set; }
+        public string ApiKey { get; set; }
     }
 
     public class AzureOpenAIConfig

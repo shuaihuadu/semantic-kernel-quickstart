@@ -14,7 +14,7 @@
     protected void AddChatCompletionToKernel(IKernelBuilder builder)
     {
         builder.AddAzureOpenAIChatCompletion(
-            TestConfiguration.AzureOpenAI.ChatDeploymentName,
+            TestConfiguration.AzureOpenAI.DeploymentName,
             TestConfiguration.AzureOpenAI.Endpoint,
             TestConfiguration.AzureOpenAI.ApiKey);
     }

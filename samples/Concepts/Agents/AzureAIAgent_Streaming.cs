@@ -6,7 +6,7 @@ namespace Agents;
 [TestClass]
 public class AzureAIAgent_Streaming : BaseAzureAgentTest
 {
-
+    //https://learn.microsoft.com/zh-cn/azure/ai-services/agents/concepts/model-region-support
     [TestMethod]
     public async Task UseStreamingAgentAsync()
     {
@@ -145,6 +145,7 @@ Special Drink: Chai Tea
 ";
         }
 
+        [KernelFunction, Description("Provides the price of the requested menu item.")]
         public string GetItemPrice([Description("The name of the menu item.")] string menuItem)
         {
             return "$9.99";
