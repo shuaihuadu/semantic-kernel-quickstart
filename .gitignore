@@ -12,3 +12,4 @@
 /.idea
 appsettings.Production.json
 /quickstarts/KernelSyntaxExamples/OwnerExamples/result.txt
+/samples/Concepts/ChatCompletion/AzureOpenAI_DeploymentVerify.cs
