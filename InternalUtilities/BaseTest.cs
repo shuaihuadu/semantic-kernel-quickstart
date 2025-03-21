@@ -1,7 +1,4 @@
-﻿
-using Microsoft.SemanticKernel.ChatCompletion;
-
-public abstract class BaseTest
+﻿public abstract class BaseTest
 {
     protected readonly ILogger Logger;
 
@@ -25,7 +22,7 @@ public abstract class BaseTest
     protected BaseTest()
     {
         IConfigurationRoot configRoot = new ConfigurationBuilder()
-            .AddJsonFile(@"D:\appsettings\test_configuration.json", true)
+            .AddJsonFile(@"D:\appsettings\semantic-kernel-quickstart.json", true)
             .Build();
 
         TestConfiguration.Initialize(configRoot);

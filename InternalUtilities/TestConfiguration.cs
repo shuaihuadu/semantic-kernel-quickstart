@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-using Microsoft.Extensions.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -24,6 +23,7 @@ public sealed class TestConfiguration
     public static OnnxConfig Onnx => LoadSection<OnnxConfig>();
     public static AzureOpenAIConfig AzureOpenAI => LoadSection<AzureOpenAIConfig>();
     public static AzureAIInferenceConfig AzureAIInference => LoadSection<AzureAIInferenceConfig>();
+    public static AzureAIConfig AzureAI => LoadSection<AzureAIConfig>();
     public static AzureOpenAIConfig AzureOpenAIImages => LoadSection<AzureOpenAIConfig>();
     public static AzureOpenAIEmbeddingsConfig AzureOpenAIEmbeddings => LoadSection<AzureOpenAIEmbeddingsConfig>();
     public static AzureAISearchConfig AzureAISearch => LoadSection<AzureAISearchConfig>();
@@ -88,6 +88,12 @@ public sealed class TestConfiguration
         public string EmbeddingModelId { get; set; }
         public string EmbeddingModelPath { get; set; }
         public string EmbeddingVocabPath { get; set; }
+    }
+
+    public class AzureAIConfig
+    {
+        public string ConnectionString { get; set; }
+        public string ChatModelId { get; set; }
     }
 
     public class AzureOpenAIConfig

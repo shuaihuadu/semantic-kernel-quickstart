@@ -1,4 +1,4 @@
-namespace Concepts;
+namespace KernelSamples;
 
 [TestClass]
 public class BuildingKernel : BaseTest

@@ -11,32 +11,108 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="coverlet.collector" Version="6.0.2">
+	  <None Remove="Resources\22-ai-plugin.json" />
+	  <None Remove="Resources\22-openapi.json" />
+	  <None Remove="Resources\30-system-prompt.txt" />
+	  <None Remove="Resources\30-user-context.txt" />
+	  <None Remove="Resources\30-user-prompt.txt" />
+	  <None Remove="Resources\65-prompt-override.handlebars" />
+	  <None Remove="Resources\chat-gpt-retrieval-plugin-open-api.yaml" />
+	  <None Remove="Resources\GenerateStory.yaml" />
+	  <None Remove="Resources\GenerateStoryHandlebars.yaml" />
+	  <None Remove="Resources\HandlebarsPrompt.yaml" />
+	  <None Remove="Resources\LiquidPrompt.yaml" />
+	  <None Remove="Resources\sales.csv" />
+	  <None Remove="Resources\sample_image.jpg" />
+	  <None Remove="Resources\semantic-kernel-info.txt" />
+	  <None Remove="Resources\test_audio.wav" />
+	  <None Remove="Resources\test_image.jpg" />
+	  <None Remove="Resources\travelinfo.txt" />
+	  <None Remove="Resources\what-is-semantic-kernel.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\22-ai-plugin.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\22-openapi.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\30-system-prompt.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\30-user-context.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\30-user-prompt.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\65-prompt-override.handlebars">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\chat-gpt-retrieval-plugin-open-api.yaml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\GenerateStory.yaml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\GenerateStoryHandlebars.yaml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\HandlebarsPrompt.yaml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\LiquidPrompt.yaml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\sales.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\sample_image.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\semantic-kernel-info.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\test_audio.wav">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\test_image.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\travelinfo.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\what-is-semantic-kernel.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.AI.OpenAI" Version="2.2.0-beta.4" />
+		<PackageReference Include="Azure.Identity" Version="1.14.0-beta.2" />
+		<PackageReference Include="coverlet.collector" Version="6.0.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-		<PackageReference Include="Microsoft.SemanticKernel" Version="1.29.0" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAIInference" Version="1.29.0-beta" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.29.0" />
-		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.28.0-alpha" />
-		<PackageReference Include="MSTest.TestAdapter" Version="3.6.3" />
-		<PackageReference Include="MSTest.TestFramework" Version="3.6.3" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0-preview.2.25163.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.0-preview.2.25163.2" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0-preview-25107-01" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.42.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.42.0-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.AzureAI" Version="1.42.0-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.42.0-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.OpenAI" Version="1.42.0-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAIInference" Version="1.42.0-beta" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.42.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.42.0-alpha" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.9.0-preview.25167.10" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.9.0-preview.25167.10" />
+		<PackageReference Include="OpenAI" Version="2.2.0-beta.4" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="Services\Skills\Default\QnA\config.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Services\Skills\Default\QnA\skprompt.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 	<Import Project="$(SolutionDir)/InternalUtilities/SamplesInternalUtilities.props" />

@@ -1,22 +1,8 @@
-﻿using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
-
-namespace Concepts;
+﻿namespace ChatCompletion;
 
 [TestClass]
 public class AzureOpenAI_ChatCompletion : BaseTest
 {
-    [TestMethod]
-    public async Task ChatPromptAsync()
-    {
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddAzureOpenAIChatCompletion(
-                deploymentName: TestConfiguration.AzureOpenAI.DeploymentName,
-                endpoint: TestConfiguration.AzureOpenAI.Endpoint,
-                apiKey: TestConfiguration.AzureOpenAI.ApiKey
-            ).Build();
-    }
-
     [TestMethod]
     public async Task ServicePromptAsync()
     {
@@ -25,45 +11,7 @@ public class AzureOpenAI_ChatCompletion : BaseTest
             endpoint: TestConfiguration.AzureOpenAI.Endpoint,
             apiKey: TestConfiguration.AzureOpenAI.ApiKey);
 
-        //await StartChatAsync(chatCompletionService);
-        await this.StartChatWithDataAsync(chatCompletionService);
-    }
-
-
-    private async Task StartChatWithDataAsync(IChatCompletionService chatCompletionService)
-    {
-        string markdown = await this.ReadMarkdownAsync();
-
-        string systemMessage = "你是一个专业的数据分析专家，尤其擅长汽车行业的数据分析和预测，可以帮我完成复杂的数据分析和预测工作，请使用中文与我交流。";
-
-        string prompt = $"请分析下面数据，并帮我定制一个合理的生产计划安排，请做出具体的报表，并用表格输出相关的数据。" +
-            $"请分析库存现状、计划准确率、具体产品的库存和市场需求，对于产品的生产数量给出合理的具体的数字值。" +
-            $"需要分析的数据如下：{Environment.NewLine}{markdown}";
-
-        ChatHistory chatHistory = [];
-
-        chatHistory.AddSystemMessage(systemMessage);
-        chatHistory.AddUserMessage(prompt);
-
-        ChatMessageContentItemCollection messages = [];
-
-        messages.Add(new TextContent(markdown));
-
-        ChatMessageContent reply = await chatCompletionService.GetChatMessageContentAsync(chatHistory);
-        chatHistory.Add(reply);
-
-        string filePath = "C:\\Users\\shuai\\OneDrive\\Temp\\Z\\app\\result.md";
-
-        using (StreamWriter writer = new StreamWriter(filePath))
-        {
-            foreach (var message in chatHistory)
-            {
-                await writer.WriteLineAsync(message.Content);
-                await writer.WriteLineAsync();
-            }
-        }
-
-        OutputLastMessage(chatHistory);
+        await StartChatAsync(chatCompletionService);
     }
 
     private async Task StartChatAsync(IChatCompletionService chatCompletionService)
@@ -86,10 +34,5 @@ public class AzureOpenAI_ChatCompletion : BaseTest
         chatHistory.Add(reply);
 
         OutputLastMessage(chatHistory);
-    }
-
-    private async Task<string> ReadMarkdownAsync()
-    {
-        return await File.ReadAllTextAsync(@"C:\Users\shuai\OneDrive\Temp\Z\app\202501-BYD-TOP200-Row.md", System.Text.Encoding.UTF8);
     }
 }
