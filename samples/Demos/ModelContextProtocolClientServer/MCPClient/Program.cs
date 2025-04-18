@@ -1,9 +1,13 @@
 ﻿// Copyright (c) IdeaTech. All rights reserved.
 
 
+using Azure.AI.Projects;
+using Azure.Identity;
 using MCPClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Agents;
+using Microsoft.SemanticKernel.Agents.AzureAI;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 using ModelContextProtocol;
@@ -23,7 +27,7 @@ internal sealed class Program
 
         //await UseMCPResourceTemplateAsync();
 
-        await UseMCPSamplingAsync();
+        //await UseMCPSamplingAsync();
 
         //await UseChatCompletionAgentWithMCPToolsAsync();
 
@@ -184,6 +188,67 @@ internal sealed class Program
         Console.WriteLine();
     }
 
+    private static async Task UseChatCompletionAgentWithMCPToolsAsync()
+    {
+        Console.WriteLine($"Running the {nameof(UseChatCompletionAgentWithMCPToolsAsync)} sample.");
+
+        await using IMcpClient mcpClient = await CreateMcpClientAsync();
+
+        IList<McpClientTool> tools = await mcpClient.ListToolsAsync();
+
+        DisplayTools(tools);
+
+        Kernel kernel = CreateKernelWithChatCompletionService();
+        kernel.Plugins.AddFromFunctions("Tools", tools.Select(aiFunction => aiFunction.AsKernelFunction()));
+
+        AzureOpenAIPromptExecutionSettings executionSettings = new()
+        {
+            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new() { RetainArgumentTypes = true })
+        };
+
+        string prompt = "What is the likely color of the sky in Boston today?";
+        Console.WriteLine(prompt);
+
+        ChatCompletionAgent agent = new()
+        {
+            Instructions = "Answer questions about the weather.",
+            Name = "WeatherAgent",
+            Kernel = kernel,
+            Arguments = new KernelArguments(executionSettings)
+        };
+
+        ChatMessageContent response = await agent.InvokeAsync(prompt).FirstAsync();
+
+        Console.WriteLine(response);
+        Console.WriteLine();
+    }
+
+    private static async Task UseAzureAIAgentWithMCPToolsAsync()
+    {
+        Console.WriteLine($"Running the {nameof(UseAzureAIAgentWithMCPToolsAsync)}");
+
+        await using IMcpClient mcpClient = await CreateMcpClientAsync();
+
+        IList<McpClientTool> tools = await mcpClient.ListToolsAsync();
+        DisplayTools(tools);
+
+        Kernel kernel = new();
+        kernel.Plugins.AddFromFunctions("Tools", tools.Select(aiFunction => aiFunction.AsKernelFunction()));
+
+        AzureAIAgent agent = await CreateAzureAIAgentAsync(name: "WeatherAgent", instructions: "Answer questions about the weather.", kernel: kernel);
+
+        string prompt = "What is the likely color of the sky in Boston today?";
+        Console.WriteLine(prompt);
+
+        AgentResponseItem<ChatMessageContent> response = await agent.InvokeAsync(message: prompt).FirstAsync();
+        Console.WriteLine(response.Message);
+        Console.WriteLine();
+
+        await response!.Thread.DeleteAsync();
+
+        await agent.Client.DeleteAgentAsync(agent.Id);
+    }
+
     private static async Task<CreateMessageResult> SamplingRequestHandlerAsync(Kernel kernel, CreateMessageRequestParams? request, IProgress<ProgressNotificationValue> progress, CancellationToken cancellationToken)
     {
         if (request is null)
@@ -229,6 +294,28 @@ internal sealed class Program
         kernelBuilder.Services.AddAzureOpenAIChatCompletion(deploymentName, endpoint, apiKey);
 
         return kernelBuilder.Build();
+    }
+
+    private static async Task<AzureAIAgent> CreateAzureAIAgentAsync(Kernel kernel, string name, string instructions)
+    {
+        IConfiguration config = new ConfigurationBuilder()
+            .AddJsonFile(@"D:\appsettings\semantic-kernel-quickstart.json", true)
+            .Build();
+
+        string chatModelId = config["AzureAI:ChatModelId"] ?? throw new ArgumentNullException("endpoint");
+
+        string connectionString = config["AzureAI:ConnectionString"] ?? throw new ArgumentNullException("deploymentName");
+
+        AIProjectClient projectClient = AzureAIAgent.CreateAzureAIClient(connectionString, new AzureCliCredential());
+
+        AgentsClient agentsClient = projectClient.GetAgentsClient();
+
+        Azure.AI.Projects.Agent agent = await agentsClient.CreateAgentAsync(chatModelId, name, null, instructions);
+
+        return new AzureAIAgent(agent, agentsClient)
+        {
+            Kernel = kernel
+        };
     }
 
     private static Task<IMcpClient> CreateMcpClientAsync(Kernel? kernel = null, Func<Kernel, CreateMessageRequestParams?, IProgress<ProgressNotificationValue>, CancellationToken, Task<CreateMessageResult>>? samplingRequestHandler = null)
