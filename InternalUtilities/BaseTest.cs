@@ -2,6 +2,8 @@
 {
     protected readonly ILogger Logger;
 
+    protected string Model => TestConfiguration.AzureOpenAI.DeploymentName;
+
     protected Kernel CreateKernelWithChatCompletion()
     {
         var builder = Kernel.CreateBuilder();
