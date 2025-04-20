@@ -15,3 +15,4 @@ appsettings.Production.json
 /samples/Concepts/ChatCompletion/AzureOpenAI_DeploymentVerify.cs
 /samples/Concepts/Services/Skills/Default/QnA/config.json
 /samples/Concepts/Services/Skills/Default/QnA/skprompt.txt
+/samples/Demos/StepwisePlannerMigration/appsettings.Development.json

@@ -10,7 +10,7 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="9.0.4" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="9.0.4" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4" />
-    
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
     <PackageVersion Include="Microsoft.SemanticKernel" Version="1.47.0" />
     <PackageVersion Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.47.0" />
     <PackageVersion Include="Microsoft.SemanticKernel.Agents.AzureAI" Version="1.47.0-preview" />
@@ -18,6 +18,8 @@
     <PackageVersion Include="Microsoft.SemanticKernel.Agents.OpenAI" Version="1.47.0-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.AzureAIInference" Version="1.47.0-beta" />
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.47.0" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.47.0-preview" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Planners.OpenAI" Version="1.47.0-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.47.0-alpha" />
     <PackageVersion Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.47.0" />
     <PackageVersion Include="Microsoft.SemanticKernel.PromptTemplates.Liquid" Version="1.47.0-preview" />
@@ -25,8 +27,6 @@
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.InMemory" Version="1.47.0-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.47.0" />
     <PackageVersion Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.47.0" />
-
-
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.0-preview-25107-01" />
     <PackageVersion Include="MSTest.TestAdapter" Version="3.9.0-preview.25167.10" />
     <PackageVersion Include="MSTest.TestFramework" Version="3.9.0-preview.25167.10" />
@@ -38,5 +38,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
+    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.1" />
   </ItemGroup>
 </Project>
