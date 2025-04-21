@@ -21,6 +21,7 @@
     <PackageVersion Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.47.0-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel.Planners.OpenAI" Version="1.47.0-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.47.0-alpha" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Plugins.OpenApi" Version="1.47.0" />
     <PackageVersion Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.47.0" />
     <PackageVersion Include="Microsoft.SemanticKernel.PromptTemplates.Liquid" Version="1.47.0-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel.Core" Version="1.47.0" />

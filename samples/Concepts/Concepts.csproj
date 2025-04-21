@@ -105,6 +105,7 @@
     <PackageReference Include="Microsoft.SemanticKernel.Planners.Handlebars" />
     <PackageReference Include="Microsoft.SemanticKernel.Planners.OpenAI" />
     <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" />
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.OpenApi" />
     <PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" />
     <PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Liquid" />
     <PackageReference Include="MSTest.TestAdapter" />
