@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.VectorData;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel.Connectors.InMemory;
 using Microsoft.SemanticKernel.Embeddings;
 using ModelContextProtocol.Protocol.Types;
@@ -26,10 +27,13 @@ kernelBuilder.Plugins.AddFromType<DateTimeUtils>();
 kernelBuilder.Plugins.AddFromType<WeatherUtils>();
 kernelBuilder.Plugins.AddFromType<MailboxUtils>();
 
+kernelBuilder.Plugins.AddFromFunctions("Agents", [AgentKernelFunctionFactory.CreateFromAgent(CreateSalesAssistantAgent())]);
+
 // Register embedding generation service and in-memory vector store
 (string Endpoint, string DeploymentName, string ApiKey) = GetConfiguration();
-kernelBuilder.Services.AddAzureOpenAITextEmbeddingGeneration(DeploymentName, Endpoint, ApiKey);
+
 kernelBuilder.Services.AddSingleton<IVectorStore, InMemoryVectorStore>();
+kernelBuilder.Services.AddAzureOpenAITextEmbeddingGeneration(DeploymentName, Endpoint, ApiKey);
 
 // Register MCP server
 builder.Services
@@ -114,12 +118,12 @@ static ResourceTemplateDefinition CreateVectorStoreSearchResourceTemplate(Kernel
             ReadOnlyMemory<float> promptEmbedding = await embeddingGenerationService.GenerateEmbeddingAsync(prompt, cancellationToken: cancellationToken);
 
             // Retrieve top three matching records from the vector store
-            VectorSearchResults<TextDataModel> result = await vsCollection.VectorizedSearchAsync(promptEmbedding, new() { Top = 3 }, cancellationToken);
+            IAsyncEnumerable<VectorSearchResult<TextDataModel>> result = vsCollection.SearchEmbeddingAsync(promptEmbedding, top: 3, cancellationToken: cancellationToken);
 
             // Return the records as resource contents
             List<ResourceContents> contents = [];
 
-            await foreach (var record in result.Results)
+            await foreach (var record in result)
             {
                 contents.Add(new TextResourceContents()
                 {
@@ -131,5 +135,27 @@ static ResourceTemplateDefinition CreateVectorStoreSearchResourceTemplate(Kernel
 
             return new ReadResourceResult { Contents = contents };
         }
+    };
+}
+
+static Agent CreateSalesAssistantAgent()
+{
+    IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
+
+    kernelBuilder.Plugins.AddFromType<OrderProcessingUtils>();
+
+    (string Endpoint, string DeploymentName, string ApiKey) = GetConfiguration();
+
+    kernelBuilder.Services.AddAzureOpenAIChatCompletion(deploymentName: DeploymentName, endpoint: Endpoint, apiKey: ApiKey);
+
+    Kernel kernel = kernelBuilder.Build();
+
+    return new ChatCompletionAgent
+    {
+        Name = "SalesAssistant",
+        Instructions = "You are a sales assistant. Place orders for items the user requests and handle refunds.",
+        Description = "Agent to invoke to place orders for items the user requests and handle refunds.",
+        Kernel = kernel,
+        Arguments = new KernelArguments(new PromptExecutionSettings() { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() })
     };
 }

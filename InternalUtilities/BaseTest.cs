@@ -1,6 +1,9 @@
-﻿public abstract class BaseTest
+﻿// Copyright (c) IdeaTech. All rights reserved.
+
+public abstract class BaseTest
 {
     protected readonly ILogger Logger;
+    protected readonly ILoggerFactory LoggerFactory;
 
     protected string Model => TestConfiguration.AzureOpenAI.DeploymentName;
 
@@ -29,12 +32,12 @@
 
         TestConfiguration.Initialize(configRoot);
 
-        ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+        this.LoggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
         {
             builder.AddConsole();
         });
 
-        Logger = loggerFactory.CreateLogger<BaseTest>();
+        Logger = LoggerFactory.CreateLogger<BaseTest>();
     }
 
     protected void OutputLastMessage(ChatHistory chatHistory)
