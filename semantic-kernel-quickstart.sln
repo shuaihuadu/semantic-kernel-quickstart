@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StepwisePlannerMigration", "samples\Demos\StepwisePlannerMigration\StepwisePlannerMigration.csproj", "{D3B98144-A180-4DDF-8B2A-F8EACEFA1929}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorStoreRAG", "samples\Demos\VectorStoreRAG\VectorStoreRAG.csproj", "{F64AF5DB-FEC3-4487-BB1C-DF73F31B8898}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{D3B98144-A180-4DDF-8B2A-F8EACEFA1929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3B98144-A180-4DDF-8B2A-F8EACEFA1929}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3B98144-A180-4DDF-8B2A-F8EACEFA1929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F64AF5DB-FEC3-4487-BB1C-DF73F31B8898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F64AF5DB-FEC3-4487-BB1C-DF73F31B8898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F64AF5DB-FEC3-4487-BB1C-DF73F31B8898}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F64AF5DB-FEC3-4487-BB1C-DF73F31B8898}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{235310B1-141A-4135-BD7D-2C884286D302} = {498E5D0B-3956-4FA0-A7C6-21E8DAF9ABBB}
 		{10FF8E25-6692-4029-BF48-BCB74BCAE761} = {498E5D0B-3956-4FA0-A7C6-21E8DAF9ABBB}
 		{D3B98144-A180-4DDF-8B2A-F8EACEFA1929} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{F64AF5DB-FEC3-4487-BB1C-DF73F31B8898} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FBE33D1-316E-435B-9770-90C3C2DC2E1C}

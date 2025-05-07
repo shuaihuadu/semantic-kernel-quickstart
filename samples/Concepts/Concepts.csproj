@@ -102,6 +102,7 @@
     <PackageReference Include="Microsoft.SemanticKernel.Agents.OpenAI" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAIInference" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.InMemory" />
     <PackageReference Include="Microsoft.SemanticKernel.Planners.Handlebars" />
     <PackageReference Include="Microsoft.SemanticKernel.Planners.OpenAI" />
     <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" />
